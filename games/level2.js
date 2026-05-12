@@ -47,7 +47,7 @@ class StoryScene extends Phaser.Scene {
 
         this.showLine(); // starts the process of showing the first line of dialogue with a typing effect
         this.input.keyboard.on('keydown-ESC', () => {
-            window.location.href = '../adventure.html';
+            window.location.href = '../adventure';
         });
     }
 
@@ -478,7 +478,7 @@ class MainScene extends Phaser.Scene {
         });
 
         this.input.keyboard.on('keydown-ESC', () => {
-            window.location.href = '../adventure.html';
+            window.location.href = '../adventure';
         });
     }
 
@@ -552,7 +552,7 @@ class GameOverScene extends Phaser.Scene {
             this.scene.start('StoryScene');
         });
         this.input.keyboard.on('keydown-ESC', () => {
-            window.location.href = '../adventure.html';
+            window.location.href = '../adventure';
         });
     }
 }
@@ -578,7 +578,7 @@ class EndScene extends Phaser.Scene {
             this.scene.start('StoryScene');
         });
         this.input.keyboard.on('keydown-ESC', () => {
-            window.location.href = '../adventure.html';
+            window.location.href = '../adventure';
         });
     }
 }
