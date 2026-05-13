@@ -3,12 +3,13 @@ async function loadUser() {
     credentials: 'include'
   });
   const data = await res.json();
+  
   if(data.success === false){
     window.location.href = '/login';
-    return;
+    return null;
   }
+  return data;
 };
-loadUser();
 
 async function storeScore(score) {
     console.log("ran storing")
@@ -37,3 +38,17 @@ async function storeScore(score) {
   
   console.log('Score stored successfully:', result);
 }
+
+async function obtainedBadge(bid) {
+  const user = await loadUser();
+  try {
+    const res = await fetch(`/api/obtainBadge/${user.uid}/${bid}`, {
+      method: 'POST'
+    });
+    const data = await res.json();
+    console.log(data);
+  } catch (error) {
+    console.log(error);
+  }
+};
+

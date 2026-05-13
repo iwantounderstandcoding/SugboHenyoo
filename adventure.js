@@ -79,7 +79,7 @@ Object.keys(municipalityGroups).forEach(function(region) {
     dot.style.background = regionColors[region];
 
     dot.onclick = function() {
-      window.location.href = "games/" + m.slug + ".html";
+      window.location.href = "games/" + m.slug;
     };
 
     dot.addEventListener("mouseenter", function() {
@@ -102,7 +102,7 @@ Object.keys(municipalityGroups).forEach(function(region) {
     var li = document.createElement("li");
 
     var a = document.createElement("a");
-    a.href = "games/" + m.slug + ".html";
+    a.href = "games/" + m.slug;
     a.innerText = m.name;
 
     li.appendChild(a);
