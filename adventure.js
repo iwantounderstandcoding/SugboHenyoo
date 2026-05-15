@@ -28,7 +28,7 @@ var municipalityGroups = {
     { name:"Minglanilla", slug:"minglanilla", x:53.5, y:54 },
     { name:"Naga City", slug:"naga-city", x:50.7, y:54.5 },
     { name:"San Fernando", slug:"san-fernando", x:47.7, y:57 },
-    { name:"Carcar City", slug:"carcar-city", x:44.5, y:59.5 }
+    { name:"Carcar City", slug:"carcar", x:44.5, y:59.5 }
   ],
 
   "Southern Cebu": [
