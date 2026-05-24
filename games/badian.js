@@ -616,11 +616,13 @@ class QuizScene extends Phaser.Scene {
         this.currentQuestion++;
 
         if (this.currentQuestion >= this.questions.length) {
-
+            storeScore(this.score);
+            obtainedBadge(2);
             this.scene.start('RewardScene', {
                 score: this.score,
                 lives: this.lives
             });
+            
 
         } else {
 

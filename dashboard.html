@@ -23,7 +23,7 @@
             <div class="header-right">
                 <div class="xp">
                     <i class="fa-solid fa-star"></i>
-                    <span id="dash-xp">1,240 XP</span>
+                    <span id="dash-xp">data XP</span>
                 </div>
             </div>
         </div>
@@ -34,7 +34,7 @@
                     <h3 class="section-title"><i class="fa-solid fa-circle-user"></i> Profile</h3>
                     <div class="pixel-card profile-card">
                         <div class="profile-avatar-wrap">
-                            <img src="images/avatar.png" alt="avatar" id="profile-avatar"
+                            <img src="" alt="avatar" id="profile-avatar"
                                 onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'">
                             <div class="avatar-fallback" style="display:none">
                                 <i class="fa-solid fa-user"></i>
@@ -52,15 +52,15 @@
                         <div class="profile-divider"></div>
                         <div class="profile-stats">
                             <div class="stat">
-                                <span class="stat-value">12</span>
+                                <span class="stat-value" id="quest_done">data</span>
                                 <span class="stat-label">Quests</span>
                             </div>
                             <div class="stat">
-                                <span class="stat-value">5</span>
+                                <span class="stat-value" id="obtained_badges">data</span>
                                 <span class="stat-label">Badges</span>
                             </div>
                             <div class="stat">
-                                <span class="stat-value">3</span>
+                                <span class="stat-value" id="locations_done">data</span>
                                 <span class="stat-label">Locations</span>
                             </div>
                         </div>
@@ -108,22 +108,22 @@
 
                         <div class="pixel-card progress-card">
                             <div class="progress-card-top">
-                                <span class="progress-label">Overall Progress</span>
-                                <span class="progress-percent" id="overall-pct">48%</span>
+                                <span class="progress-label">Quest Progress</span>
+                                <span class="progress-percent" id="qpc">data%</span>
                             </div>
                             <div class="progress-bar-wrap">
-                                <div class="progress-bar" style="--pct: 48%"></div>
+                                <div class="progress-bar" style="--pct: 0%"></div>
                             </div>
-                            <p class="progress-sub">12 of 25 topics completed</p>
+                            <p class="progress-sub">data of data topics completed</p>
                         </div>
 
                         <div class="pixel-card progress-card">
                             <div class="progress-card-top">
-                                <span class="progress-label">Quiz Score</span>
-                                <span class="progress-percent gold">72%</span>
+                                <span class="progress-label">Badge Progress</span>
+                                <span class="progress-percent gold" id="bpc">data%</span>
                             </div>
                             <div class="progress-bar-wrap">
-                                <div class="progress-bar gold" style="--pct: 72%"></div>
+                                <div class="progress-bar gold" style="--pct: 0%"></div>
                             </div>
                             <p class="progress-sub">Average across 8 quizzes</p>
                         </div>
@@ -131,10 +131,10 @@
                         <div class="pixel-card progress-card">
                             <div class="progress-card-top">
                                 <span class="progress-label">Locations Explored</span>
-                                <span class="progress-percent coral">33%</span>
+                                <span class="progress-percent coral" id="lpc">data%</span>
                             </div>
                             <div class="progress-bar-wrap">
-                                <div class="progress-bar coral" style="--pct: 33%"></div>
+                                <div class="progress-bar coral" style="--pct: 0%"></div>
                             </div>
                             <p class="progress-sub">3 of 9 locations visited</p>
                         </div>
@@ -200,8 +200,8 @@
             </div>
         </div>
     </main>
-
-    <script src="/sugbohenyo/auth.js"></script>
+    <script src="../app.js"></script>
+    <script src="../dash.js"></script>
     <script src="/sugbohenyo/sidebar.js"></script>
     <script src="/sugbohenyo/dashboard.js"></script>
 </body>
