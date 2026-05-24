@@ -16,18 +16,6 @@ body {
     overflow: hidden;
 }
 
-/* --- SIDEBAR --- */
-#sidebar {
-    width: var(--sidebar-width);
-    height: 100vh;
-    background: transparent;
-    border-right: 1px solid #ddd;
-    flex-shrink: 0;
-    z-index: 100;
-    box-sizing: border-box;
-    overflow-y: auto;
-}
-
 /* --- MAP AREA --- */
 .map-wrapper {
     position: relative;
@@ -317,4 +305,215 @@ select#citySelector:hover {
     width: 80%;
     height: 1px;
     background-color: #b5a47a; /* Matches the border color */
+}
+
+:root {
+    --yt-red: #FF0000;
+    --gold: #e8a020;
+}
+
+/* REMOVE page centering + make full screen */
+body {
+    font-family: 'Press Start 2P', monospace;
+    margin: 0;
+    padding: 0;
+    background: url("images/sunrise.gif") center/cover no-repeat;
+    height: 100vh;
+    overflow: hidden;
+}
+
+.map-page .nav {
+    background: linear-gradient(180deg, rgb(255, 123, 0), #ff6a00) !important;
+}
+
+/* Map wrapper becomes full screen */
+.map-wrapper {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    margin-left: 240px;
+    overflow: hidden;
+}
+
+#map {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+/* Floating Info Card */
+.info-card {
+    position: absolute;
+    top: 80px;
+    right: 250px;
+    z-index: 1000;
+    width: 300px;
+    max-height: 80vh;
+    overflow-y: auto;
+    background: rgba(13, 17, 23, 0.75);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-radius: 12px;
+    border: 1.5px solid rgba(232, 160, 32, 0.4);
+    box-shadow: 0 0 12px rgba(232, 160, 32, 0.15), 0 8px 32px rgba(0,0,0,0.5);
+    display: none;
+    transition: all 0.3s ease;
+}
+
+.card-media img {
+    width: 100%;
+    height: 160px;
+    object-fit: cover;
+    border-radius: 12px 12px 0 0;
+}
+
+.card-header {
+    background: rgba(232, 160, 32, 0.08);
+    border-bottom: 1.5px solid rgba(232, 160, 32, 0.3);
+    padding: 15px;
+}
+
+.card-header h3 {
+    margin: 0;
+    font-size: 1.2rem;
+    color: #f0ede8;
+    font-weight: 700;
+}
+
+.card-header span {
+    font-size: 0.75rem;
+    color: var(--gold);
+    font-style: italic;
+}
+
+.card-body {
+    padding: 16px;
+    font-size: 0.85rem;
+    color: rgba(240, 237, 232, 0.8);
+    line-height: 1.6;
+}
+
+.card-body strong {
+    color: var(--gold);
+    font-size: 0.72rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    display: block;
+    margin-top: 10px;
+    margin-bottom: 4px;
+}
+
+.known-for {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+    margin: 7px 0 10px;
+}
+
+.tag {
+    background: rgba(232, 160, 32, 0.1);
+    color: var(--gold);
+    border: 1px solid rgba(232, 160, 32, 0.3);
+    padding: 3px 10px;
+    border-radius: 15px;
+    font-size: 0.72rem;
+    font-weight: 600;
+}
+
+.video-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    background: #FF0000;
+    color: white;
+    text-decoration: none;
+    padding: 10px;
+    border-radius: 6px;
+    font-weight: bold;
+    margin-top: 12px;
+    transition: background 0.2s, transform 0.1s;
+    font-size: 0.85rem;
+}
+
+.video-btn:hover {
+    background: #cc0000;
+    transform: scale(1.02);
+}
+
+/* Controls (dropdown) now overlays top area */
+.controls {
+    position: fixed;
+    top: 15px;
+    left: 310px; /* sits next to header */
+    z-index: 2000;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+select {
+    padding: 9px 14px;
+    border-radius: 8px;
+    border: 1.5px solid var(--gold);
+    background: rgba(255, 255, 255, 0.26);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    color: var(--gold);
+    font-size: 0.875rem;
+    font-weight: 600;
+    cursor: pointer;
+    outline: none;
+    min-width: 220px;
+    box-shadow: 0 0 10px rgba(232, 160, 32, 0.2);
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+select:hover, select:focus {
+    border-color: #f5c050;
+    box-shadow: 0 0 16px rgba(232, 160, 32, 0.4);
+}
+
+select option {
+    background: rgba(255, 255, 255, 0.26);
+    color: var(--gold);
+}
+
+.leaflet-top.leaflet-left {
+    position: fixed !important;
+    left: 250px !important;
+    z-index: 2000 !important;
+}
+
+.leaflet-bar a {
+    background: rgba(255, 255, 255, 0.26) !important;
+    backdrop-filter: blur(12px) !important;
+    color: var(--gold) !important;
+    border: 1.5px solid rgba(232, 160, 32, 0.4) !important;
+    font-weight: 700 !important;
+}
+
+.leaflet-bar a:hover {
+    background: rgba(219, 219, 219, 0.415) !important;
+    color: #f5c050 !important;
+}
+
+.info-card::-webkit-scrollbar {
+    width: 6px;
+}
+
+.info-card::-webkit-scrollbar-track {
+    background: rgba(13, 17, 23, 0.5);
+    border-radius: 10px;
+}
+
+.info-card::-webkit-scrollbar-thumb {
+    background: var(--gold);
+    border-radius: 10px;
+}
+
+.info-card::-webkit-scrollbar-thumb:hover {
+    background: var(--gold);
 }

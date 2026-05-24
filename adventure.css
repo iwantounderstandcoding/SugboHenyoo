@@ -21,40 +21,42 @@ body {
   display: flex;
   flex: 1;
   margin-left: 245px;
-  padding: 0;
-  gap: 0;
   height: 100vh;
   overflow: hidden;
 }
 
 #map-container {
   flex: 1;
-  position: relative;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
+.map-wrapper {
+  position: relative;
+  display: inline-block;
+}
+
 #map-img {
   height: 95vh;
   width: auto;
-  max-width: none;
   display: block;
   border-radius: 12px;
   box-shadow: 0 8px 32px rgba(0,0,0,0.25);
 }
 
 #tooltip {
-  position: fixed;
+  position: absolute;
+  transform: translate(-50%, -140%);
   background: #1a1a1a;
-  color: #fff;
+  color: white;
   padding: 6px 12px;
   font-size: 12px;
-  font-family: inherit;
-  pointer-events: none;
   border-radius: 6px;
   display: none;
-  z-index: 10;
+  pointer-events: none;
+  z-index: 100;
+  white-space: nowrap;
   box-shadow: 0 2px 8px rgba(0,0,0,0.3);
 }
 
@@ -98,38 +100,21 @@ body {
 }
 
 .muni-info h2 {
-  font-family: inherit;
   font-size: 21px;
-  font-weight: bold;
   margin-bottom: 14px;
   padding-bottom: 10px;
-  border-bottom: 2px solid rgba(255, 255, 255, 0.15);
+  border-bottom: 2px solid rgba(255,255,255,0.15);
   line-height: 1.4;
-  background: #ffd573;
-  background-clip: text;
-  -webkit-background-clip: text;
-  color: transparent;
-  -webkit-text-fill-color: transparent;
-  text-shadow: 0 2px 8px rgba(0,0,0,0.2);
+  color: #ffffff;
+  text-shadow:
+    0 4px 10px rgba(0, 0, 0, 0.5),
+    0 0 16px rgba(255, 220, 80, 0.25);
 }
 
 #muni-list {
   list-style: none;
   overflow-y: auto;
   flex: 1;
-}
-
-#muni-list::-webkit-scrollbar {
-  width: 4px;
-}
-
-#muni-list::-webkit-scrollbar-track {
-  background: transparent;
-}
-
-#muni-list::-webkit-scrollbar-thumb {
-  background: rgba(0,0,0,0.2);
-  border-radius: 4px;
 }
 
 #muni-list li a {
@@ -143,6 +128,17 @@ body {
   transition: background 0.15s, padding-left 0.15s;
 }
 
+#muni-list li a:hover {
+  background: rgba(0,0,0,0.1);
+  padding-left: 16px;
+}
+
+.region-title {
+  margin-top: 18px;
+  margin-bottom: 8px;
+  font-size: 16px;
+}
+
 .region-title.northern-cebu {
   color: #ff0000;
 }
@@ -153,17 +149,4 @@ body {
 
 .region-title.southern-cebu {
   color: #db8000;
-}
-
-#muni-list li a:hover {
-  background: rgba(0,0,0,0.1);
-  padding-left: 16px;
-}
-
-.region-title {
-  margin-top: 18px;
-  margin-bottom: 8px;
-  font-size: 16px;
-  font-family: inherit;
-  text-shadow: 0 2px 8px rgba(0,0,0,0.2);
 }

@@ -20,7 +20,8 @@ body {
   margin: 0;
   font-family: "Segoe UI", Arial, sans-serif;
   color: var(--ink);
-  background: url("/sugbohenyo/images/sunrise.gif") center/cover no-repeat;
+  background: url("/sugbohenyo/images/sunrise.gif") center/cover no-repeat fixed;
+  min-height: 100vh;
 }
 
 .page {
