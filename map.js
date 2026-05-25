@@ -136,7 +136,7 @@ document.getElementById('generateItineraryBtn').addEventListener('click', async 
                 <h4 style="margin:0; color:#333;">${name} Trip Plan</h4>
                 <p style="margin: 5px 0 0; font-size: 14px; color: #666;">${duration}</p>
             </div>
-            <div style="margin-top: 20px; line-height: 1.6;">
+            <div style="margin-top: 20px; line-height: 1.6;font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">
                 ${api.reply}
             </div>
         `;
