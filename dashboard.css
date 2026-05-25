@@ -517,6 +517,12 @@ h1, h2, h3, h4, p, span {
     color: white;
 }
 
+.relics-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+}
+
 .relic-card {
     padding: 14px 10px;
     text-align: center;
@@ -554,12 +560,21 @@ h1, h2, h3, h4, p, span {
 }
 
 .relic-icon {
-    font-size: 20px;
+    width: 80px;  /* or whatever size you want */
+    height: 80px;
+    display: flex;
+    align-items: center;
+    justify-self: center;
     margin-bottom: 10px;
-    color: var(--cyan);
 }
 
-.relic-card.locked .badge-icon {
+.relic-icon img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;  /* or 'cover' if you want it to fill */
+}
+
+.relic-card.locked .relic-icon {
     color: rgba(255,255,255,0.3);
     font-size: 16px;
 }
