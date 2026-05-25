@@ -13,32 +13,35 @@ html, body {
 body {
   display: flex;
   height: 100vh;
-  background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('/sugbohenyo/images/sunrise.gif') center/cover no-repeat;
+  background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)),
+              url('/images/sample1.png') center/cover no-repeat;
 }
 
 .content {
   display: flex;
-  align-items: flex-start;
   flex: 1;
   margin-left: 245px;
-  padding: 16px;
-  gap: 25px;
-  height: 100%;
+  padding: 0;
+  gap: 0;
+  height: 100vh;
+  overflow: hidden;
 }
 
 #map-container {
+  flex: 1;
   position: relative;
-  flex-shrink: 0;
-  width: fit-content;
-  border-radius: 12px;
-  overflow: hidden;
-  box-shadow: 0 8px 32px rgba(0,0,0,0.25);
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 #map-img {
   height: 95vh;
   width: auto;
+  max-width: none;
   display: block;
+  border-radius: 12px;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.25);
 }
 
 #tooltip {
@@ -59,7 +62,6 @@ body {
   position: absolute;
   width: 12px;
   height: 12px;
-  background: #e63000;
   border-radius: 50% 50% 50% 0;
   transform: translate(-50%, -50%) rotate(-45deg);
   cursor: pointer;
@@ -83,31 +85,32 @@ body {
 }
 
 .muni-info {
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  height: 95vh;
-  background: rgba(255,255,255,0.18);
-  border-radius: 12px;
+  width: 300px;
+  min-width: 300px;
+  height: 100vh;
+  background: rgba(255,255,255,0.15);
   padding: 20px 16px;
   backdrop-filter: blur(4px);
   box-shadow: 0 4px 20px rgba(0,0,0,0.1);
   overflow: hidden;
+  display: flex;
+  flex-direction: column;
 }
 
 .muni-info h2 {
   font-family: inherit;
-  font-size: 25px;
+  font-size: 21px;
   font-weight: bold;
   margin-bottom: 14px;
   padding-bottom: 10px;
   border-bottom: 2px solid rgba(255, 255, 255, 0.15);
   line-height: 1.4;
-  background: linear-gradient(90deg, rgb(255, 128, 0), #ffb300);
+  background: #ffd573;
   background-clip: text;
   -webkit-background-clip: text;
   color: transparent;
   -webkit-text-fill-color: transparent;
+  text-shadow: 0 2px 8px rgba(0,0,0,0.2);
 }
 
 #muni-list {
@@ -133,14 +136,34 @@ body {
   display: block;
   padding: 6px 10px;
   font-family: inherit;
-  font-size: 20px;
-  color: #ea9c5d;
+  font-size: 18px;
+  color: rgb(229, 229, 229);
   text-decoration: none;
   border-radius: 6px;
   transition: background 0.15s, padding-left 0.15s;
 }
 
+.region-title.northern-cebu {
+  color: #ff0000;
+}
+
+.region-title.central-cebu {
+  color: #354cff;
+}
+
+.region-title.southern-cebu {
+  color: #db8000;
+}
+
 #muni-list li a:hover {
   background: rgba(0,0,0,0.1);
   padding-left: 16px;
+}
+
+.region-title {
+  margin-top: 18px;
+  margin-bottom: 8px;
+  font-size: 16px;
+  font-family: inherit;
+  text-shadow: 0 2px 8px rgba(0,0,0,0.2);
 }

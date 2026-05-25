@@ -92,7 +92,10 @@ class MainScene extends Phaser.Scene {
 
         this.cameras.main.once('camerafadeoutcomplete', () => { // (event, callback)
             this.scene.stop(); // stop MainScene
-            this.scene.start('EndScene');
+            this.scene.start('QuizScene', {
+                score: this.score,
+                lives: this.lives
+            });
         });
     }
 
@@ -326,10 +329,9 @@ class MainScene extends Phaser.Scene {
         );
 
         this.dialogues = [
-            "Oslob, Cebu is a coastal town where history and marine life come together in one place.",
-            "Once a Spanish-era defense site, its watchtowers and coral stone structures still stand today.",
-            "The town is known for the gentle whale sharks of Tan-awan and the beauty of Sumilon Island and Tumalog Falls.",
-            "Your journey continues through Oslob, where heritage, faith, and nature shape its identity."
+            "Lapu-Lapu: Oslob watches over the seas through its mighty towers and stone walls...",
+            "Lapu-Lapu: The people here live beside giants of the ocean and protect their shores with courage.",
+            "Lapu-Lapu: I must deliver the message before danger reaches these waters."
         ];
 
         this.dialogIndex = 0;
@@ -544,6 +546,286 @@ class GameOverScene extends Phaser.Scene {
     }
 }
 
+
+class QuizScene extends Phaser.Scene {
+    constructor() {
+        super('QuizScene');
+    }
+
+    init(data) {
+        this.score = data.score;
+        this.lives = data.lives;
+    }
+
+    create() {
+
+        this.cameras.main.fadeIn(500, 0, 0, 0);
+
+        this.questions = [
+            {
+                question: "What is Oslob famously known as?",
+                answers: ["Whale Shark Capital of Cebu", "Banig Capital of Cebu", "Queen City of the South"],
+                correct: 0
+            },
+            {
+                question: "What is the local term for whale shark in Oslob?",
+                answers: ["Pawikan", "Danggit", "Tuki"],
+                correct: 2
+            },
+            {
+                question: "What historic structure in Oslob served as a defense lookout?",
+                answers: ["Rizal Shrine", "Baluarte Watchtower", "Fort Santiago"],
+                correct: 1
+            },
+            {
+                question: "What famous unfinished coral stone structure can be found in Oslob?",
+                answers: ["Cuartel Ruins", "Magellan’s Cross", "Colon Street"],
+                correct: 0
+            },
+            {
+                question: "Which waterfall in Oslob is known for its umbrella-like cascades?",
+                answers: ["Kawasan Falls", "Mantayupan Falls", "Tumalog Falls"],
+                correct: 2
+            }
+        ];
+
+        this.currentQuestion = 0;
+
+        this.livesText = this.add.text(10, 10,
+            'Lives: ' + this.lives,
+            {
+                fontSize: '16px',
+                fill: '#ffffff'
+            }
+        );
+
+        this.scoreText = this.add.text(130, 10,
+            'Score: ' + this.score,
+            {
+                fontSize: '16px',
+                fill: '#ffffff'
+            }
+        );
+
+        this.questionText = this.add.text( 
+            256,
+            70,
+            '',
+            {
+                fontSize: '20px',
+                fill: '#ffffff',
+                align: 'center',
+                wordWrap: { width: 450 }
+            }
+        ).setOrigin(0.5);
+
+        this.answerTexts = [];
+
+        for (let i = 0; i < 3; i++) {
+
+            let answer = this.add.text(
+                256,
+                140 + (i * 40),
+                '',
+                {
+                    fontSize: '18px',
+                    fill: '#ffff00',
+                    backgroundColor: '#000000',
+                    padding: {
+                        x: 10,
+                        y: 5
+                    }
+                }
+            ).setOrigin(0.5)
+             .setInteractive();
+
+            answer.on('pointerdown', () => {
+                this.checkAnswer(i);
+            });
+
+            this.answerTexts.push(answer);
+        }
+
+        this.showQuestion();
+    }
+
+    showQuestion() {
+
+        let q = this.questions[this.currentQuestion];
+
+        this.questionText.setText(
+            `Question ${this.currentQuestion + 1}/5\n\n${q.question}`
+        );
+
+        for (let i = 0; i < 3; i++) {
+            this.answerTexts[i].setText(q.answers[i]);
+        }
+    }
+
+    checkAnswer(choice) {
+
+        let q = this.questions[this.currentQuestion];
+
+        if (choice === q.correct) {
+
+            this.score += 20;
+
+            this.scoreText.setText(
+                'Score: ' + this.score
+            );
+
+        } else {
+
+            this.lives--;
+
+            this.livesText.setText(
+                'Lives: ' + this.lives
+            );
+
+            this.cameras.main.shake(200, 0.01);
+
+            if (this.lives <= 0) {
+
+                this.scene.start('GameOverScene');
+
+                return;
+            }
+        }
+
+        this.currentQuestion++;
+
+        if (this.currentQuestion >= this.questions.length) {
+
+            this.scene.start('RewardScene', {
+                score: this.score,
+                lives: this.lives
+            });
+
+        } else {
+
+            this.showQuestion();
+        }
+    }
+}
+
+class RewardScene extends Phaser.Scene {
+    constructor() {
+        super('RewardScene');
+    }
+
+    init(data) {
+        this.score = data.score;
+        this.lives = data.lives;
+    }
+
+    preload() {
+
+        // ADD YOUR ITEM IMAGE
+        this.load.image(
+            'artifact',
+            '/sugbohenyo/games/assets/oslob/tuki_relic.png'
+        );
+    }
+
+    create() {
+
+        this.cameras.main.fadeIn(1000, 0, 0, 0);
+
+        this.add.rectangle(
+            256,
+            144,
+            512,
+            288,
+            0x000000
+        );
+
+        let glow = this.add.circle(
+            256,
+            120,
+            50,
+            0xffffff,
+            0.3
+        );
+
+        this.tweens.add({
+            targets: glow,
+            scale: 1.5,
+            alpha: 0.1,
+            duration: 1000,
+            yoyo: true,
+            repeat: -1
+        });
+
+        let item = this.add.image(
+            256,
+            120,
+            'artifact'
+        );
+
+        item.setScale(0);
+
+        this.tweens.add({
+            targets: item,
+            scale: 0.5,
+            duration: 1000,
+            ease: 'Back.out'
+        });
+
+        this.tweens.add({
+            targets: item,
+            angle: 5,
+            duration: 500,
+            yoyo: true,
+            repeat: -1
+        });
+
+        this.time.delayedCall(1200, () => {
+
+            this.add.text(
+                256,
+                180,
+                "You obtained:\nTuki Guardian Stone",
+                {
+                    fontSize: '24px',
+                    fill: '#ffffff',
+                    align: 'center'
+                }
+            ).setOrigin(0.5);
+
+            this.add.text(
+                256,
+                225,
+                "A sacred stone inspired by the whale sharks of Oslob\nand the town’s spirit of protection.",
+                {
+                    fontSize: '14px',
+                    fill: '#ffffaa',
+                    align: 'center'
+                }
+            ).setOrigin(0.5);
+
+            this.add.text(
+                256,
+                260,
+                "Press SPACE to continue",
+                {
+                    fontSize: '12px',
+                    fill: '#ffffff'
+                }
+            ).setOrigin(0.5);
+
+        });
+
+        this.input.keyboard.once('keydown-SPACE', () => {
+
+            this.scene.start('EndScene', {
+                score: this.score,
+                lives: this.lives
+            });
+
+        });
+    }
+}
+
 class EndScene extends Phaser.Scene {
     constructor() {
         super('EndScene');
@@ -552,12 +834,12 @@ class EndScene extends Phaser.Scene {
     create() {
         this.cameras.main.fadeIn(800, 0, 0, 0);
 
-        this.add.text(256, 120, "Oslob Level Complete", {
+        this.add.text(256, 120, "Message Delivered", {
             fontSize: '32px',
             fill: '#ffffff'
         }).setOrigin(0.5);
 
-        this.add.text(256, 160, "History Fulfilled", {
+        this.add.text(256, 160, "Lapu-Lapu: The people stand united.", {
             fontSize: '16px',
             fill: '#ffffff'
         }).setOrigin(0.5);
@@ -605,7 +887,13 @@ const config = {
         mode: Phaser.Scale.FIT,
         autoCenter: Phaser.Scale.CENTER_BOTH
     },
-    scene: [MainScene, EndScene, GameOverScene]
+    scene: [
+        MainScene,
+        QuizScene,
+        RewardScene,
+        EndScene,
+        GameOverScene
+    ]
 };
 
 const game = new Phaser.Game(config);

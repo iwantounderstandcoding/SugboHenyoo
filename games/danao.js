@@ -15,8 +15,8 @@ class MainScene extends Phaser.Scene {
         this.load.image('s_log', 'assets/logs/s_log.png');
         this.load.image('med_log', 'assets/logs/med_log.png');
         this.load.image('l_log', 'assets/logs/l_log.png');
-        this.load.image('ruins', 'assets/oslob/oslob_watchtower.png');
-        this.load.image('pearl', 'assets/pre-colonial/pearl.png');
+        this.load.image('ruins', 'assets/danao/mount.png');
+        this.load.image('pearl', 'assets/danao/kiseo.png');
         this.load.image('enemy_walk1', 'assets/soldier/right_enemy.png');
         this.load.image('enemy_walk2', 'assets/soldier/left_enemy.png');
     }
@@ -92,7 +92,10 @@ class MainScene extends Phaser.Scene {
 
         this.cameras.main.once('camerafadeoutcomplete', () => { // (event, callback)
             this.scene.stop(); // stop MainScene
-            this.scene.start('EndScene');
+            this.scene.start('QuizScene', {
+                score: this.score,
+                lives: this.lives
+            });
         });
     }
 
@@ -257,12 +260,12 @@ class MainScene extends Phaser.Scene {
             allowGravity: false
         });
 
-        this.pearl.create(360, 100, 'pearl').setScale(0.15);;
-        this.pearl.create(900, 123, 'pearl').setScale(0.15);
-        this.pearl.create(990, 80, 'pearl').setScale(0.15);
-        this.pearl.create(990, 230, 'pearl').setScale(0.15);
-        this.pearl.create(1260, 120, 'pearl').setScale(0.15);
-        this.pearl.create(1580, 100, 'pearl').setScale(0.15);
+        this.pearl.create(360, 100, 'pearl').setScale(0.3);;
+        this.pearl.create(900, 123, 'pearl').setScale(0.3);
+        this.pearl.create(990, 80, 'pearl').setScale(0.3);
+        this.pearl.create(990, 230, 'pearl').setScale(0.3);
+        this.pearl.create(1260, 120, 'pearl').setScale(0.3);
+        this.pearl.create(1580, 100, 'pearl').setScale(0.3);
 
         let highPlat = this.platforms.create(1700, 90, 'xs_log')
             .setScale(0.2)
@@ -271,7 +274,7 @@ class MainScene extends Phaser.Scene {
         highPlat.body.setSize(20, 12);
         highPlat.body.setOffset(5, 0);
 
-        this.pearl.create(1700, 60, 'pearl').setScale(0.15);
+        this.pearl.create(1700, 60, 'pearl').setScale(0.3);
 
         this.enemies = this.physics.add.group();
 
@@ -317,8 +320,9 @@ class MainScene extends Phaser.Scene {
         this.player.setCollideWorldBounds(true);
         this.physics.world.setBoundsCollision(true, true, true, false);
 
-        this.ruins = this.physics.add.staticImage(1934, 177, 'ruins');
-        this.ruins.setScale(.19);
+        this.ruins = this.physics.add.staticImage(1934, 275, 'ruins');
+this.ruins.setOrigin(0.5, 1);
+        this.ruins.setScale(3.0);
         this.ruins.refreshBody();
 
         this.physics.add.collider(this.player, ground); // (object1, object2)
@@ -531,6 +535,7 @@ class MainScene extends Phaser.Scene {
         }
     }
 }
+
 class GameOverScene extends Phaser.Scene {
     constructor() {
         super('GameOverScene');
@@ -565,6 +570,285 @@ class GameOverScene extends Phaser.Scene {
     }
 }
 
+class QuizScene extends Phaser.Scene {
+    constructor() {
+        super('QuizScene');
+    }
+
+    init(data) {
+        this.score = data.score;
+        this.lives = data.lives;
+    }
+
+    create() {
+
+        this.cameras.main.fadeIn(500, 0, 0, 0);
+
+        this.questions = [
+            {
+                question: "Where is Danao City located?",
+                answers: ["Cebu, Philippines", "Bohol, Philippines", "Leyte, Philippines"],
+                correct: 0
+            },
+            {
+                question: "Danao City is part of which region?",
+                answers: ["Region VI (Western Visayas)", "Region VII (Central Visayas)", "Region IX (Zamboanga Peninsula)"],
+                correct: 1
+            },
+            {
+                question: "What is one of the major industries in Danao City?",
+                answers: ["Shipbuilding and gun-making history", "Diamond mining", "Fishing"],
+                correct: 0
+            },
+            {
+                question: "Which body of water is Danao City near?",
+                answers: ["West Philippine Sea (South China Sea)", "Pacific Ocean", "Celebes Sea"],
+                correct: 0
+            },
+            {
+                question: "Danao City is best described as what type of area?",
+                answers: ["Highly urbanized independent city", "Component city of Cebu Province", "Capital of the Philippines"],
+                correct: 1
+            }
+        ];
+
+        this.currentQuestion = 0;
+
+        this.livesText = this.add.text(10, 10,
+            'Lives: ' + this.lives,
+            {
+                fontSize: '16px',
+                fill: '#ffffff'
+            }
+        );
+
+        this.scoreText = this.add.text(130, 10,
+            'Score: ' + this.score,
+            {
+                fontSize: '16px',
+                fill: '#ffffff'
+            }
+        );
+
+        this.questionText = this.add.text( 
+            256,
+            70,
+            '',
+            {
+                fontSize: '20px',
+                fill: '#ffffff',
+                align: 'center',
+                wordWrap: { width: 450 }
+            }
+        ).setOrigin(0.5);
+
+        this.answerTexts = [];
+
+        for (let i = 0; i < 3; i++) {
+
+            let answer = this.add.text(
+                256,
+                140 + (i * 40),
+                '',
+                {
+                    fontSize: '18px',
+                    fill: '#ffff00',
+                    backgroundColor: '#000000',
+                    padding: {
+                        x: 10,
+                        y: 5
+                    }
+                }
+            ).setOrigin(0.5)
+             .setInteractive();
+
+            answer.on('pointerdown', () => {
+                this.checkAnswer(i);
+            });
+
+            this.answerTexts.push(answer);
+        }
+
+        this.showQuestion();
+    }
+
+    showQuestion() {
+
+        let q = this.questions[this.currentQuestion];
+
+        this.questionText.setText(
+            `Question ${this.currentQuestion + 1}/5\n\n${q.question}`
+        );
+
+        for (let i = 0; i < 3; i++) {
+            this.answerTexts[i].setText(q.answers[i]);
+        }
+    }
+
+    checkAnswer(choice) {
+
+        let q = this.questions[this.currentQuestion];
+
+        if (choice === q.correct) {
+
+            this.score += 20;
+
+            this.scoreText.setText(
+                'Score: ' + this.score
+            );
+
+        } else {
+
+            this.lives--;
+
+            this.livesText.setText(
+                'Lives: ' + this.lives
+            );
+
+            this.cameras.main.shake(200, 0.01);
+
+            if (this.lives <= 0) {
+
+                this.scene.start('GameOverScene');
+
+                return;
+            }
+        }
+
+        this.currentQuestion++;
+
+        if (this.currentQuestion >= this.questions.length) {
+
+            this.scene.start('RewardScene', {
+                score: this.score,
+                lives: this.lives
+            });
+
+        } else {
+
+            this.showQuestion();
+        }
+    }
+}
+
+class RewardScene extends Phaser.Scene {
+    constructor() {
+        super('RewardScene');
+    }
+
+    init(data) {
+        this.score = data.score;
+        this.lives = data.lives;
+    }
+
+    preload() {
+
+        // ADD YOUR ITEM IMAGE
+        this.load.image(
+            'artifact',
+            'assets/danao/gunRelic.png'
+        );
+    }
+
+    create() {
+
+        this.cameras.main.fadeIn(1000, 0, 0, 0);
+
+        this.add.rectangle(
+            256,
+            144,
+            512,
+            288,
+            0x000000
+        );
+
+        let glow = this.add.circle(
+            256,
+            120,
+            50,
+            0xffffff,
+            0.3
+        );
+
+        this.tweens.add({
+            targets: glow,
+            scale: 1.5,
+            alpha: 0.1,
+            duration: 1000,
+            yoyo: true,
+            repeat: -1
+        });
+
+        let item = this.add.image(
+            256,
+            120,
+            'artifact'
+        );
+
+        item.setScale(0);
+
+        this.tweens.add({
+            targets: item,
+            scale: 0.5,
+            duration: 1000,
+            ease: 'Back.out'
+        });
+
+        this.tweens.add({
+            targets: item,
+            angle: 5,
+            duration: 500,
+            yoyo: true,
+            repeat: -1
+        });
+
+        this.time.delayedCall(1200, () => {
+
+            this.add.text(
+                256,
+                180,
+                "You obtained:\nSteel of Heritage",
+                {
+                    fontSize: '24px',
+                    fill: '#ffffff',
+                    align: 'center'
+                }
+            ).setOrigin(0.5);
+
+            this.add.text(
+                256,
+                225,
+                "A weapon strengthened by tradition and legacy.",
+                {
+                    fontSize: '14px',
+                    fill: '#ffffaa',
+                    align: 'center'
+                }
+            ).setOrigin(0.5);
+
+            this.add.text(
+                256,
+                260,
+                "Press SPACE to continue",
+                {
+                    fontSize: '12px',
+                    fill: '#ffffff'
+                }
+            ).setOrigin(0.5);
+
+        });
+
+        this.input.keyboard.once('keydown-SPACE', () => {
+
+            this.scene.start('EndScene', {
+                score: this.score,
+                lives: this.lives
+            });
+
+        });
+    }
+}
+
 class EndScene extends Phaser.Scene {
     constructor() {
         super('EndScene');
@@ -573,12 +857,12 @@ class EndScene extends Phaser.Scene {
     create() {
         this.cameras.main.fadeIn(800, 0, 0, 0);
 
-        this.add.text(256, 120, "Danao City Level Complete", {
+        this.add.text(256, 120, "Message Delivered", {
             fontSize: '32px',
             fill: '#ffffff'
         }).setOrigin(0.5);
 
-        this.add.text(256, 160, "History Fulfilled", {
+        this.add.text(256, 160, "Lapu-Lapu: The people stand united.", {
             fontSize: '16px',
             fill: '#ffffff'
         }).setOrigin(0.5);
@@ -626,7 +910,13 @@ const config = {
         mode: Phaser.Scale.FIT,
         autoCenter: Phaser.Scale.CENTER_BOTH
     },
-    scene: [MainScene, EndScene, GameOverScene]
+    scene: [
+        MainScene,
+        QuizScene,
+        RewardScene,
+        EndScene,
+        GameOverScene
+    ]
 };
 
 const game = new Phaser.Game(config);

@@ -7,7 +7,7 @@
 
 body {
     font-family: 'Press Start 2P', monospace;
-    background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('/sugbohenyo/images/sunrise.gif') center/cover no-repeat;
+    background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url('/images/landing.png') center/cover no-repeat;
     background-size: cover;
     color: white;
     
@@ -27,12 +27,15 @@ body {
     font-size: 10px;
     opacity: 0.8;
     margin-bottom: 20px;
-    color: white;
+    color: rgb(255, 255, 255);
+    letter-spacing: 1px;
+    text-shadow: 0 1px 6px rgba(0,0,0,0.8);
 }
 
 .title {
     font-size: 100px;
     margin-bottom: 5px;
+    text-shadow: 3px 3px 0 rgba(48, 48, 48, 0.9), 0 0 24px rgba(0,0,0,0.6);
 }
 
 .sugbo,
@@ -44,6 +47,7 @@ body {
     font-size: 10px;
     margin-bottom: 20px;
     opacity: 0.9;
+    text-shadow: 0 1px 8px rgba(0,0,0,0.9);
 }
 
 .desc {
@@ -51,11 +55,13 @@ body {
     line-height: 1.8;
     margin-bottom: 30px;
     max-width: 500px;
+    text-shadow: 0 1px 8px rgba(0,0,0,0.9);
 }
 
 .highlight {
     font-size: 15px;
-    color: #ff9d00;
+    color: #64d6ff;
+    text-shadow: 0 0 12px rgba(100, 214, 255, 0.7), 0 1px 6px rgba(0,0,0,0.9);
 }
 
 .buttons {
@@ -75,11 +81,11 @@ body {
 }
 
 .primary {
-    background: #fb9f3c;
+    background: #64d6ff;
 }
 
 .primary:hover {
-    background: #fb9f3c9a;
+    background: #64d6ff7b;
     transform: scale(1.05);
 }
 

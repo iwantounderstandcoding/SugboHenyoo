@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <link rel="stylesheet" href="/sugbohenyo/sidebar.css">
     <link rel="stylesheet" href="/sugbohenyo/dashboard.css">
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
 </head>
 
 <body>
@@ -22,149 +23,187 @@
             <div class="header-right">
                 <div class="xp">
                     <i class="fa-solid fa-star"></i>
-                    <span id="dash-xp">data XP</span>
+                    <span id="dash-xp">1,240 XP</span>
                 </div>
             </div>
         </div>
 
-        <section class="section">
-            <h3 class="section-title"><i class="fa-solid fa-circle-user"></i>Profile</h3>
-            <div class="profile-card">
-                <div class="profile-avatar" onclick="document.getElementById('avatar-upload').click()">
-                    <div class="avatar-fallback" style="display:flex">
-                        <i class="fa-solid fa-user"></i>
+        <div class="dashboard-grid">
+            <div class="col-left">
+                <section class="section">
+                    <h3 class="section-title"><i class="fa-solid fa-circle-user"></i> Profile</h3>
+                    <div class="pixel-card profile-card">
+                        <div class="profile-avatar-wrap">
+                            <img src="images/avatar.png" alt="avatar" id="profile-avatar"
+                                onerror="this.style.display='none'; this.nextElementSibling.style.display='flex'">
+                            <div class="avatar-fallback" style="display:none">
+                                <i class="fa-solid fa-user"></i>
+                            </div>
+                        </div>
+                        <div>
+                            <h4 class="profile-name" id="profile-name">Explorer</h4>
+                            <span class="profile-rank">
+                                <i class="fa-solid fa-scroll"></i> Cebu Apprentice
+                            </span>
+                            <p class="profile-joined">
+                                <i class="fa-regular fa-calendar"></i> Joined April 2026
+                            </p>
+                        </div>
+                        <div class="profile-divider"></div>
+                        <div class="profile-stats">
+                            <div class="stat">
+                                <span class="stat-value">12</span>
+                                <span class="stat-label">Quests</span>
+                            </div>
+                            <div class="stat">
+                                <span class="stat-value">5</span>
+                                <span class="stat-label">Badges</span>
+                            </div>
+                            <div class="stat">
+                                <span class="stat-value">3</span>
+                                <span class="stat-label">Locations</span>
+                            </div>
+                        </div>
                     </div>
-                    <input type="file" id="avatar-upload" accept="image/*" hidden>
-                </div>
+                </section>
 
-                <div class="profile-info">
-                    <h4 id="profile-name">Explorer</h4>
-                    <span class="profile-rank">
-                        <i class="fa-solid fa-scroll"></i>Cebu Apprentice
-                    </span>
-                    <p class="profile-joined"><i class="fa-regular fa-calendar"></i> Joined April 2026</p>
-                </div>
+                <section class="section">
+                    <h3 class="section-title"><i class="fa-solid fa-shield-halved"></i> Rank</h3>
+                    <div class="pixel-card level-card">
+                        <div class="level-header">
+                            <span class="level-label">Level</span>
+                            <span class="level-num">7</span>
+                        </div>
+                        <div class="level-bar-wrap">
+                            <div class="level-bar"></div>
+                        </div>
+                        <p class="level-xp-sub">1,240 / 2,000 XP to next level</p>
+                    </div>
+                </section>
 
-                <div class="profile-stats">
-                    <div class="stat">
-                        <span class="stat-value" id="quest_done">data</span>
-                        <span class="stat-label">Quests</span>
+                <section class="section">
+                    <h3 class="section-title"><i class="fa-solid fa-bolt"></i> Quick Play</h3>
+                    <div class="action-grid">
+                        <a href="adventure.html" class="action-btn">
+                            <i class="fa-solid fa-sword"></i> Adventure
+                        </a>
+                        <a href="study.html" class="action-btn">
+                            <i class="fa-solid fa-book-open"></i> Study
+                        </a>
+                        <a href="map.html" class="action-btn">
+                            <i class="fa-solid fa-map-location-dot"></i> Map
+                        </a>
+                        <a href="quiz.html" class="action-btn">
+                            <i class="fa-solid fa-brain"></i> Quiz
+                        </a>
                     </div>
-                    <div class="stat">
-                        <span class="stat-value" id="obtained_badges">data</span>
-                        <span class="stat-label">Badges</span>
-                    </div>
-                    <div class="stat">
-                        <span class="stat-value" id="locations_done">data</span>
-                        <span class="stat-label">Locations</span>
-                    </div>
-                </div>
+                </section>
 
             </div>
-        </section>
 
-        <section class="section">
-            <h3 class="section-title"><i class="fa-solid fa-chart-line"></i> Progress</h3>
-            <div class="progress-grid">
+            <div class="col-right">
+                <section class="section">
+                    <h3 class="section-title"><i class="fa-solid fa-chart-line"></i> Progress</h3>
+                    <div class="progress-grid">
 
-                <div class="progress-card">
-                    <div class="progress-card-top">
-                        <span class="progress-label">Overall Progress</span>
-                        <span class="progress-percent" id="overall-pct">data%</span>
-                    </div>
-                    <div class="progress-bar-wrap">
-                        <div class="progress-bar" style="--pct: 48%"></div>
-                    </div>
-                    <p class="progress-sub">12 of 25 topics completed</p>
-                </div>
+                        <div class="pixel-card progress-card">
+                            <div class="progress-card-top">
+                                <span class="progress-label">Overall Progress</span>
+                                <span class="progress-percent" id="overall-pct">48%</span>
+                            </div>
+                            <div class="progress-bar-wrap">
+                                <div class="progress-bar" style="--pct: 48%"></div>
+                            </div>
+                            <p class="progress-sub">12 of 25 topics completed</p>
+                        </div>
 
-                <div class="progress-card">
-                    <div class="progress-card-top">
-                        <span class="progress-label">Quiz Score</span>
-                        <span class="progress-percent gold">data%</span>
-                    </div>
+                        <div class="pixel-card progress-card">
+                            <div class="progress-card-top">
+                                <span class="progress-label">Quiz Score</span>
+                                <span class="progress-percent gold">72%</span>
+                            </div>
+                            <div class="progress-bar-wrap">
+                                <div class="progress-bar gold" style="--pct: 72%"></div>
+                            </div>
+                            <p class="progress-sub">Average across 8 quizzes</p>
+                        </div>
 
-                    <div class="progress-bar-wrap">
-                        <div class="progress-bar gold" style="--pct: 72%"></div>
-                    </div>
-                    <p class="progress-sub">Average across 8 quizzes</p>
-                </div>
+                        <div class="pixel-card progress-card">
+                            <div class="progress-card-top">
+                                <span class="progress-label">Locations Explored</span>
+                                <span class="progress-percent coral">33%</span>
+                            </div>
+                            <div class="progress-bar-wrap">
+                                <div class="progress-bar coral" style="--pct: 33%"></div>
+                            </div>
+                            <p class="progress-sub">3 of 9 locations visited</p>
+                        </div>
 
-                <div class="progress-card">
-                    <div class="progress-card-top">
-                        <span class="progress-label">Locations Explored</span>
-                        <span class="progress-percent coral">data%</span>
                     </div>
+                </section>
 
-                    <div class="progress-bar-wrap">
-                        <div class="progress-bar coral" style="--pct: 33%"></div>
+                <section class="section">
+                    <h3 class="section-title"><i class="fa-solid fa-medal"></i> Badges</h3>
+                    <div class="badges-grid">
+
+                        <div class="badge-card earned">
+                            <div class="badge-icon"><i class="fa-solid fa-map-location-dot"></i></div>
+                            <span class="badge-name">First Explorer</span>
+                            <span class="badge-desc">Visited your first location</span>
+                        </div>
+
+                        <div class="badge-card earned">
+                            <div class="badge-icon"><i class="fa-solid fa-book-open"></i></div>
+                            <span class="badge-name">Bookworm</span>
+                            <span class="badge-desc">Completed 5 study topics</span>
+                        </div>
+
+                        <div class="badge-card earned">
+                            <div class="badge-icon"><i class="fa-solid fa-brain"></i></div>
+                            <span class="badge-name">Quiz Starter</span>
+                            <span class="badge-desc">Passed your first quiz</span>
+                        </div>
+
+                        <div class="badge-card earned">
+                            <div class="badge-icon"><i class="fa-solid fa-image"></i></div>
+                            <span class="badge-name">Picture Perfect</span>
+                            <span class="badge-desc">Solved 5 picture puzzles</span>
+                        </div>
+
+                        <div class="badge-card earned">
+                            <div class="badge-icon"><i class="fa-solid fa-fire"></i></div>
+                            <span class="badge-name">On a Streak</span>
+                            <span class="badge-desc">Logged in 3 days in a row</span>
+                        </div>
+
+                        <div class="badge-card locked">
+                            <div class="badge-icon"><i class="fa-solid fa-lock"></i></div>
+                            <span class="badge-name">Historian</span>
+                            <span class="badge-desc">Complete all study topics</span>
+                        </div>
+
+                        <div class="badge-card locked">
+                            <div class="badge-icon"><i class="fa-solid fa-lock"></i></div>
+                            <span class="badge-name">Cebu Master</span>
+                            <span class="badge-desc">Reach 100% overall progress</span>
+                        </div>
+
+                        <div class="badge-card locked">
+                            <div class="badge-icon"><i class="fa-solid fa-lock"></i></div>
+                            <span class="badge-name">Geocacher</span>
+                            <span class="badge-desc">Find all geocache points</span>
+                        </div>
+
                     </div>
-                    <p class="progress-sub">3 of 9 locations visited</p>
-                </div>
+                </section>
 
             </div>
-        </section>
-
-        <section class="section">
-            <h3 class="section-title"><i class="fa-solid fa-medal"></i>Badges</h3>
-            <div class="badges-grid">
-
-                <div class="badge-card earned">
-                    <div class="badge-icon"><i class="fa-solid fa-map-location-dot"></i></div>
-                    <span class="badge-name">First Explorer</span>
-                    <span class="badge-desc">Visited your first location</span>
-                </div>
-
-                <div class="badge-card earned">
-                    <div class="badge-icon"><i class="fa-solid fa-book-open"></i></div>
-                    <span class="badge-name">Bookworm</span>
-                    <span class="badge-desc">Completed 5 study topics</span>
-                </div>
-
-                <div class="badge-card earned">
-                    <div class="badge-icon"><i class="fa-solid fa-brain"></i></div>
-                    <span class="badge-name">Quiz Starter</span>
-                    <span class="badge-desc">Passed your first quiz</span>
-                </div>
-
-                <div class="badge-card earned">
-                    <div class="badge-icon"><i class="fa-solid fa-image"></i></div>
-                    <span class="badge-name">Picture Perfect</span>
-                    <span class="badge-desc">Solved 5 picture puzzles</span>
-                </div>
-
-                <div class="badge-card earned">
-                    <div class="badge-icon"><i class="fa-solid fa-fire"></i></div>
-                    <span class="badge-name">On a Streak</span>
-                    <span class="badge-desc">Logged in 3 days in a row</span>
-                </div>
-
-                <div class="badge-card locked">
-                    <div class="badge-icon"><i class="fa-solid fa-lock"></i></div>
-                    <span class="badge-name">Historian</span>
-                    <span class="badge-desc">Complete all study topics</span>
-                </div>
-
-                <div class="badge-card locked">
-                    <div class="badge-icon"><i class="fa-solid fa-lock"></i></div>
-                    <span class="badge-name">Cebu Master</span>
-                    <span class="badge-desc">Reach 100% overall progress</span>
-                </div>
-
-                <div class="badge-card locked">
-                    <div class="badge-icon"><i class="fa-solid fa-lock"></i></div>
-                    <span class="badge-name">Geocacher</span>
-                    <span class="badge-desc">Find all geocache points</span>
-                </div>
-
-            </div>
-        </section>
-
+        </div>
     </main>
-    <script src="../dash.js"></script>
-    <script src="../app.js"></script>
+
+    <script src="/sugbohenyo/auth.js"></script>
     <script src="/sugbohenyo/sidebar.js"></script>
     <script src="/sugbohenyo/dashboard.js"></script>
 </body>
 
-</html>>
+</html>

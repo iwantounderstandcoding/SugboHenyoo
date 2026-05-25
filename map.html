@@ -5,6 +5,520 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cebu Heritage Explorer</title>
+    <link rel="stylesheet" href="sidebar.css">
+    <link rel="stylesheet" href="map.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+</head>
+
+<body>
+
+    <div id="sidebar"></div>
+
+    <div class="controls">
+        <select id="citySelector">
+            <option value="">-- Select Municipality --</option>
+
+            <option value="9.971533,123.404678" data-name="Alcantara" data-tagline="Home of the Bahandi Festival"
+                data-history="Originally named 'Kugtong' after a legendary giant grouper found in local springs, Alcantara was a barrio of Moalboal before regaining independent status in 1912. It is the smallest municipality in Cebu by land area and is known for its cultural resilience and the Bahandi Festival, which honors St. Augustine of Hippo every August 28th."
+                data-items="Corn, Coconuts, Fish, Mangroves"
+                data-img="https://laruysugbo.com/wp-content/uploads/2019/04/alcantara-cebu-tourism-beaches-destinations.png"
+                data-video="https://www.youtube.com/watch?v=HMdBlk5DSiA&list=RDHMdBlk5DSiA&start_radio=1">
+                Alcantara
+            </option>
+
+            <option value="9.708183,123.506042" data-name="Alcoy" data-tagline="Home of the Siloy Festival"
+                data-history="Originally known as Mambaje, the town was established as a municipality in 1866 before being renamed Alcoy in 1869 and moving its seat of government to Hulomaynon. It is currently recognized for its vast dolomite deposits and its commitment to environmental preservation through the Siloy Festival, which honors the endemic Black Shama bird."
+                data-items="Dolomite, Copra, Corn, Handwoven Baskets, Tingko Beach"
+                data-img="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6c/Explore_Alcoy.jpg/1920px-Explore_Alcoy.jpg"
+                data-video="https://www.youtube.com/watch?v=JEr4_6127Jg">
+                Alcoy
+            </option>
+
+            <option value="9.724331,123.340244" data-name="Alegria" data-tagline="Home of the Que Alegre Festival"
+                data-history="Originally a barrio called Tuburan, the town was separated from Malabuyoc and established as a municipality in 1850 before being renamed Alegria to avoid confusion with other settlements. Its parish was canonically erected in 1857 under the patronage of St. Francis Xavier, eventually growing to include areas like Madridejos and becoming a prominent eco-tourism hub in South Cebu."
+                data-items="Vegetables, Natural Gas, Fish, Coconuts"
+                data-img="https://upload.wikimedia.org/wikipedia/commons/e/e2/Heritage_park_of_Alegria%2C_Cebu.jpg"
+                data-video="https://www.youtube.com/watch?v=cAd0Lhmm7SA">
+                Alegria
+            </option>
+
+            <option value="10.2240,123.5467" data-name="Aloguinsan" data-tagline="Eco-Tourism Capital of Cebu"
+                data-history="Created as a town by Royal Decree in 1886, Aloguinsan was formerly a barrio of Pinamungajan known for its historic 'Bulwarte' watchtower that defended against Moro attacks. It was also a site of fierce resistance during the American period and World War II, where local revolutionaries and guerrillas demonstrated great patriotism."
+                data-items="Bojo River, Hermit's Cove, Farm-to-Table Food"
+                data-img="https://www.mycebu.ph/wp-content/uploads/2015/08/aloguinsan-eco-tour-1-1.jpg"
+                data-video="https://www.youtube.com/watch?v=29ceSSNotPY">
+                Aloguinsan
+            </option>
+
+            <option value="9.88,123.6" data-name="Argao" data-tagline="The Torta Capital of Cebu"
+                data-history="Founded in 1608, Argao is a heritage-rich town known for its well-preserved Spanish-era stone church and town center. Its history is deeply intertwined with the 'La Torta' tradition and the legend of Maria Cacao, a goddess said to have provided the town with its abundant cacao trees."
+                data-items="Torta, Tablea, Sukang Tubâ, Hablon Weaving"
+                data-img="https://www.viewbug.com/media/mediafiles/2017/08/09/74370283_large1300.jpg"
+                data-video="https://www.youtube.com/watch?v=ez5zim1x7H0">
+                Argao
+            </option>
+
+            <option value="10.567869,123.717194" data-name="Asturias" data-tagline="Home of the Lalin Festival"
+                data-history="Originally called Naghalin, meaning 'settlers' or 'making fire,' the town was formed from parts of Tuburan and Balamban following a surge in immigration from neighboring islands. It was formally established as a pueblo in the late 19th century, an event notably witnessed by Antonio Alonso, the uncle of national hero José Rizal, in 1888."
+                data-items="Bingka Dawa, Sugarcane, Panas Waterfalls"
+                data-img="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTVaYg_3hbsqrPUpkj0bhIgk3L0h0zpJ0V60Q&s"
+                data-video="https://www.youtube.com/watch?v=_a0aiXfa11Y&list=RD_a0aiXfa11Y&start_radio=1">
+                Asturias
+            </option>
+
+            <option value="9.869361,123.395925" data-name="Badian" data-tagline="The Banig Capital of Cebu"
+                data-history="Named after the 'badyang' plant, Badian was established as a parish in 1825 after separating from Barili under the patronage of St. James the Apostle. The town is architecturally unique for its church's squat portico facade and is geographically characterized by its mountainous terrain and its position along the Tañon Strait."
+                data-items="Banig, Kawasan Falls, Canyoneering, Lambug Beach"
+                data-img="data:image/jpeg;base64,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"
+                data-video="https://www.youtube.com/watch?v=ll9VBPveSOo&list=RDll9VBPveSOo&start_radio=1">
+                Badian
+            </option>
+
+            <option value="10.5048,123.7143" data-name="Balamban"
+                data-tagline="The Shipbuilding Capital of the Philippines"
+                data-history="Rooted in the pre-Hispanic polity of Hinulawan, Balamban was recognized as a pueblo by 1857 under Spanish administrator Ciriaco Gutierrez. The town is etched in national history as the site of the 1957 Mt. Manunggal plane crash that claimed the life of President Ramon Magsaysay, and has since evolved into a global industrial powerhouse and shipbuilding hub."
+                data-items="Ships, Balamban Liempo, Buwakan ni Alejandra, Mt. Manunggal"
+                data-img="https://i.ytimg.com/vi/NhkV1o3uMJI/maxresdefault.jpg"
+                data-video="https://www.youtube.com/watch?v=ScjKijJWscE">
+                Balamban
+            </option>
+
+            <option value="11.2188,123.7285" data-name="Bantayan" data-tagline="Egg Basket of the Visayas"
+                data-history="Established in 1580, Bantayan is one of the oldest Spanish settlements in the Philippines, though folklore suggests a civilization led by Sidumaguer existed over 2,000 years ago. Its name, meaning 'to keep watch,' stems from its history as a strategic lookout point against both Chinese and Moro maritime threats, protected by a network of eighteen watchtowers."
+                data-items="Poultry Eggs, Danggit (Dried Fish), Centuries-old Church (Sts. Peter and Paul Parish)"
+                data-img="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTQfY4tFwSHL4sL6mH-y1DizhJs6mKSncn3og&s"
+                data-video="https://www.youtube.com/watch?v=NlG1bGnJxrw&list=RDNlG1bGnJxrw&start_radio=1">
+                Bantayan
+            </option>
+
+            <option value="10.1165,123.5087" data-name="Barili"
+                data-tagline="Cebu's First Heritage-Protected Municipality"
+                data-history="Founded in 1632 and named after the 'balili' grass, Barili is a cornerstone of Cebuano history. It is home to a cross erected by conquistadores in 1602 and was the site of Chief Justice José Abad Santos’ capture in 1942. In 2006, it made history as the first Cebuano municipality to pass a comprehensive heritage protection ordinance for its ancestral properties."
+                data-items="Mantayupan Falls, Molave Milk Station, Torta de Barili, Ancestral Houses"
+                data-img="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQzBkzuVEckbo1PH5WPgjvqyzAclSP57yyxcQ&s"
+                data-video="https://www.youtube.com/watch?v=6x69p_DBOzA">
+                Barili
+            </option>
+
+            <option value="11.0517,124.0055" data-name="Bogo City" data-tagline="Gateway to Northern Cebu."
+                data-history="Named after a lone Bogo tree that served as a 17th-century bartering post, Bogo evolved from a trade wharf into a vital sugar hub by the 1920s. After a landmark legal struggle for cityhood (2007–2013), it stands as a resilient northern center that has overcome the trials of Typhoon Yolanda and the devastating 2025 earthquake."
+                data-items="Pintos, Sugarcane, Bogo Wharf (Polambato Port)"
+                data-img="https://upload.wikimedia.org/wikipedia/commons/thumb/1/16/Capitancillo_Island_-_Tower_-_Southwest_Side_3.jpg/500px-Capitancillo_Island_-_Tower_-_Southwest_Side_3.jpg"
+                data-video="https://www.youtube.com/watch?v=z3H1aBvf7OM">
+                Bogo City
+            </option>
+
+            <option value="9.62866,123.4799" data-name="Boljoon" data-tagline="The Heritage Frontier of the South"
+                data-history="Founded as an Augustinian parish in 1599, Boljoon is a premier heritage landmark home to the Patrocinio de Maria Church, a National Historical Treasure built in 1783. Under Fr. Julián Bermejo, the town became the nerve center of a vast maritime defense system, and in 2025, it celebrated the historic return of its stolen 18th-century pulpit panels."
+                data-items="Boljoon Church, Eli Rock, Heritage Trail"
+                data-img="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSfr-8qq7umeqJiF1dlNTUXhnL3_6pOD7UF9A&s"
+                data-video="https://www.youtube.com/watch?v=IBQaChYnYRg">
+                Boljoon
+            </option>
+
+            <option value="10.83795,124.02916" data-name="Borbon" data-tagline="The Home of the Silmugi Festival"
+                data-history="Established as a parish in 1862, the town's name is a subject of legend, attributed either to the Spanish House of Bourbon or a misinterpretation of the Cebuano word 'bonbon,' meaning pebbly sand. Originally a community of Sogod, it once housed one of Cebu’s oldest wood-and-tabique churches before its demolition following World War II."
+                data-items="Silmugi River, San Sebastian Church, Bonbon (Pebbly Sand)"
+                data-img="data:image/jpeg;base64,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"
+                data-video="https://www.youtube.com/watch?v=5_EXEEixnjA">
+                Borbon
+            </option>
+
+            <option value="10.1048,123.6415" data-name="Carcar City" data-tagline="The Heritage City of Cebu"
+                data-history="Formerly the pre-colonial district of Sialo ruled by the descendants of Sri Lumay, Carcar was established as a Spanish town in 1599 and remains one of Cebu's most significant cultural landmarks. The city earned international historical fame in 1944 when local residents recovered the 'Koga Papers,' a discovery that proved vital to General MacArthur’s strategy for the liberation of the Philippines."
+                data-items="Carcar Lechon, Chicharon, Ampao, Shoes"
+                data-img="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTSVaDrrPAFK6dnSlhkS33mI55WPA72_SyjgQ&s"
+                data-video="https://www.youtube.com/watch?v=FksSJ8PUie8">
+                Carcar City
+            </option>
+
+            <option value="10.5842,124.0170" data-name="Carmen" data-tagline="The Town of Bugho and the Lady of Carmel"
+                data-history="Formerly known as Bugho, Carmen became a municipality on June 16, 1851, through the efforts of Facundo Buot and was later renamed in honor of Nuestra Señora del Carmen. This religious nomenclature reflects the town's deep Spanish-colonial roots and Catholic devotion, which is still celebrated through its vibrant Sinulog traditions."
+                data-items="Mount Carmel Parish, Sinulog sa Carmen, Shem Hills, Cebu Safari"
+                data-img="https://suroy.ph/wp-content/uploads/2022/06/carmenchurch.jpg"
+                data-video="https://www.youtube.com/watch?v=qVAe4R07MIo">
+                Carmen
+            </option>
+
+            <option value="10.2926,124.0133" data-name="Catmon" data-tagline="The Home of the Budbod Kabog"
+                data-history="Founded in 1835 and named after the Dillenia philippinensis trees, Catmon briefly merged with Sogod in 1903 before reclaiming its independent municipal status in 1921. The town remains a spiritual and cultural center dedicated to its patron, St. William the Hermit, celebrated through the annual Budbod Kabog Festival."
+                data-items="Budbod Kabog, Katmon Tree, Esoy Hot Spring"
+                data-img="https://live.staticflickr.com/5349/6911365990_1c59585d86_b.jpg"
+                data-video="https://www.youtube.com/watch?v=AdUld9eiYnA">
+                Catmon
+            </option>
+
+            <option value="10.2926,123.9022" data-name="Cebu City" data-tagline="The Queen City of the South"
+                data-history="Cebu City is the oldest city in the Philippines, established by the Spanish in 1565 after the arrival of Miguel López de Legazpi. It serves as the primary gateway and economic hub of the Visayas region, blending deep colonial roots with modern commercial significance"
+                data-items="Magellan's Cross, Fort San Pedro, Sinulog, Dried Mangoes"
+                data-img="https://t3.ftcdn.net/jpg/05/09/79/10/360_F_509791029_sNfeRM9I4ER7luH9uh2JSQ14RzYYD2YC.jpg"
+                data-video="https://www.youtube.com/watch?v=iz_tx0CJz6w">
+                Cebu City
+            </option>
+
+            <option value="10.4541,124.0130" data-name="Compostela" data-tagline="The Sanctuary of St. James the Great"
+                data-history="Established as a barrio of Danao in 1844, Compostela regained its independence in 1919 following a brief 1903 merger with Liloan. During World War II, it served as a major resistance stronghold, notably hosting the Battle of Guila-guila and serving as the site where Cebu Governor Hilario Abellana was captured in 1944."
+                data-items="St. James the Great Parish, Estaca Bay, Q-Park"
+                data-img="https://dynamic-media-cdn.tripadvisor.com/media/photo-o/0f/1b/43/d1/photo0jpg.jpg?w=400&h=-1&s=1"
+                data-video="https://www.youtube.com/watch?v=B_9-gJRPgK8">
+                Compostela
+            </option>
+
+            <option value="10.3758,123.9569" data-name="Consolacion" data-tagline="The Sarok Capital of Cebu"
+                data-history="Originally a Mandaue barrio named 'Kampi-ig' after local mangrove crabs, Consolacion became an independent town in 1871 and was permanently re-established in 1920. The municipality was named in honor of Governor Manuel Roa's daughter, while its patron, San Narciso, was chosen as the namesake of his wife, Narcisa."
+                data-items="Sarok Hats, San Narciso Parish, SM City Consolacion"
+                data-img="https://media.assettype.com/sunstar%2Fimport%2Fuploads%2Fimages%2F2023%2F06%2F06%2F439876.jpg"
+                data-video="https://www.youtube.com/watch?v=CLOJOgayRQM">
+                Consolacion
+            </option>
+
+            <option value="10.25056,123.94931" data-name="Cordova" data-tagline="The Bakasi Capital of Cebu"
+                data-history="Created by Governor General Rafael Echagüe y Bermingham on May 22, 1863, Cordova was likely named after the Spanish province he previously represented in Congress. The municipality, comprising the barrios of Gabi, Day-as, and Pilipog, officially saw its decree take effect in 1864 and has been governed by fifteen mayors since 1913."
+                data-items="Bakasi, 10,000 Roses, CCLEX, Lantaw Floating Restaurant, Gilutongan Marine Sanctuary"
+                data-img="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQKKNLejp_OTH-fnSlGwj6m3pSk3_fY9yIvqQ&s"
+                data-video="https://www.youtube.com/watch?v=xu6OnC9fyrw">
+                Cordova
+            </option>
+
+            <option value="11.2508,124.0013" data-name="Daanbantayan" data-tagline="The Gateway to Malapascua"
+                data-history="The town's name is derived from the Cebuano words for 'old lookout,' referencing its historical role as a coastal defense point against Moro raiders during the pre-Hispanic era. While it stands today as a premier tourism hub, the community remains a testament to resilience following the severe impact of Super Typhoon Yolanda in 2013."
+                data-items="Malapascua Island, Haladaya Festival, Tapilon Point"
+                data-img="https://upload.wikimedia.org/wikipedia/commons/4/40/St._Rose_of_Lima_Parish_Church_in_Daanbantayan%2C_Cebu.jpg"
+                data-video="https://www.youtube.com/watch?v=0CoJWMH-ZeE">
+                Daanbantayan
+            </option>
+
+            <option value="9.7620,123.5333" data-name="Dalaguete"
+                data-tagline="Vegetable Basket and Summer Capital of Cebu"
+                data-history="Named after the sacred 'dalakit' tree where pre-colonial natives gathered for trade and worship, the town was formally organized as a Spanish settlement in the 18th century. Today, it is celebrated for its cool highland climate and its status as the province's premier agricultural hub, supplying the majority of Cebu's fresh produce."
+                data-items="Osmeña Peak, Dalakit Tree, Mantalongon Market, Utanon Festival"
+                data-img="https://www.rappler.com/tachyon/2024/05/Dalaguete-Albert.jpg"
+                data-video="https://www.youtube.com/watch?v=qolvU0srvQw">
+                Dalaguete
+            </option>
+
+            <option value="10.5201,124.0271" data-name="Danao City" data-tagline="The Gun-making Capital of the North"
+                data-history="Established in 1844 by Captain Manuel Anecito del Rosario, Danao’s name originated from a linguistic misunderstanding of the Cebuano word 'danawan,' meaning pond. It was officially inaugurated as a city on June 7, 1961, and today serves as the northern boundary of Metro Cebu and a historic center for industrial craftsmanship."
+                data-items="Santo Tomas de Villanueva Parish, Mitsumi, Gun-making Industry, Port of Danao"
+                data-img="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcThBmrAHEbvCr6yTNFGkpti7rkyy93CY10jPA&s"
+                data-video="https://www.youtube.com/watch?v=ULUoFk0hajY">
+                Danao City
+            </option>
+
+            <option value="10.0576,123.4360" data-name="Dumanjug" data-tagline="The Home of the Governors"
+                data-history="Established as a municipality in 1855, Dumanjug's name is popularized by the legend of a tuba gatherer named Duman who reportedly fell from a coconut tree. Historically, it is celebrated as a cradle of Cebuano leadership, having produced influential political figures from the prominent Garcia and Jakosalem dynasties."
+                data-items="St. Francis of Assisi Church, Bisayang Manok, Garcia Ancestral House"
+                data-img="https://mindtrip.ai/attractions/05ae/a2b6/e2e7/9ed5/bdfd/007b/937e/0654"
+                data-video="https://www.youtube.com/watch?v=jipODCnTnGA">
+                Dumanjug
+            </option>
+
+            <option value="9.5687,123.3150" data-name="Ginatilan" data-tagline="The Home of St. Pedro Calungsod"
+                data-history="Formerly a barrio of Samboan known as 'Hinatdan'—meaning a place where things are brought—the town was renamed Ginatilan by Spanish officials who found the original name difficult to pronounce. It officially seceded as an independent parish on October 5, 1847, and is famously celebrated as the likely birthplace of St. Pedro Calungsod, the second Filipino saint."
+                data-items="St. Gregory the Great Parish, Inambakan Falls, Sinakol, Mt. Hambubuyog"
+                data-img="data:image/jpeg;base64,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"
+                data-video="https://www.youtube.com/watch?v=Pslt1gDn_jY">
+                Ginatilan
+            </option>
+
+            <option value="10.3993,124.0000" data-name="Liloan" ddata-tagline="The Light of the North"
+                data-history="Named after the 'lilo' or whirlpools found at Silot Bay, Liloan was established as a parish and municipality in 1845. It is historically significant as the home of the Bagacay Point Lighthouse, originally lit in 1857, and the birthplace of the world-famous Titay’s Rosquillos, which were named by President Sergio Osmeña in 1907."
+                data-items="Bagacay Point Lighthouse, San Fernando Rey Parish, Titay's Rosquillos, Pier 88"
+                data-img="https://magazine.foodpanda.ph/wp-content/uploads/sites/22/2016/06/1728634.jpg"
+                data-video="https://www.youtube.com/watch?v=Rz8EUd8C738">
+                Liloan
+            </option>
+
+            <option value="10.3127,123.9488" data-name="Lapu-Lapu City" data-tagline="The Historic Resort City"
+                data-history="Formerly the town of Opon, it was renamed in 1961 to honor Datu Lapu-Lapu, who defeated Ferdinand Magellan in the 1521 Battle of Mactan. Today, it serves as a global gateway through the Mactan-Cebu International Airport and is the heart of the Philippines' high-end resort and guitar-making industries."
+                data-items="Mactan Shrine, Mactan-Cebu International Airport, Alegre Guitars, Cebu-Cordova Link Expressway (CCLEX)"
+                data-img="https://cebuinsights.com/wp-content/uploads/2021/07/Mactan-Shrine-1.webp"
+                data-video="https://www.youtube.com/watch?v=r_aq6lJrwto&list=RDr_aq6lJrwto&start_radio=1">
+                Lapu-Lapu City
+            </option>
+
+            <option value="11.2957,123.7309" data-name="Madridejos" data-tagline="Little Alaska of the Philippines"
+                data-history="Historically known as 'Lawis,' the town features the Kota, a defensive fort established as early as the 1630s to protect residents from maritime raiders. It was renamed in 1917 to honor Archbishop Benito Romero de Madridejos and remains the primary seafood hub of northern Cebu."
+                data-items="Kota Park, Lawis Point, Bantayan Danggit, Scallops"
+                data-img="https://isogdaily.com/wp-content/uploads/2023/11/Main.jpg"
+                data-video="https://www.youtube.com/watch?v=iCp3eVdI8Eg">
+                Madridejos
+            </option>
+
+            <option value="9.6519202,123.3245598" data-name="Malabuyoc" data-tagline="The Home of the Mainit Springs"
+                data-history="Officially separated from Samboan in 1832, Malabuyoc's name stems from the Cebuano word 'buyoc,' describing how its fruit-laden branches once bent toward the fertile earth. The town is a sanctuary of natural wonders, most notably the volcanic Mainit Hot Springs and the cascading Montañeza Falls, which define its reputation as a premier eco-tourism destination."
+                data-items="Mainit Hot Springs, Montañeza Falls, San Nicolas de Tolentino Parish"
+                data-img="https://upload.wikimedia.org/wikipedia/commons/thumb/e/e0/Malabuyoc_Church_01.jpg/1280px-Malabuyoc_Church_01.jpg"
+                data-video="https://www.youtube.com/watch?v=0YMRkOHjhxI">
+                Malabuyoc
+            </option>
+
+            <option value="10.3245,123.9428" data-name="Mandaue City"
+                data-tagline="Furniture Capital of the Philippines"
+                data-history="Originating from the 'mantawi' vine that once thrived along its cove, Mandaue was established as a Jesuit mission in the early 1600s. It was officially chartered as a city on June 21, 1969, and has since become the industrial heart of Cebu, renowned globally for its world-class furniture craftsmanship."
+                data-items="National Shrine of St. Joseph, Mactan-Cebu Bridges, J Centre Mall, Bibingka sa Mandaue"
+                data-img="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b9/The_National_Shrine_of_St._Joseph%2C_Mandaue%2C_Cebu%2C_Jan_2024.jpg/330px-The_National_Shrine_of_St._Joseph%2C_Mandaue%2C_Cebu%2C_Jan_2024.jpg"
+                data-video="">
+                Mandaue City
+            </option>
+
+            <option value="11.1286,123.9622" data-name="Medellin" data-tagline="The Sugar Capital of Cebu"
+                data-history="Established as a municipality in 1881, Medellin was named after a town in Spain by Spanish officials. It evolved into the province's primary sugar producer following the establishment of the Bogo-Medellin Milling Company (Bomedco) in 1928, which transformed the local economy into a vast landscape of sugarcane plantations."
+                data-items="Gibitngil Island (Funtastic Island), Medellin Dockside, Mercedes Village & Golf Course, Bamboo Forest"
+                data-img="https://i.ytimg.com/vi/3HLmX41g_04/maxresdefault.jpg"
+                data-video="https://www.youtube.com/watch?v=G_EY0wVRKyw&list=RDG_EY0wVRKyw&start_radio=1">
+                Medellin
+            </option>
+
+            <option value="10.2454,123.7960" data-name="Minglanilla" data-tagline="The Sugat Capital of the South"
+                data-history="Established as a parish in 1857 by Fr. Sanchez, Minglanilla was named by Spanish friars after the town of Minglanilla in Cuenca, Spain. Historically a strategic agricultural gateway between Cebu City and the south, it is now a bustling residential and commercial center, world-famous for its 'Sugat' (Encounter) festival every Easter Sunday."
+                data-items="Immaculate Heart of Mary Parish, Sugat Kabanhawan Festival, Camp 7 (Osmeña Reforestation Project), Anjo World Theme Park"
+                data-img="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRcBasSRP9NPS867vlzHWQOhl5aaEo0jMGzMw&s"
+                data-video="https://www.youtube.com/watch?v=Qv01UrUFfLE">
+                Minglanilla
+            </option>
+
+            <option value="9.9381,123.3931" data-name="Moalboal" data-tagline="Dagway sa Paraiso (The Face of Paradise)"
+                data-history="Established as a parish in 1852, Moalboal was founded by Laurente Sabanal (Laguno), a native of Bohol. Its name is derived from 'Bocal-bocal,' an onomatopoeia for the bubbling freshwater springs found along its shore. Today, it is an internationally recognized center of diving excellence and marine biodiversity."
+                data-items="Sardine Run (Panagsama), Pescador Island, Basdako White Beach, San Juan Nepomuceno Church Ruins, Turtle Point"
+                data-img="https://islanddiariesph.com/wp-content/uploads/2024/06/145-1-1-636x426.jpg"
+                data-video="https://www.youtube.com/watch?v=VOV0ODvbNa0">
+                Moalboal
+            </option>
+
+            <option value="10.2076,123.7582" data-name="Naga City" data-tagline="The Industrial Hub of Southern Cebu"
+                data-history="Founded as a pueblo on June 12, 1829, Naga derives its name from the abundant Narra (Naga) trees that once lined its coast. Historically an agricultural town, the 19th-century discovery of coal sparked an industrial transformation, leading to the establishment of the Apo Cement factory and the KEPCO-SPC power plant, making it a critical infrastructure center for the province."
+                data-items="Naga City Boardwalk & Marine Park, St. Francis of Assisi Parish, Mount Mabogo Ridge, KEPCO-SPC Power Plant, Apo Cement Corporation"
+                data-img="https://upload.wikimedia.org/wikipedia/commons/thumb/b/b3/City_of_Naga_Cebu_Hall.jpg/640px-City_of_Naga_Cebu_Hall.jpg"
+                data-video="https://www.youtube.com/watch?v=5ss_Z38xSTc">
+                Naga City
+            </option>
+
+            <option value="9.5208,123.4335" data-name="Oslob" data-tagline="Whale Shark Capital of Cebu"
+                data-history="Founded in 1848, Oslob was a critical link in the defensive chain against maritime invaders, led by the legendary Father Julian Bermejo. Its name is derived from 'toslob' (to dip), from a story of a local dipping food into vinegar. Today, it balances its role as a premier marine sanctuary with its status as a bastion of Spanish-colonial architecture."
+                data-items="Cuartel Ruins, Immaculate Conception Parish, Baluarte (Watchtower), Whale Shark Watching, Sumilon Island, Tumalog Falls"
+                data-img="https://static.vecteezy.com/system/resources/previews/038/007/907/large_2x/cuartel-ruins-museo-oslob-at-oslob-in-cebu-island-philippines-photo.jpg"
+                data-video="https://www.youtube.com/watch?v=Ayac6AuDKjE&list=RDAyac6AuDKjE&start_radio=1">
+                Oslob
+            </option>
+
+            <option value="10.8065,124.5629" data-name="Pilar" data-tagline="Ponson, Island Paradise of Camotes"
+                data-history="Formerly known as 'Posong,' Pilar is the only municipality on Ponson Island. It was officially separated from the town of Poro in 1859. Named after a beloved local figure, the town has transitioned from a defensive outpost against raiders to a premier model for community-based marine conservation in the Visayas."
+                data-items="Pilar Municipal Marine Park (PMMP), Cawit Port, Naukban Lagoon, Guiwanon Cave, Solferino Borinaga Monument"
+                data-img="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQhx2g_iIPE5eTssILD5d3PkRFkJUwa624Gsg&s"
+                data-video="https://www.youtube.com/watch?v=i_7Qqp0Asi8">
+                Pilar
+            </option>
+
+            <option value="10.2666656,123.583331" data-name="Pinamungajan"
+                data-tagline="Jewel in the Midst of Midwest Cebu"
+                data-history="Established as a parish in 1850, its name comes from 'Pinamuhuan,' the share given to laborers during harvest. It is the birthplace of the Lamac Multi-Purpose Cooperative (LMPC), which transformed the rugged Lamac Valley into a national model for rural development and cooperative success."
+                data-items="Hidden Valley Mountain Resort, Udlom Falls, Sta. Monica Parish Church, Pinamungajan Public Plaza, Tajao Beach, Lamac Valley"
+                data-img="https://lh3.googleusercontent.com/proxy/EGVjnSz3sFtCiABsIOK1I-Um8tPI2VGbnGA5oPI0qVzmpfJbrurFLqQUdN91c-_P1B3sr_Mdlmut6_1z38k80evM"
+                data-video="https://www.youtube.com/watch?v=CjhDlmZOxnw">
+                Pinamungajan
+            </option>
+
+            <option value="10.629,124.407" data-name="Poro" data-tagline="The Mother Town of Camotes"
+                data-history="Founded in 1701, Poro is the oldest municipality in the Camotes Islands and served as the administrative and religious center of the archipelago for centuries. It was born from a peace pact between the tribes of Maktang and Tag-anito. It is the only place in the world where the unique Porohanon language is natively spoken."
+                data-items="Sto. Niño de Poro Parish, Buho Rock Resort, Tagbo Festival, Maktang Beach, Altavista Viewpoint, Pagsa Eco-Adventure Park"
+                data-img="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT5EN-JC1IrlUBwUDNwNGTLb97uLCozVs776g&s"
+                data-video="https://www.youtube.com/watch?v=z7UJsZTheno">
+                Poro
+            </option>
+
+            <option value="10.00025,123.41129" data-name="Ronda" data-tagline="The Humba Capital of Cebu"
+                data-history="Originally called 'Huluyaw' after a type of banana once abundant in the area, the town was renamed 'Ronda' by Spanish colonizers after the city in Málaga, Spain, which is similarly flanked by highlands. Founded by the native chief Pongtod (who later adopted the name Villagonzalo), it was officially established as a municipality in 1779 and remains a bastion of traditional Cebuano flavors."
+                data-items="Lusno Falls, Ronda Wharf (Embarcadero), Our Lady of Sorrows Parish, Humba Festival, Marine Sanctuary of Barangay Liboo, Les Maisons d'Itac"
+                data-img="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSDAyCJa8sJyD5fGaqQ9XHF_tDatEqE2pmf_g&s"
+                data-video="https://www.youtube.com/watch?v=AL4FM0H9xBQ&list=RDAL4FM0H9xBQ&start_radio=1">
+                Ronda
+            </option>
+
+            <option value="9.528753,123.306431" data-name="Samboan" data-tagline="The Waterfall Capital of Cebu"
+                data-history="Formerly known as 'Canumbohan' (from the word 'sambo' or 'canumbo', a fishing method), Samboan was established as a parish in 1794. It served as a critical coastal defense point, featuring the 147-step Jacob's Ladder. Today, it is the premier destination for waterfall trekking in the south, balancing its rich colonial history with pristine natural conservation."
+                data-items="Aguinid Falls, Dau Falls, Binalayan (Hidden) Falls, Jacob's Ladder (Escala de Jacob), St. Michael the Archangel Church, Campanario de Samboan, Ponong Lake"
+                data-img="https://suroy.ph/wp-content/uploads/2024/06/samboanchurch-3.jpg"
+                data-video="https://www.youtube.com/watch?v=R0wN6bZ_G14">
+                Samboan
+            </option>
+
+            <option value="10.1632,123.7074" data-name="San Fernando" data-tagline="Home of the Sikoy-Sikoy Festival"
+                data-history="Established by Royal Decree in 1858 after separating from Naga, San Fernando was originally centered in Pitalo. It was named in honor of its first parish priest, Fr. Fernando Sanchez. Historically a vital sugar-producing town, it has evolved into a major industrial hub while maintaining its cultural status as the primary center for the production and artistry of 'Puso' (hanging rice)."
+                data-items="San Isidro Labrador Parish Church, Hidden Paradise Mountain Resort, San Fernando Public Market (Puso Hub), Sangat Cave, Bugho Elevation, Pitalo Church Ruins"
+                data-img="https://upload.wikimedia.org/wikipedia/commons/8/81/Facade_of_San_Fernando_Church_in_Cebu_province.jpg"
+                data-video="https://www.youtube.com/watch?v=H2YZTmt1RVY&list=RDH2YZTmt1RVY&start_radio=1">
+                San Fernando
+            </option>
+
+            <option value="10.6466,124.3812" data-name="San Francisco" data-tagline="The Tourism Hub of Camotes"
+                data-history="Established as a parish in 1863 after its 1860 beginnings as a 'visita' of Bantayan, San Francisco is the sole municipality on Pacijan Island and also encompasses Tulang Island. Named after St. Francis of Assisi, the town sits at the heart of the archipelago's history—named 'Camotes' by Spanish explorers who mistook the local crop (sweet potatoes) for the name of the land. It remains the economic engine of the islands, linked to Poro by a historic 1.5-km mangrove causeway."
+                data-items="Lake Danao (Lover's Lake), Santiago Bay, Mangodlong Beach, Timubo Cave, Baywalk (Poblacion), Paraiso Cave, Tulang Diot Islet"
+                data-img="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS-t1uil89miMRqab4p_WW9dBAjUP1WNu50Jg&s"
+                data-video="https://www.youtube.com/watch?v=p-jkp9j4XIs">
+                San Francisco
+            </option>
+
+            <option value="11.0810,123.9365" data-name="San Remigio" data-tagline="The Longest Shoreline in Cebu"
+                data-history="Established as a town by Superior Decree on November 21, 1863 (briefly known as Isabel II), San Remigio was originally the settlement of 'Kanghagas,' named after local Hagas trees. It served as a visita of Bantayan and a part of Bogo before its independence. It is famed for having the longest shoreline in Cebu province and serves as the vital maritime gateway to the Bantayan archipelago via Hagnaya Port."
+                data-items="Hagnaya Port, Lapyahan Public Beach, San Juan Nepomuceno Church, San Remigio Beach Club, Orongan Beach (Anapog), Caputatan Marine Sanctuary"
+                data-img="https://upload.wikimedia.org/wikipedia/commons/1/17/Church_of_San_Remigio%2C_Cebu.jpg"
+                data-video="https://www.youtube.com/watch?v=rWIlaqXCGIw">
+                San Remigio
+            </option>
+
+            <option value="11.1537,123.8034" data-name="Santa Fe" data-tagline="The Beach Capital of Bantayan"
+                data-history="Established as an independent 'pueblo' by decree in October 1872, Santa Fe was formerly a barrio of Bantayan known as 'Ogtong.' The name is derived from 'Kogtong,' a species of grouper fish once abundant in its limestone-rich waters. It serves as the primary maritime gateway to Bantayan Island and is the archipelago's tourism heart, famed for its expansive white-sand beaches and coralline karst landscape featuring unique freshwater sinkholes."
+                data-items="Sugar Beach, Paradise Beach (Sandira), Ogtong Cave, Balidbid Lagoon, Virgin Island (Silion), Hilantagaan Island (Heligoon), Kota Beach"
+                data-img="https://pix10.agoda.net/hotelImages/66087665/0/458aa7dd312fc0bdad109f537b07cbc7.png?ce=0&s=414x232"
+                data-video="https://www.youtube.com/watch?v=ugpCOimiTVA">
+                Santa Fe
+            </option>
+
+            <option value="9.4170689,123.3351935" data-name="Santander" data-tagline="Home of the Tostado Festival"
+                data-history="Established as an independent municipality in 1867, Santander was originally a barrio of Oslob known as 'Taongon.' It was renamed after the Spanish port city of Santander. While it remains the vital maritime link between Cebu and Negros Oriental, the town's identity is deeply rooted in the 'Tostado'—a traditional local cookie that has been its signature delicacy for over a century."
+                data-items="Liloan Port (Gateway to Dumaguete), Marine Village, Pebble Beach, St. Gabriel the Archangel Parish, Tostado Festival, Gun-ob Beach"
+                data-img="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR30gnv64iMlwsDpgkIh8iEqd-gdtIc8Pv7oQ&s"
+                data-video="https://www.youtube.com/watch?v=xOlt7ExffUY">
+                Santander
+            </option>
+
+            <option value="10.0155,123.6179" data-name="Sibonga" data-tagline="Blissful Sibonga"
+                data-history="Established as an independent parish in 1830 after separating from Carcar, Sibonga's name is derived from the 'Bonga' (Betel Nut) tree. It was a primary coastal trading hub during the Spanish era, characterized by its iconic acacia-lined highway and colonial-era 'poblacion.' Today, it is the premier pilgrimage center of Cebu, home to the Simala Shrine and the cultural 'Pastores de Sibonga' tradition."
+                data-items="Monastery of the Holy Eucharist (Simala Shrine), Nuestra Señora del Pilar Parish Church, Sibonga Town Plaza, Pastores de Sibonga, Sibonga Heritage Houses, Bunga Caves"
+                data-img="https://islanddiariesph.com/wp-content/uploads/2024/09/simala-shrine.jpg"
+                data-video="https://www.youtube.com/watch?v=yC64gvXLlpY">
+                Sibonga
+            </option>
+
+            <option value="10.7495,124.0037" data-name="Sogod" data-tagline="Home of the Binaliw Spring"
+                data-history="With civil roots dating to 1764 and parish status granted in 1832, Sogod takes its name from 'Sinugdanan' (the beginning). It is the geographic marker where Cebu’s dark volcanic sands transition into northern white coralline shores. It is historically significant for the Binaliw Spring in Barangay Bagatayam, which powered a pre-war hydraulic plant and remains a site of spiritual healing."
+                data-items="Binaliw Spring (Bagatayam), Bagatayam Falls, Santiago Apostol Church, Calumboyan Public Beach, Alegre Beach Resort, Handayan Islet"
+                data-img="https://upload.wikimedia.org/wikipedia/commons/thumb/6/66/Sogod_Cebu_2-cr.jpg/500px-Sogod_Cebu_2-cr.jpg"
+                data-video="https://www.youtube.com/watch?v=VhL68eM0IEA">
+                Sogod
+            </option>
+
+            <option value="10.9403,124.0274" data-name="Tabogon" data-tagline="The Home of the Sanggi Festival"
+                data-history="Founded as a town in 1827 and established as a parish on August 6, 1851, Tabogon was originally known as 'Agoho' after its abundant Casuarina trees. Its current name is derived from 'Tabogon' (to be driven away), referring to the historical flight of coastal residents to the hills during maritime raids. Today, it is an agricultural powerhouse celebrated for its 'Sanggi' (harvest) traditions and unique limestone-filtered cold springs."
+                data-items="Guiwanon Cold Spring, Banyan Springs (Badiang), Salag Mangrove Park, San Isidro Labrador Church, Bitoon Gamay, Nipa Beach"
+                data-img="https://upload.wikimedia.org/wikipedia/commons/3/35/Church_of_Tabogon%2C_Cebu.jpg"
+                data-video="https://www.youtube.com/watch?v=VhyExzrQiF0">
+                Tabogon
+            </option>
+
+            <option value="10.8243,123.8707" data-name="Tabuelan" data-tagline="Home of the Ani-anihan Festival"
+                data-history="Tabuelan became an independent municipality on September 23, 1953, through Executive Order No. 621, having been separated from Tuburan. Its name is believed to come from 'taboan,' meaning a marketplace or trading center, reflecting its early role as a hub for commerce and travelers. Today, it is a 4th-class municipality known for its eco-tourism attractions, pristine beaches, and relaxed coastal environment on Cebu’s northwestern shore."
+                data-items="Maravilla Beach, Tabuelan Public Beach, Gumbang Cold Spring, Tabuelan Port (Escalante Route), St. John the Baptist Parish Church, Bamboo Boardwalk"
+                data-img="https://nikdottravel.wordpress.com/wp-content/uploads/2019/02/maravilla1.jpeg"
+                data-video="https://www.youtube.com/watch?v=LlP5G-AGO-Y">
+                Tabuelan
+            </option>
+
+            <option value="10.2446,123.8473" data-name="Talisay City" data-tagline="Lechon Capital of Cebu"
+                data-history="Founded in 1648 as an estate of the Augustinians, Talisay became a municipality in 1849 and was later converted into a component city on December 30, 2000, through Republic Act No. 8979. Its name is believed to be derived from the 'talisay' trees that once grew abundantly in the area. The city played a pivotal role during World War II as the landing site of the American liberation forces on March 26, 1945. Today, it is widely known as the 'Lechon Capital of Cebu' and for its vibrant Halad Inasal Festival."
+                data-items="Talisay Landing Site (Liberation Park), Sta. Teresa de Avila Church, Crocolandia Foundation, Lechon"
+                data-img="https://upload.wikimedia.org/wikipedia/en/4/44/Talisay_City_Hall_and_Plaza_%28CSCR%2C_Talisay%2C_Cebu%3B_09-07-2022%29.jpg"
+                data-video="https://www.youtube.com/watch?v=rm0N4LOGA0c">
+                Talisay City
+            </option>
+
+            <option value="10.3755,123.6360" data-name="Toledo City" data-tagline="Copper City with a Heart of Gold"
+                data-history="Home to Atlas Mining, one of Asia's largest copper mines. It is a major port connecting Cebu to Negros Island."
+                data-history="Originally the settlement of Pueblo Hinulawan, it was renamed Toledo in 1869 and inaugurated in 1870. It achieved cityhood on June 19, 1960 (RA 2688). It is globally recognized as the home of Atlas Mining, once the largest copper mine in the Far East. Today, Toledo is a vital industrial powerhouse and the primary logistics gateway connecting Cebu to San Carlos City, Negros Occidental."
+                data-items="Capilla Santa Ana (Museum & Labyrinth), Hinulawan Festival, Biga Pit, Cantabaco Climbing Crags, Malubog Lake, The Maze at Lakeview, Toledo City Port"
+                data-img="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQZ6eecx43KE_U9oMFwQz4NtidYefAoLDvxwA&s"
+                data-video="https://www.youtube.com/watch?v=qMDda_t-hS4">
+                Toledo City
+            </option>
+
+            <option value="10.7275,123.8252" data-name="Tuburan" data-tagline="Gem of the Midwest Cebu"
+                data-history="Founded in 1851, Tuburan is one of the oldest municipalities in northern Cebu. Its name is derived from the word 'tubod' or 'tuburan,' meaning spring or source of water, referring to the many natural springs found in the area. It was once the mother town of several municipalities, including Tabuelan. Today, Tuburan is known for its agricultural heritage, scenic highlands, and emerging eco-tourism destinations."
+                data-items="Molobolo Spring, Mantawihan Festival, Tuburan 360 Resto & View Deck, Marmol Cliff, Alegria Beach (Barangay Putat), Tuburan Public Market"
+                data-img="https://www.bisayatraveler.com/wp-content/uploads/2020/03/2020-02-24-10.20.19-1.jpg"
+                data-video="https://www.youtube.com/watch?v=AgyDzLH4v0Q">
+                Tuburan
+            </option>
+
+            <option value="10.6367,124.4694" data-name="Tudela" data-tagline="Home of the Katunggan Festival"
+                data-history="Originally known as 'Tag-anito'—a reference to early villagers' worship of spirits—it was an agricultural hub famous for rice production. It was declared a separate town from Poro on May 20, 1892, by decree of Governor-General Eulogio Despujol. In August 1892, at the invitation of Fr. Ramon Agirres, it was renamed 'Tudela' after the Spanish province of the same name. It is celebrated today for its 'Enchanted' landscape, featuring rare island waterfalls and the majestic Bukilat Cave."
+                data-items="Bukilat Cave, Taghubas Falls, Busay Falls, Pagatpat Mangrove Forest, Immaculate Conception Parish, Tudela Marine Sanctuary"
+                data-img="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT88iF3AebxU08XMMK4Rx3BdtkF45e2_o4bUw&s"
+                data-video="https://www.youtube.com/watch?v=MtuUqX_as6U&list=RDMtuUqX_as6U&start_radio=1">
+                Tudela
+            </option>
+
+        </select>
+    </div>
+
+    <div class="map-wrapper">
+
+        <div id="map-container">
+            <div class="custom-zoom">
+                <button id="zoom-in">+</button>
+                <div class="zoom-divider"></div>
+                <button id="zoom-out">−</button>
+            </div>
+            <div id="map"></div>
+        </div>
+
+        <div id="infoCard" class="info-card">
+            <div id="cardMedia" class="card-media"></div>
+            <div class="card-header">
+                <h3 id="cardTitle">Municipality</h3>
+                <span id="cardTagline">Tagline</span>
+            </div>
+            <div class="card-body">
+                <strong>History:</strong>
+                <p id="cardHistory"></p>
+
+                <strong>Famous For:</strong>
+                <div id="cardTags" class="known-for"></div>
+
+                <a id="videoLink" href="#" target="_blank" class="video-btn">
+                    <span>▶</span> Watch Video
+                </a>
+
+                <div id="exploreSection">
+                    <h3 id="exploreTitle">Do you wanna explore?</h3>
+                    <div class="duration-container">
+                        <span class="duration-label">Trip Duration</span>
+                        <select id="durationSelect">
+                            <option value="1 Day Trip">1 Day Trip</option>
+                            <option value="2 Days, 1 Night">2 Days, 1 Night</option>
+                            <option value="3 Days, 2 Nights">3 Days, 2 Nights</option>
+                        </select>
+                    </div>
+                    <button id="generateItineraryBtn" class="generate-btn">
+                        Generate Itinerary
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div id="itinerarySidebar" class="itinerary-sidebar">
+            <div class="itinerary-header">
+                <h2>Planned Trip</h2>
+            </div>
+            <div id="itineraryContent" class="itinerary-body">
+            </div>
+            <button onclick="closeItinerary()" class="close-btn">Close Itinerary</button>
+        </div>
+    </div>
+
+    <script src="sidebar.js"></script>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script src="map.js"></script>
+
+</body>
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cebu Heritage Explorer</title>
     <link rel="stylesheet" href="/sugbohenyo/map.css">
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
 </head>

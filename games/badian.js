@@ -6,20 +6,20 @@ class MainScene extends Phaser.Scene {
     }
 
     preload() {
-        this.load.image('rajahH_idle', '/sugbohenyo/games/assets/rajahH/rajahH.png');
-        this.load.image('rajahH_walk', '/sugbohenyo/games/assets/rajahH/rajahH_walk.png');
-        this.load.image('rajahH_jump', '/sugbohenyo/games/assets/rajahH/rajahH_jump.png');
-        this.load.image('bg', '/sugbohenyo/games/assets/badian/bg_badian.png');
-        this.load.image('grass', '/sugbohenyo/games/assets/badian/badian_ground.png');
-        this.load.image('xs_log', '/sugbohenyo/games/assets/logs/xs_log.png');
-        this.load.image('s_log', '/sugbohenyo/games/assets/logs/s_log.png');
-        this.load.image('med_log', '/sugbohenyo/games/assets/logs/med_log.png');
-        this.load.image('l_log', '/sugbohenyo/games/assets/logs/l_log.png');
-        this.load.image('falls', '/sugbohenyo/games/assets/badian/waterfalls_badian.png');
-        this.load.image('banig', '/sugbohenyo/games/assets/badian/banig.png');
-        this.load.image('enemy', '/sugbohenyo/games/assets/snake/snake0.png');
-        this.load.image('enemy_walk1', '/sugbohenyo/games/assets/snake/snake1.png');
-        this.load.image('enemy_walk2', '/sugbohenyo/games/assets/snake/snake2.png');
+        this.load.image('rajahH_idle', 'assets/rajahH/rajahH.png');
+        this.load.image('rajahH_walk', 'assets/rajahH/rajahH_walk.png');
+        this.load.image('rajahH_jump', 'assets/rajahH/rajahH_jump.png');
+        this.load.image('bg', 'assets/badian/bg_badian.png');
+        this.load.image('grass', 'assets/badian/badian_ground.png');
+        this.load.image('xs_log', 'assets/logs/xs_log.png');
+        this.load.image('s_log', 'assets/logs/s_log.png');
+        this.load.image('med_log', 'assets/logs/med_log.png');
+        this.load.image('l_log', 'assets/logs/l_log.png');
+        this.load.image('falls', 'assets/badian/waterfalls_badian.png');
+        this.load.image('banig', 'assets/badian/banig.png');
+        this.load.image('enemy', 'assets/snake/snake0.png');
+        this.load.image('enemy_walk1', 'assets/snake/snake1.png');
+        this.load.image('enemy_walk2', 'assets/snake/snake2.png');
     }
 
     showDialogue() {
@@ -93,7 +93,10 @@ class MainScene extends Phaser.Scene {
 
         this.cameras.main.once('camerafadeoutcomplete', () => { // (event, callback)
             this.scene.stop(); // stop MainScene
-            this.scene.start('EndScene');
+            this.scene.start('QuizScene', {
+                score: this.score,
+                lives: this.lives
+            });
         });
     }
 
@@ -279,11 +282,9 @@ class MainScene extends Phaser.Scene {
         );
 
         this.dialogues = [
-            "Badian, Cebu is a coastal municipality shaped by mountains, rivers, and long-standing local communities.",
-            "For generations, people here have relied on farming, fishing, and traditional weaving,",
-            "including banig (mat) making as part of daily life.",
-            "Kawasan Falls, formed by river systems flowing from Cebu’s highlands, is one of its most known natural landmarks.",
-            "Your journey follows these historic paths through Badian, where banig traditions and natural routes lead toward Kawasan Falls."
+            "Lapu-Lapu: The people of Badian are masters of patience and craftsmanship...",
+            "Lapu-Lapu: Their woven banig carries the stories and traditions of generations.",
+            "Lapu-Lapu: Beyond these rivers and waterfalls, allies await my message."
         ];
 
         this.dialogIndex = 0;
@@ -321,7 +322,7 @@ class MainScene extends Phaser.Scene {
         this.physics.add.overlap(this.player, this.banig, this.collectBanig, null, this); // allows the player to collect banig items by overlapping with them, triggering the collectBanig callback function when the overlap occurs
         this.physics.add.overlap(this.player, this.enemies, this.hitEnemy, null, this);
         this.physics.world.setBounds(0, 0, 2000, 288);
-this.physics.world.setBoundsCollision(true, true, true, false); // (x, y, width, height, checkLeft, checkRight, checkUp, checkDown) 
+        this.physics.world.setBoundsCollision(true, true, true, false); // (x, y, width, height, checkLeft, checkRight, checkUp, checkDown) 
         this.cameras.main.setBounds(0, 0, 2000, 288); // (x, y, width, height)
         this.cameras.main.setDeadzone(256, 288); // (width, height)
         this.maxReachedX = this.player.x; // keeps track of the furthest horizontal position the player has reached, used to prevent the camera from moving back to areas the player has already passed
@@ -467,6 +468,285 @@ class GameOverScene extends Phaser.Scene {
     }
 }
 
+class QuizScene extends Phaser.Scene {
+    constructor() {
+        super('QuizScene');
+    }
+
+    init(data) {
+        this.score = data.score;
+        this.lives = data.lives;
+    }
+
+    create() {
+
+        this.cameras.main.fadeIn(500, 0, 0, 0);
+
+        this.questions = [
+            {
+                question: "What is Badian famously called?",
+                answers: ["Sardine Capital", "Banig Capital of Cebu", "Whale Shark Capital"],
+                correct: 1
+            },
+            {
+                question: "What traditional craft is Badian known for?",
+                answers: ["Pottery making", "Banig weaving", "Wood carving"],
+                correct: 1
+            },
+            {
+                question: "Which world-famous attraction is located in Badian?",
+                answers: ["Kawasan Falls", "Chocolate Hills", "Mayon Volcano"],
+                correct: 0
+            },
+            {
+                question: "What plant is used to make banig mats in Badian?",
+                answers: ["Bamboo", "Pandan leaves", "Coconut husks"],
+                correct: 1
+            },
+            {
+                question: "What adventure activity is popular in Badian?",
+                answers: ["Skiing", "Canyoneering", "Sandboarding"],
+                correct: 1
+            }
+        ];
+
+        this.currentQuestion = 0;
+
+        this.livesText = this.add.text(10, 10,
+            'Lives: ' + this.lives,
+            {
+                fontSize: '16px',
+                fill: '#ffffff'
+            }
+        );
+
+        this.scoreText = this.add.text(130, 10,
+            'Score: ' + this.score,
+            {
+                fontSize: '16px',
+                fill: '#ffffff'
+            }
+        );
+
+        this.questionText = this.add.text( 
+            256,
+            70,
+            '',
+            {
+                fontSize: '20px',
+                fill: '#ffffff',
+                align: 'center',
+                wordWrap: { width: 450 }
+            }
+        ).setOrigin(0.5);
+
+        this.answerTexts = [];
+
+        for (let i = 0; i < 3; i++) {
+
+            let answer = this.add.text(
+                256,
+                140 + (i * 40),
+                '',
+                {
+                    fontSize: '18px',
+                    fill: '#ffff00',
+                    backgroundColor: '#000000',
+                    padding: {
+                        x: 10,
+                        y: 5
+                    }
+                }
+            ).setOrigin(0.5)
+             .setInteractive();
+
+            answer.on('pointerdown', () => {
+                this.checkAnswer(i);
+            });
+
+            this.answerTexts.push(answer);
+        }
+
+        this.showQuestion();
+    }
+
+    showQuestion() {
+
+        let q = this.questions[this.currentQuestion];
+
+        this.questionText.setText(
+            `Question ${this.currentQuestion + 1}/5\n\n${q.question}`
+        );
+
+        for (let i = 0; i < 3; i++) {
+            this.answerTexts[i].setText(q.answers[i]);
+        }
+    }
+
+    checkAnswer(choice) {
+
+        let q = this.questions[this.currentQuestion];
+
+        if (choice === q.correct) {
+
+            this.score += 20;
+
+            this.scoreText.setText(
+                'Score: ' + this.score
+            );
+
+        } else {
+
+            this.lives--;
+
+            this.livesText.setText(
+                'Lives: ' + this.lives
+            );
+
+            this.cameras.main.shake(200, 0.01);
+
+            if (this.lives <= 0) {
+
+                this.scene.start('GameOverScene');
+
+                return;
+            }
+        }
+
+        this.currentQuestion++;
+
+        if (this.currentQuestion >= this.questions.length) {
+
+            this.scene.start('RewardScene', {
+                score: this.score,
+                lives: this.lives
+            });
+
+        } else {
+
+            this.showQuestion();
+        }
+    }
+}
+
+class RewardScene extends Phaser.Scene {
+    constructor() {
+        super('RewardScene');
+    }
+
+    init(data) {
+        this.score = data.score;
+        this.lives = data.lives;
+    }
+
+    preload() {
+
+        // ADD YOUR ITEM IMAGE
+        this.load.image(
+            'artifact',
+            '/sugbohenyo/games/assets/badian/banig_relic.png'
+        );
+    }
+
+    create() {
+
+        this.cameras.main.fadeIn(1000, 0, 0, 0);
+
+        this.add.rectangle(
+            256,
+            144,
+            512,
+            288,
+            0x000000
+        );
+
+        let glow = this.add.circle(
+            256,
+            120,
+            50,
+            0xffffff,
+            0.3
+        );
+
+        this.tweens.add({
+            targets: glow,
+            scale: 1.5,
+            alpha: 0.1,
+            duration: 1000,
+            yoyo: true,
+            repeat: -1
+        });
+
+        let item = this.add.image(
+            256,
+            120,
+            'artifact'
+        );
+
+        item.setScale(0);
+
+        this.tweens.add({
+            targets: item,
+            scale: 0.5,
+            duration: 1000,
+            ease: 'Back.out'
+        });
+
+        this.tweens.add({
+            targets: item,
+            angle: 5,
+            duration: 500,
+            yoyo: true,
+            repeat: -1
+        });
+
+        this.time.delayedCall(1200, () => {
+
+            this.add.text(
+                256,
+                180,
+                "You obtained:\nBanig of Heritage",
+                {
+                    fontSize: '24px',
+                    fill: '#ffffff',
+                    align: 'center'
+                }
+            ).setOrigin(0.5);
+
+            this.add.text(
+                256,
+                225,
+                "A finely woven mat symbolizing the creativity,\npatience, and traditions of Badian.",
+                {
+                    fontSize: '14px',
+                    fill: '#ffffaa',
+                    align: 'center'
+                }
+            ).setOrigin(0.5);
+
+            this.add.text(
+                256,
+                260,
+                "Press SPACE to continue",
+                {
+                    fontSize: '12px',
+                    fill: '#ffffff'
+                }
+            ).setOrigin(0.5);
+
+        });
+
+        this.input.keyboard.once('keydown-SPACE', () => {
+
+            this.scene.start('EndScene', {
+                score: this.score,
+                lives: this.lives
+            });
+
+        });
+    }
+}
+
 class EndScene extends Phaser.Scene {
     constructor() {
         super('EndScene');
@@ -475,12 +755,12 @@ class EndScene extends Phaser.Scene {
     create() {
         this.cameras.main.fadeIn(800, 0, 0, 0);
 
-        this.add.text(256, 120, "Badian Level Complete", {
+        this.add.text(256, 120, "Message Delivered", {
             fontSize: '32px',
             fill: '#ffffff'
         }).setOrigin(0.5);
 
-        this.add.text(256, 160, "History Fulfilled", {
+        this.add.text(256, 160, "Lapu-Lapu: The people stand united.", {
             fontSize: '16px',
             fill: '#ffffff'
         }).setOrigin(0.5);
@@ -528,7 +808,13 @@ const config = {
         mode: Phaser.Scale.FIT,
         autoCenter: Phaser.Scale.CENTER_BOTH
     },
-    scene: [MainScene, EndScene, GameOverScene]
+    scene: [
+        MainScene,
+        QuizScene,
+        RewardScene,
+        EndScene,
+        GameOverScene
+    ]
 };
 
 const game = new Phaser.Game(config);

@@ -86,7 +86,10 @@ class MainScene extends Phaser.Scene {
 
                 if (this.timeLimit <= 0) {
                     this.timerEvent.remove(false);
-                    this.scene.start('EndScene');
+                    this.scene.start('QuizScene', {
+                        score: this.score,
+                        lives: this.lives
+                    });
                 }
             }
         });
@@ -103,10 +106,15 @@ class MainScene extends Phaser.Scene {
 
         item.body.setAllowGravity(false);
         item.setVelocityY(this.fallSpeed);
-        item.setScale(.05);
+        item.type = type;
+        if (item.type === 'trash') {
+            item.setScale(.08);  // trash stays the same
+        } else {
+            item.setScale(1.0);  // corn and coconut bigger
+        }
         item.setDepth(10); // optional but now correct
 
-        item.type = type;
+        
     }
 
     catchItem(player, item) {
@@ -324,6 +332,284 @@ class GameOverScene extends Phaser.Scene {
     }
 }
 
+class QuizScene extends Phaser.Scene {
+    constructor() {
+        super('QuizScene');
+    }
+
+    init(data) {
+        this.score = data.score;
+        this.lives = data.lives;
+    }
+
+    create() {
+
+        this.cameras.main.fadeIn(500, 0, 0, 0);
+
+        this.questions = [
+            {
+                question: "Where is Medellin located?",
+                answers: ["Cebu, Philippines", "Iloilo, Philippines", "Davao, Philippines"],
+                correct: 0
+            },
+            {
+                question: "What type of place is Medellin?",
+                answers: ["Island province", "Municipality", "Mountain range"],
+                correct: 1
+            },
+            {
+                question: "Which island is Medellin part of?",
+                answers: ["Luzon", "Mindanao", "Visayas"],
+                correct: 2
+            },
+            {
+                question: "What is Medellin commonly known for?",
+                answers: ["Sugarcane farming", "Diamond mining", "Oil production"],
+                correct: 0
+            },
+            {
+                question: "Which direction is Medellin located in Cebu Island?",
+                answers: ["Southern Cebu", "Northern Cebu", "Eastern Cebu"],
+                correct: 1
+            }
+        ];
+
+        this.currentQuestion = 0;
+
+        this.livesText = this.add.text(10, 10,
+            'Lives: ' + this.lives,
+            {
+                fontSize: '16px',
+                fill: '#ffffff'
+            }
+        );
+
+        this.scoreText = this.add.text(130, 10,
+            'Score: ' + this.score,
+            {
+                fontSize: '16px',
+                fill: '#ffffff'
+            }
+        );
+
+        this.questionText = this.add.text( 
+            256,
+            70,
+            '',
+            {
+                fontSize: '20px',
+                fill: '#ffffff',
+                align: 'center',
+                wordWrap: { width: 450 }
+            }
+        ).setOrigin(0.5);
+
+        this.answerTexts = [];
+
+        for (let i = 0; i < 3; i++) {
+
+            let answer = this.add.text(
+                256,
+                140 + (i * 40),
+                '',
+                {
+                    fontSize: '18px',
+                    fill: '#ffff00',
+                    backgroundColor: '#000000',
+                    padding: {
+                        x: 10,
+                        y: 5
+                    }
+                }
+            ).setOrigin(0.5)
+             .setInteractive();
+
+            answer.on('pointerdown', () => {
+                this.checkAnswer(i);
+            });
+
+            this.answerTexts.push(answer);
+        }
+
+        this.showQuestion();
+    }
+
+    showQuestion() {
+
+        let q = this.questions[this.currentQuestion];
+
+        this.questionText.setText(
+            `Question ${this.currentQuestion + 1}/5\n\n${q.question}`
+        );
+
+        for (let i = 0; i < 3; i++) {
+            this.answerTexts[i].setText(q.answers[i]);
+        }
+    }
+
+    checkAnswer(choice) {
+
+        let q = this.questions[this.currentQuestion];
+
+        if (choice === q.correct) {
+
+            this.score += 20;
+
+            this.scoreText.setText(
+                'Score: ' + this.score
+            );
+
+        } else {
+
+            this.lives--;
+
+            this.livesText.setText(
+                'Lives: ' + this.lives
+            );
+
+            this.cameras.main.shake(200, 0.01);
+
+            if (this.lives <= 0) {
+
+                this.scene.start('GameOverScene');
+
+                return;
+            }
+        }
+
+        this.currentQuestion++;
+
+        if (this.currentQuestion >= this.questions.length) {
+
+            this.scene.start('RewardScene', {
+                score: this.score,
+                lives: this.lives
+            });
+
+        } else {
+
+            this.showQuestion();
+        }
+    }
+}
+
+class RewardScene extends Phaser.Scene {
+    constructor() {
+        super('RewardScene');
+    }
+
+    init(data) {
+        this.score = data.score;
+        this.lives = data.lives;
+    }
+
+    preload() {
+
+        // ADD YOUR ITEM IMAGE
+        this.load.image(
+            'artifact',
+            'assets/medellin/sugarcane.png'
+        );
+    }
+
+    create() {
+
+        this.cameras.main.fadeIn(1000, 0, 0, 0);
+
+        this.add.rectangle(
+            256,
+            144,
+            512,
+            288,
+            0x000000
+        );
+
+        let glow = this.add.circle(
+            256,
+            120,
+            50,
+            0xffffff,
+            0.3
+        );
+
+        this.tweens.add({
+            targets: glow,
+            scale: 1.5,
+            alpha: 0.1,
+            duration: 1000,
+            yoyo: true,
+            repeat: -1
+        });
+
+        let item = this.add.image(
+            256,
+            120,
+            'artifact'
+        );
+
+        item.setScale(0);
+
+        this.tweens.add({
+            targets: item,
+            scale: 2.0,
+            duration: 1000,
+            ease: 'Back.out'
+        });
+
+        this.tweens.add({
+            targets: item,
+            angle: 5,
+            duration: 500,
+            yoyo: true,
+            repeat: -1
+        });
+
+        this.time.delayedCall(1200, () => {
+
+            this.add.text(
+                256,
+                180,
+                "You obtained:\nCane of Legacy",
+                {
+                    fontSize: '24px',
+                    fill: '#ffffff',
+                    align: 'center'
+                }
+            ).setOrigin(0.5);
+
+            this.add.text(
+                256,
+                225,
+                "A golden crop that nourishes the land and\nits people, symbolizing hard work, heritage,\nand the sweet legacy of Medellin.",
+                {
+                    fontSize: '14px',
+                    fill: '#ffffaa',
+                    align: 'center'
+                }
+            ).setOrigin(0.5);
+            this.add.text(
+                256,
+                260,
+                "Press SPACE to continue",
+                {
+                    fontSize: '12px',
+                    fill: '#ffffff'
+                }
+            ).setOrigin(0.5);
+
+        });
+
+        this.input.keyboard.once('keydown-SPACE', () => {
+
+            this.scene.start('EndScene', {
+                score: this.score,
+                lives: this.lives
+            });
+
+        });
+    }
+}
+
 class EndScene extends Phaser.Scene {
     constructor() {
         super('EndScene');
@@ -332,12 +618,12 @@ class EndScene extends Phaser.Scene {
     create() {
         this.cameras.main.fadeIn(800, 0, 0, 0);
 
-        this.add.text(256, 120, "Medellin Level Complete", {
+        this.add.text(256, 120, "Message Delivered", {
             fontSize: '32px',
             fill: '#ffffff'
         }).setOrigin(0.5);
 
-        this.add.text(256, 160, "History Fulfilled", {
+        this.add.text(256, 160, "Lapu-Lapu: The people stand united.", {
             fontSize: '16px',
             fill: '#ffffff'
         }).setOrigin(0.5);
@@ -385,7 +671,13 @@ const config = {
         mode: Phaser.Scale.FIT,
         autoCenter: Phaser.Scale.CENTER_BOTH
     },
-    scene: [MainScene, EndScene, GameOverScene]
+    scene: [
+        MainScene,
+        QuizScene,
+        RewardScene,
+        EndScene,
+        GameOverScene
+    ]
 };
 
 const game = new Phaser.Game(config);
