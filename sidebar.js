@@ -3,13 +3,12 @@ fetch('/sugbohenyo/sidebar.html')
   .then(data => {
     document.getElementById('sidebar').innerHTML = data;
 
-    const currentPage =
-      window.location.pathname.split('/').pop() || 'index.html';
+    const currentPath = window.location.pathname; // "/sugbohenyo/dashboard"
 
     document.querySelectorAll('#sidebar a').forEach(link => {
-      const href = link.getAttribute('href');
+      const href = link.getAttribute('href'); // "/dashboard"
 
-      if (href === currentPage) {
+      if (currentPath.endsWith(href)) {  // ← change === to .endsWith()
         link.classList.add('active');
       }
     });
