@@ -92,3 +92,32 @@ async function storeScore(score) {
   
   console.log('Score stored successfully:', result);
 }
+
+async function generateFunFact(topic) {
+    try {
+        const response = await fetch('/funfact', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                type: 'fun_fact',
+                topic
+            })
+        });
+
+        if (!response.ok) {
+            throw new Error('Failed to fetch fun fact');
+        }
+
+        return await response.json();
+
+    } catch (error) {
+        console.error('generateFunFact error:', error);
+
+        return {
+            title: 'Fun Fact',
+            fact: 'Unable to load fun fact right now.'
+        };
+    }
+}
