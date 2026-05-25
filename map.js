@@ -94,33 +94,70 @@ citySelector.addEventListener('change', function () {
 // --- ITINERARY SIDEBAR LOGIC ---
 
 // 1. Open Itinerary
-document.getElementById('generateItineraryBtn').addEventListener('click', function() {
+document.getElementById('generateItineraryBtn').addEventListener('click', async function() {
     const name = document.getElementById('cardTitle').innerText;
     const duration = document.getElementById('durationSelect').value;
 
     // Trigger the slide-in transition
     wrapper.classList.add('itinerary-active');
 
-    // Populate Sidebar Content dynamically based on the current card
+    // Show loading state
     const content = document.getElementById('itineraryContent');
     content.innerHTML = `
         <div style="padding: 15px; background: #f0f4ff; border-radius: 8px; border-left: 4px solid #2346b8;">
             <h4 style="margin:0; color:#333;">${name} Trip Plan</h4>
             <p style="margin: 5px 0 0; font-size: 14px; color: #666;">${duration}</p>
         </div>
-        <div style="margin-top: 20px; line-height: 1.6;">
-            <p>🌅 <strong>Morning:</strong> Start your journey at the heart of ${name}. Visit local heritage sites and grab a quick native breakfast.</p>
-            <p>🍴 <strong>Lunch:</strong> Taste the famous delicacies of ${name} at a recommended local restaurant.</p>
-            <p>🏖️ <strong>Afternoon:</strong> Head to the natural attractions. Check the "Famous For" tags in your info card for the best spots!</p>
-            <p>✨ <strong>Evening:</strong> Relax by the coast or mountain view decks before heading back.</p>
+        <div style="margin-top: 20px; text-align: center; padding: 40px 20px;">
+            <p style="font-size: 16px; color: #666;">🤖 Generating your personalized itinerary...</p>
         </div>
     `;
 
     // Pan map to the left so the marker isn't covered by the floating panels
     map.panBy([250, 0], { animate: true });
+
+    // Fetch AI-generated itinerary
+    try {
+        const res = await fetch('/promptItinerary', {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                message: `create a ${duration} travel plan for ${name}, only the itinerary with detailed morning, lunch, afternoon, and evening activities`
+            })
+        });
+
+        const api = await res.json();
+
+        // Update content with AI response
+        content.innerHTML = `
+            <div style="padding: 15px; background: #f0f4ff; border-radius: 8px; border-left: 4px solid #2346b8;">
+                <h4 style="margin:0; color:#333;">${name} Trip Plan</h4>
+                <p style="margin: 5px 0 0; font-size: 14px; color: #666;">${duration}</p>
+            </div>
+            <div style="margin-top: 20px; line-height: 1.6;font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">
+                ${api.reply}
+            </div>
+        `;
+
+    } catch (err) {
+        console.error("generate error", err);
+        // Show error message
+        content.innerHTML = `
+            <div style="padding: 15px; background: #f0f4ff; border-radius: 8px; border-left: 4px solid #2346b8;">
+                <h4 style="margin:0; color:#333;">${name} Trip Plan</h4>
+                <p style="margin: 5px 0 0; font-size: 14px; color: #666;">${duration}</p>
+            </div>
+            <div style="margin-top: 20px; padding: 20px; background: #ffebee; border-radius: 8px; text-align: center;">
+                <p style="color: #c62828; margin: 0;">❌ Failed to generate itinerary.</p>
+                <p style="color: #666; font-size: 14px; margin: 10px 0 0;">Please try again later.</p>
+            </div>
+        `;
+    }
 });
 
-// 2. Close Itinerary Function
+// Close Itinerary Function
 function closeItinerary() {
     wrapper.classList.remove('itinerary-active');
     // Pan map back to center

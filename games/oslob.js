@@ -73,6 +73,7 @@ class MainScene extends Phaser.Scene {
 
         if (this.entering) return; // prevents multiple triggers if the player overlaps the zone multiple times
         this.entering = true;
+        storeScore(this.score);
 
         player.setVelocity(0, 0); // (x, y) stops the player's movement immediately when they enter the house zone
         player.anims?.stop?.(); // stops any ongoing animations for the player sprite, ensuring it remains static during the transition

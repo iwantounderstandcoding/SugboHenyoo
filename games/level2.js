@@ -3,8 +3,8 @@ class StoryScene extends Phaser.Scene {
         super('StoryScene');
     }
 
-    preload() {  //load assets (key, path)
-        this.load.image('bg', 'assets/BoM/level2_bg.png');
+    preload() {  //load /sugbohenyo/games/assets (key, path)
+        this.load.image('bg', '/sugbohenyo/games/assets/BoM/level2_bg.png');
     }
 
     create() {
@@ -47,7 +47,7 @@ class StoryScene extends Phaser.Scene {
 
         this.showLine(); // starts the process of showing the first line of dialogue with a typing effect
         this.input.keyboard.on('keydown-ESC', () => {
-            window.location.href = '../adventure.html';
+            window.location.href = '../adventure';
         });
     }
 
@@ -102,17 +102,17 @@ class MainScene extends Phaser.Scene {
     }
 
     preload() {
-        this.load.image('bg', 'assets/BoM/level2_bg.png');
-        this.load.image('plat', 'assets/BoM/level2_plat.png');
-        this.load.image('log', 'assets/logs/l_log.png');
-        this.load.image('lapu_idle', 'assets/lapu/lapu.png');
-        this.load.image('lapu_walk', 'assets/lapu/lapu_walk.png');
-        this.load.image('lapu_attack', 'assets/lapu/lapu_atk.png');
-        this.load.image('lapu_jump', 'assets/lapu/lapu_jump.png');
-        this.load.image('magellan_idle', 'assets/magellan/magellan.png');
-        this.load.image('magellan_walk', 'assets/magellan/magellan_walk.png');
-        this.load.image('magellan_attack', 'assets/magellan/magellan_atk.png');
-        this.load.image('magellan_jump', 'assets/magellan/magellan_jump.png');
+        this.load.image('bg', '/sugbohenyo/games/assets/BoM/level2_bg.png');
+        this.load.image('plat', '/sugbohenyo/games/assets/BoM/level2_plat.png');
+        this.load.image('log', '/sugbohenyo/games/assets/logs/l_log.png');
+        this.load.image('lapu_idle', '/sugbohenyo/games/assets/lapu/lapu.png');
+        this.load.image('lapu_walk', '/sugbohenyo/games/assets/lapu/lapu_walk.png');
+        this.load.image('lapu_attack', '/sugbohenyo/games/assets/lapu/lapu_atk.png');
+        this.load.image('lapu_jump', '/sugbohenyo/games/assets/lapu/lapu_jump.png');
+        this.load.image('magellan_idle', '/sugbohenyo/games/assets/magellan/magellan.png');
+        this.load.image('magellan_walk', '/sugbohenyo/games/assets/magellan/magellan_walk.png');
+        this.load.image('magellan_attack', '/sugbohenyo/games/assets/magellan/magellan_atk.png');
+        this.load.image('magellan_jump', '/sugbohenyo/games/assets/magellan/magellan_jump.png');
     }
 
     // ── DIALOGUE ──────────────────────────────
@@ -478,7 +478,7 @@ class MainScene extends Phaser.Scene {
         });
 
         this.input.keyboard.on('keydown-ESC', () => {
-            window.location.href = '../adventure.html';
+            window.location.href = '../adventure';
         });
     }
 
@@ -552,7 +552,7 @@ class GameOverScene extends Phaser.Scene {
             this.scene.start('StoryScene');
         });
         this.input.keyboard.on('keydown-ESC', () => {
-            window.location.href = '../adventure.html';
+            window.location.href = '../adventure';
         });
     }
 }
@@ -578,7 +578,7 @@ class EndScene extends Phaser.Scene {
             this.scene.start('StoryScene');
         });
         this.input.keyboard.on('keydown-ESC', () => {
-            window.location.href = '../adventure.html';
+            window.location.href = '../adventure';
         });
     }
 }

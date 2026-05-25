@@ -1,54 +1,54 @@
 var municipalityGroups = {
   "Northern Cebu": [
-    { name:"Bantayan", slug:"bantayan", x:62.7, y:7.5 },
-    { name:"Medellin", slug:"medellin", x:72.9, y:16 },
-    { name:"Bogo City", slug:"bogo-city", x:72, y:21 },
-    { name:"San Remigio", slug:"san-remigio", x:68.7, y:24 },
-    { name:"Tabogon", slug:"tabogon", x:71.5, y:25 },
-    { name:"Borbon", slug:"borbon", x:70.3, y:29 },
-    { name:"Sogod", slug:"sogod", x:68, y:33 },
-    { name:"Catmon", slug:"catmon", x:67, y:37.7 },
-    { name:"Carmen", slug:"carmen", x:65.7, y:40.9 },
-    { name:"Tuburan", slug:"tuburan", x:62, y:35 },
-    { name:"Tabuelan", slug:"tabuelan", x:66.5, y:28 },
-    { name:"Asturias", slug:"asturias", x:58, y:39 },
-    { name:"Balamban", slug:"balamban", x:55.5, y:44.5 },
-    { name:"Danao City", slug:"danao-city", x:63.5, y:44 }
+    { name:"Bantayan", slug:"bantayan", x:69.7, y:5 },
+    { name:"Medellin", slug:"medellin", x:85.5, y:14.7 },
+    { name:"Bogo City", slug:"bogo-city", x:84, y:19.7 },
+    { name:"San Remigio", slug:"san-remigio", x:79.5, y:22.5 },
+    { name:"Tabogon", slug:"tabogon", x:83, y:24 },
+    { name:"Borbon", slug:"borbon", x:81, y:28.5 },
+    { name:"Sogod", slug:"sogod", x:78, y:32.5 },
+    { name:"Catmon", slug:"catmon", x:76.5, y:37 },
+    { name:"Carmen", slug:"carmen", x:74.3, y:40.5 },
+    { name:"Tuburan", slug:"tuburan", x:68.5, y:34 },
+    { name:"Tabuelan", slug:"tabuelan", x:75.5, y:27.5 },
+    { name:"Asturias", slug:"asturias", x:61.5, y:38.7 },
+    { name:"Balamban", slug:"balamban", x:58.7, y:44 },
+    { name:"Danao City", slug:"danao-city", x:71, y:43.5 }
   ],
 
   "Central Cebu": [
-    { name:"Cebu City", slug:"cebu-city", x:57.5, y:50 },
-    { name:"Mandaue City", slug:"mandaue-city", x:60.9, y:52.5 },
-    { name:"Lapu-Lapu City", slug:"lapu-lapu-city", x:62, y:55.9 },
-    { name:"Consolacion", slug:"consolacion", x:62, y:50.3 },
-    { name:"Liloan", slug:"liloan", x:63.5, y:49.7 },
-    { name:"Compostela", slug:"compostela", x:63.9, y:48 },
-    { name:"Cordova", slug:"cordova", x:60, y:57 },
-    { name:"Talisay City", slug:"talisay-city", x:54.5, y:53 },
-    { name:"Minglanilla", slug:"minglanilla", x:53.5, y:54 },
-    { name:"Naga City", slug:"naga-city", x:50.7, y:54.5 },
-    { name:"San Fernando", slug:"san-fernando", x:47.7, y:57 },
-    { name:"Carcar City", slug:"carcar-city", x:44.5, y:59.5 }
+    { name:"Cebu City", slug:"cebu-city", x:62, y:50.5 },
+    { name:"Mandaue City", slug:"mandaue-city", x:66.7, y:53 },
+    { name:"Lapu-Lapu City", slug:"lapu-lapu-city", x:68, y:56 },
+    { name:"Consolacion", slug:"consolacion", x:68.9, y:51 },
+    { name:"Liloan", slug:"liloan", x:70.9, y:49.9 },
+    { name:"Compostela", slug:"compostela", x:70.7, y:47 },
+    { name:"Cordova", slug:"cordova", x:65.5, y:57.5 },
+    { name:"Talisay City", slug:"talisay-city", x:57, y:53 },
+    { name:"Minglanilla", slug:"minglanilla", x:55.3, y:54 },
+    { name:"Naga City", slug:"naga-city", x:51, y:55 },
+    { name:"San Fernando", slug:"san-fernando", x:46, y:57 },
+    { name:"Carcar City", slug:"carcar-city", x:41.5, y:60 }
   ],
 
   "Southern Cebu": [
-    { name:"Sibonga", slug:"sibonga", x:41.2, y:63.3 },
-    { name:"Argao", slug:"argao", x:38, y:68 },
-    { name:"Dalaguete", slug:"dalaguete", x:34, y:73 },
-    { name:"Alcoy", slug:"alcoy", x:31.5, y:77 },
-    { name:"Boljoon", slug:"boljoon", x:29.5, y:79.5 },
-    { name:"Oslob", slug:"oslob", x:26.5, y:84 },
-    { name:"Santander", slug:"santander", x:21.3, y:88.3 },
-    { name:"Samboan", slug:"samboan", x:22, y:85 },
-    { name:"Ginatilan", slug:"ginatilian", x:23.7, y:82 },
-    { name:"Malabuyoc", slug:"malabuyoc", x:25.7, y:78 },
-    { name:"Alegria", slug:"alegria", x:28.3, y:73.7 },
-    { name:"Badian", slug:"badian", x:31, y:69.5 },
-    { name:"Moalboal", slug:"moalboal", x:33, y:65.7 },
-    { name:"Alcantara", slug:"alcantara", x:34, y:64 },
-    { name:"Ronda", slug:"ronda", x:34.9, y:63 },
-    { name:"Barili", slug:"barili", x:39.9, y:58.5 },
-    { name:"Pinamungajan", slug:"pinamungajan", x:46.3, y:52 },
+    { name:"Sibonga", slug:"sibonga", x:36, y:64 },
+    { name:"Argao", slug:"argao", x:31.5, y:69 },
+    { name:"Dalaguete", slug:"dalaguete", x:24.7, y:74.5 },
+    { name:"Alcoy", slug:"alcoy", x:21, y:78 },
+    { name:"Boljoon", slug:"boljoon", x:17.7, y:81.5 },
+    { name:"Oslob", slug:"oslob", x:13, y:85.7 },
+    { name:"Santander", slug:"santander", x:5.3, y:90 },
+    { name:"Samboan", slug:"samboan", x:6.5, y:86.5 },
+    { name:"Ginatilan", slug:"ginatilian", x:9.3, y:83.7 },
+    { name:"Malabuyoc", slug:"malabuyoc", x:12.5, y:79.3 },
+    { name:"Alegria", slug:"alegria", x:15.9, y:74.7 },
+    { name:"Badian", slug:"badian", x:20.5, y:70.3 },
+    { name:"Moalboal", slug:"moalboal", x:23.3, y:66 },
+    { name:"Alcantara", slug:"alcantara", x:24.7, y:64.5 },
+    { name:"Ronda", slug:"ronda", x:26.5, y:64 },
+    { name:"Barili", slug:"barili", x:34.5, y:58.7 },
+    { name:"Pinamungajan", slug:"pinamungajan", x:44.5, y:52 },
     { name:"Toledo City", slug:"toledo-city", x:50.5, y:48.3 }
   ]
 };
@@ -59,7 +59,7 @@ var regionColors = {
   "Southern Cebu": "#db8000"
 };
 
-var container = document.getElementById("map-container");
+var container = document.querySelector(".map-wrapper");
 var tooltip = document.getElementById("tooltip");
 var muniList = document.getElementById("muni-list");
 
@@ -73,24 +73,22 @@ Object.keys(municipalityGroups).forEach(function(region) {
   municipalityGroups[region].forEach(function(m) {
 
     var dot = document.createElement("div");
+
     dot.className = "dot";
     dot.style.left = m.x + "%";
     dot.style.top = m.y + "%";
     dot.style.background = regionColors[region];
 
     dot.onclick = function() {
-      window.location.href = "games/" + m.slug + ".html";
+      window.location.href = "games/" + m.slug;
     };
 
     dot.addEventListener("mouseenter", function() {
       tooltip.innerText = m.name;
       tooltip.style.display = "block";
       tooltip.style.background = regionColors[region];
-    });
-
-    dot.addEventListener("mousemove", function(e) {
-      tooltip.style.left = (e.clientX + 12) + "px";
-      tooltip.style.top = (e.clientY - 28) + "px";
+      tooltip.style.left = m.x + "%";
+      tooltip.style.top = m.y + "%";
     });
 
     dot.addEventListener("mouseleave", function() {
@@ -102,7 +100,7 @@ Object.keys(municipalityGroups).forEach(function(region) {
     var li = document.createElement("li");
 
     var a = document.createElement("a");
-    a.href = "games/" + m.slug + ".html";
+    a.href = "games/" + m.slug;
     a.innerText = m.name;
 
     li.appendChild(a);

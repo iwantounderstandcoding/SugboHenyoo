@@ -1,43 +1,3 @@
-async function loadUser() {
-    const res = await fetch('/api/me', {
-        credentials: 'include'
-    });
-    const data = await res.json();
-    if(data.success === false){
-        window.location.href = '/login';
-        return;
-    }
-};
-loadUser();
-
-async function storeScore() {
-    console.log("ran storing")
-    const res = await fetch('/api/me', {
-        credentials: 'include'
-    });
-    const data = await res.json();
-
-    if(data.success === false){
-        window.location.href = '/login';
-        return;
-    }
-    console.log("sending to server");
-    // Fixed: Added await, fetch, and proper error handling
-    const storeRes = await fetch(`/api/storePoints/${data.uid}/${this.score}`, {
-        method: 'POST',
-        credentials: 'include'
-    });
-    const result = await storeRes.json();
-    console.log(result);
-    if (!storeRes.ok) {
-        console.error('Failed to store score:', result.error);
-        return;
-    }
-    
-    console.log('Score stored successfully:', result);
-}
-
-
 class StoryScene extends Phaser.Scene {
     constructor() { //constructor() is a special method for creating and initializing an object created with a class. In this case, it initializes the StoryScene class.
         super('StoryScene');
@@ -216,6 +176,7 @@ class MainScene extends Phaser.Scene {
 
         if (this.entering) return; // prevents multiple triggers if the player overlaps the zone multiple times
         this.entering = true;
+        storeScore(this.score);
 
         player.setVelocity(0, 0); // (x, y) stops the player's movement immediately when they enter the house zone
         player.anims?.stop?.(); // stops any ongoing animations for the player sprite, ensuring it remains static during the transition
@@ -505,8 +466,7 @@ class MainScene extends Phaser.Scene {
         this.maxReachedX = this.player.x; // keeps track of the furthest horizontal position the player has reached, used to prevent the camera from moving back to areas the player has already passed
         this.prevCamX = 0;
         this.input.keyboard.on('keydown-ESC', () => {
-            storeScore();
-            window.location.href = '/adventure';
+            window.location.href = '/adventure'; 
         });
     }
 
@@ -644,7 +604,6 @@ class GameOverScene extends Phaser.Scene {
             this.scene.start('StoryScene');
         });
         this.input.keyboard.on('keydown-ESC', () => {
-            storeScore();
             window.location.href = '/adventure';
         });
     }
@@ -964,7 +923,6 @@ class EndScene extends Phaser.Scene {
             this.scene.start('StoryScene');
         });
         this.input.keyboard.on('keydown-ESC', () => {
-            storeScore();
             window.location.href = '/adventure';
         });
     }
