@@ -571,7 +571,7 @@ h1, h2, h3, h4, p, span {
 .relic-icon img {
     width: 100%;
     height: 100%;
-    object-fit: cover;  /* or 'cover' if you want it to fill */
+    object-fit: contain;  /* or 'cover' if you want it to fill */
 }
 
 .relic-card.locked .relic-icon {
