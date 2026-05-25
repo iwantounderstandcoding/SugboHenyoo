@@ -175,6 +175,7 @@ select#citySelector:hover {
 .card-body {
     padding: 20px;
     color: #333;
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 
 .known-for {
