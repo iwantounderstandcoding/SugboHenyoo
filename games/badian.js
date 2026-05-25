@@ -646,7 +646,7 @@ class RewardScene extends Phaser.Scene {
         // ADD YOUR ITEM IMAGE
         this.load.image(
             'artifact',
-            '/sugbohenyo/games//sugbohenyo/games/assets/badian/banig_relic.png'
+            '/sugbohenyo/games/assets/badian/banig_relic.png'
         );
     }
 
