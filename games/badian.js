@@ -6,20 +6,20 @@ class MainScene extends Phaser.Scene {
     }
 
     preload() {
-        this.load.image('rajahH_idle', 'assets/rajahH/rajahH.png');
-        this.load.image('rajahH_walk', 'assets/rajahH/rajahH_walk.png');
-        this.load.image('rajahH_jump', 'assets/rajahH/rajahH_jump.png');
-        this.load.image('bg', 'assets/badian/bg_badian.png');
-        this.load.image('grass', 'assets/badian/badian_ground.png');
-        this.load.image('xs_log', 'assets/logs/xs_log.png');
-        this.load.image('s_log', 'assets/logs/s_log.png');
-        this.load.image('med_log', 'assets/logs/med_log.png');
-        this.load.image('l_log', 'assets/logs/l_log.png');
-        this.load.image('falls', 'assets/badian/waterfalls_badian.png');
-        this.load.image('banig', 'assets/badian/banig.png');
-        this.load.image('enemy', 'assets/snake/snake0.png');
-        this.load.image('enemy_walk1', 'assets/snake/snake1.png');
-        this.load.image('enemy_walk2', 'assets/snake/snake2.png');
+        this.load.image('rajahH_idle', '/sugbohenyo/games/assets/rajahH/rajahH.png');
+        this.load.image('rajahH_walk', '/sugbohenyo/games/assets/rajahH/rajahH_walk.png');
+        this.load.image('rajahH_jump', '/sugbohenyo/games/assets/rajahH/rajahH_jump.png');
+        this.load.image('bg', '/sugbohenyo/games/assets/badian/bg_badian.png');
+        this.load.image('grass', '/sugbohenyo/games/assets/badian/badian_ground.png');
+        this.load.image('xs_log', '/sugbohenyo/games/assets/logs/xs_log.png');
+        this.load.image('s_log', '/sugbohenyo/games/assets/logs/s_log.png');
+        this.load.image('med_log', '/sugbohenyo/games/assets/logs/med_log.png');
+        this.load.image('l_log', '/sugbohenyo/games/assets/logs/l_log.png');
+        this.load.image('falls', '/sugbohenyo/games/assets/badian/waterfalls_badian.png');
+        this.load.image('banig', '/sugbohenyo/games/assets/badian/banig.png');
+        this.load.image('enemy', '/sugbohenyo/games/assets/snake/snake0.png');
+        this.load.image('enemy_walk1', '/sugbohenyo/games/assets/snake/snake1.png');
+        this.load.image('enemy_walk2', '/sugbohenyo/games/assets/snake/snake2.png');
     }
 
     showDialogue() {
@@ -646,7 +646,7 @@ class RewardScene extends Phaser.Scene {
         // ADD YOUR ITEM IMAGE
         this.load.image(
             'artifact',
-            '/sugbohenyo/games/assets/badian/banig_relic.png'
+            '/sugbohenyo/games//sugbohenyo/games/assets/badian/banig_relic.png'
         );
     }
 
