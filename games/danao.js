@@ -6,19 +6,19 @@ class MainScene extends Phaser.Scene {
     }
 
     preload() {
-        this.load.image('rajahH_idle', 'assets/rajahH/rajahH.png');
-        this.load.image('rajahH_walk', 'assets/rajahH/rajahH_walk.png');
-        this.load.image('rajahH_jump', 'assets/rajahH/rajahH_jump.png');
-        this.load.image('bg', 'assets/danao/danaobg.png');
-        this.load.image('grass', 'assets/oslob/oslob_ground.png');
-        this.load.image('xs_log', 'assets/logs/xs_log.png');
-        this.load.image('s_log', 'assets/logs/s_log.png');
-        this.load.image('med_log', 'assets/logs/med_log.png');
-        this.load.image('l_log', 'assets/logs/l_log.png');
-        this.load.image('ruins', 'assets/danao/mount.png');
-        this.load.image('pearl', 'assets/danao/kiseo.png');
-        this.load.image('enemy_walk1', 'assets/soldier/right_enemy.png');
-        this.load.image('enemy_walk2', 'assets/soldier/left_enemy.png');
+        this.load.image('rajahH_idle', '/sugbohenyo/games/assets/rajahH/rajahH.png');
+        this.load.image('rajahH_walk', '/sugbohenyo/games/assets/rajahH/rajahH_walk.png');
+        this.load.image('rajahH_jump', '/sugbohenyo/games/assets/rajahH/rajahH_jump.png');
+        this.load.image('bg', '/sugbohenyo/games/assets/danao/danaobg.png');
+        this.load.image('grass', '/sugbohenyo/games/assets/oslob/oslob_ground.png');
+        this.load.image('xs_log', '/sugbohenyo/games/assets/logs/xs_log.png');
+        this.load.image('s_log', '/sugbohenyo/games/assets/logs/s_log.png');
+        this.load.image('med_log', '/sugbohenyo/games/assets/logs/med_log.png');
+        this.load.image('l_log', '/sugbohenyo/games/assets/logs/l_log.png');
+        this.load.image('ruins', '/sugbohenyo/games/assets/danao/mount.png');
+        this.load.image('pearl', '/sugbohenyo/games/assets/danao/kiseo.png');
+        this.load.image('enemy_walk1', '/sugbohenyo/games/assets/soldier/right_enemy.png');
+        this.load.image('enemy_walk2', '/sugbohenyo/games/assets/soldier/left_enemy.png');
     }
 
     showDialogue() {
@@ -718,7 +718,8 @@ class QuizScene extends Phaser.Scene {
         this.currentQuestion++;
 
         if (this.currentQuestion >= this.questions.length) {
-
+            storeScore(this.score);
+            obtainedRelic(3);
             this.scene.start('RewardScene', {
                 score: this.score,
                 lives: this.lives
@@ -746,7 +747,7 @@ class RewardScene extends Phaser.Scene {
         // ADD YOUR ITEM IMAGE
         this.load.image(
             'artifact',
-            'assets/danao/gunRelic.png'
+            '/sugbohenyo/games/assets/danao/gunRelic.png'
         );
     }
 

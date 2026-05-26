@@ -6,16 +6,16 @@ class MainScene extends Phaser.Scene {
     }
 
     preload() {
-        this.load.image('rajahH_idle', 'assets/rajahH/rajahH.png');
-        this.load.image('rajahH_walk', 'assets/rajahH/rajahH_walk.png');
-        this.load.image('rajahH_jump', 'assets/rajahH/rajahH_jump.png');
-        this.load.image('bg', 'assets/medellin/medellinbg.png');
-        this.load.image('grass', 'assets/medellin/groundmed.png');
+        this.load.image('rajahH_idle', '/sugbohenyo/games/assets/rajahH/rajahH.png');
+        this.load.image('rajahH_walk', '/sugbohenyo/games/assets/rajahH/rajahH_walk.png');
+        this.load.image('rajahH_jump', '/sugbohenyo/games/assets/rajahH/rajahH_jump.png');
+        this.load.image('bg', '/sugbohenyo/games/assets/medellin/medellinbg.png');
+        this.load.image('grass', '/sugbohenyo/games/assets/medellin/groundmed.png');
         
-        this.load.image('fish', 'assets/medellin/coconut.png');
-        this.load.image('egg', 'assets/medellin/coconut.png');
-        this.load.image('wood', 'assets/medellin/corn.png');
-        this.load.image('trash', 'assets/bantayan/trash.png');
+        this.load.image('fish', '/sugbohenyo/games/assets/medellin/coconut.png');
+        this.load.image('egg', '/sugbohenyo/games/assets/medellin/coconut.png');
+        this.load.image('wood', '/sugbohenyo/games/assets/medellin/corn.png');
+        this.load.image('trash', '/sugbohenyo/games/assets/bantayan/trash.png');
 
     }
 
@@ -480,7 +480,8 @@ class QuizScene extends Phaser.Scene {
         this.currentQuestion++;
 
         if (this.currentQuestion >= this.questions.length) {
-
+            storeScore(this.score);
+            obtainedRelic(2);
             this.scene.start('RewardScene', {
                 score: this.score,
                 lives: this.lives
@@ -508,7 +509,7 @@ class RewardScene extends Phaser.Scene {
         // ADD YOUR ITEM IMAGE
         this.load.image(
             'artifact',
-            'assets/medellin/sugarcane.png'
+            '/sugbohenyo/games/assets/medellin/sugarcane.png'
         );
     }
 
