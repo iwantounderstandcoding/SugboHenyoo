@@ -84,7 +84,7 @@ const municipalities = {
             <p class="intro">Did you know that Aloguinsan was formerly a barrio of Pinamungajan? It was officially created as a town through a Royal Decree of the Kingdom of Spain in <strong>1886</strong>. Located about 90 kilometers southwest of Cebu City, it is known for its natural attractions, rich marine life, and strong eco-tourism identity.</p>
             <hr>
             <h2>Historical Roots & Origin</h2>
-            <p>The town is bordered by <strong>Pinamungajan</strong> to the north, the <strong>Tañon Strait</strong> to the west, <strong>Carcar City</strong> to the east, and <strong>Barili</strong> to the south.</p>
+            <p>The town is bordered by <strong>Pinamungajan</strong> to the north, the <strong>TaÃ±on Strait</strong> to the west, <strong>Carcar City</strong> to the east, and <strong>Barili</strong> to the south.</p>
             <hr>
             <h2>Cultural Identity: Kinsan Festival</h2>
             <p>Every June, Aloguinsan celebrates the famous <span class="highlight">Kinsan Festival</span>, named after the <strong>Dotted Grouper</strong>, locally known as "Kinsan." The town fiesta is celebrated every <strong>2nd Sunday of June</strong> in honor of <strong>St. Raphael the Archangel</strong>.</p>
@@ -97,7 +97,7 @@ const municipalities = {
             <ul>
                 <li><strong>Bojo River:</strong> A protected eco-tourism site featuring mangroves, guided river cruises, and rich biodiversity.</li>
                 <li><strong>Hermit's Cove:</strong> A secluded white-sand beach known for its clear waters and limestone formations.</li>
-                <li><strong>Marine Waters:</strong> Rich fishing grounds along the Tañon Strait supporting local livelihoods.</li>
+                <li><strong>Marine Waters:</strong> Rich fishing grounds along the TaÃ±on Strait supporting local livelihoods.</li>
             </ul>
             <div class="fact-box"><strong>Quick Fact:</strong> Aloguinsan is one of Cebu's leading eco-tourism towns, balancing conservation, marine protection, and sustainable community development.</div>`
     },
@@ -121,7 +121,7 @@ const municipalities = {
             <ul>
                 <li><strong>Torta:</strong> The town's signature sponge cake and cultural pride.</li>
                 <li><strong>Tablea:</strong> Locally processed cacao used for traditional hot chocolate.</li>
-                <li><strong>Sukang Tubâ:</strong> Coconut vinegar made from fermented coconut sap.</li>
+                <li><strong>Sukang TubÃ¢:</strong> Coconut vinegar made from fermented coconut sap.</li>
                 <li><strong>Hablon Weaving:</strong> Traditional handwoven textiles showcasing Cebuano craftsmanship.</li>
             </ul>
             <div class="fact-box"><strong>Quick Fact:</strong> Argao is one of Cebu's most historically rich municipalities, known for its preserved Spanish architecture, mythological heritage, and strong culinary identity centered on torta.</div>`
@@ -133,7 +133,7 @@ const municipalities = {
             <p class="intro">Asturias is a coastal municipality in northern Cebu known for its agricultural landscapes, rich cultural history, and growing eco-tourism sites. It is a community shaped by migration, settlement, and strong rural traditions.</p>
             <hr>
             <h2>Historical Roots & Origin</h2>
-            <p>The town was originally called <span class="highlight">Naghalin</span>, a term meaning "settlers" or "making fire." It was formed from parts of <strong>Tuburan</strong> and <strong>Balamban</strong> due to increasing migration from neighboring islands. Asturias was formally established as a pueblo in the late 19th century. A notable historical event was witnessed in <strong>1888</strong> by Antonio Alonso, the uncle of national hero José Rizal.</p>
+            <p>The town was originally called <span class="highlight">Naghalin</span>, a term meaning "settlers" or "making fire." It was formed from parts of <strong>Tuburan</strong> and <strong>Balamban</strong> due to increasing migration from neighboring islands. Asturias was formally established as a pueblo in the late 19th century. A notable historical event was witnessed in <strong>1888</strong> by Antonio Alonso, the uncle of national hero JosÃ© Rizal.</p>
             <hr>
             <h2>Cultural Identity: Lalin Festival</h2>
             <div class="grid">
@@ -228,7 +228,7 @@ const municipalities = {
             <hr>
             <h2>Historical Roots & Origin</h2>
             <p>The town's name is derived from the <span class="highlight">"balili"</span> grass, which grows abundantly in the area. Its colonial history stretches back even further, as it is home to a historic cross erected by Spanish conquistadores as early as <strong>1602</strong>.</p>
-            <p>Barili also played a significant role during World War II. It was the site where <strong>Chief Justice José Abad Santos</strong> was captured by Japanese forces in 1942.</p>
+            <p>Barili also played a significant role during World War II. It was the site where <strong>Chief Justice JosÃ© Abad Santos</strong> was captured by Japanese forces in 1942.</p>
             <hr>
             <h2>Cultural Identity & Heritage</h2>
             <div class="grid">
@@ -321,7 +321,7 @@ const municipalities = {
             <hr>
             <h2>Historical Roots & Origin</h2>
             <p>Long before the Spanish arrival, Carcar was the pre-colonial district of <strong>Sialo</strong>, ruled by the descendants of the legendary <strong>Sri Lumay</strong>. It was officially established as a Spanish town in <strong>1599</strong>.</p>
-            <p>In 1944, local residents recovered the <span class="highlight">"Koga Papers"</span>—top-secret Japanese military documents that proved vital to <strong>General Douglas MacArthur's</strong> strategy for the liberation of the Philippines.</p>
+            <p>In 1944, local residents recovered the <span class="highlight">"Koga Papers"</span>â€”top-secret Japanese military documents that proved vital to <strong>General Douglas MacArthur's</strong> strategy for the liberation of the Philippines.</p>
             <hr>
             <h2>Cultural Identity & Heritage</h2>
             <div class="grid">
@@ -345,7 +345,7 @@ const municipalities = {
             <p class="intro">Carmen is a vibrant municipality in northern Cebu that balances deep religious traditions with modern world-class attractions. Known for its rolling hills and spiritual heritage, it serves as a major cultural destination for both pilgrims and adventure seekers.</p>
             <hr>
             <h2>Historical Roots & Origin</h2>
-            <p>The town was originally known as <span class="highlight">"Bugho,"</span> a name that referred to openings or holes in the ground. Carmen officially became a municipality on <strong>June 16, 1851</strong> and was later renamed in honor of <strong>Nuestra Señora del Carmen</strong>.</p>
+            <p>The town was originally known as <span class="highlight">"Bugho,"</span> a name that referred to openings or holes in the ground. Carmen officially became a municipality on <strong>June 16, 1851</strong> and was later renamed in honor of <strong>Nuestra SeÃ±ora del Carmen</strong>.</p>
             <hr>
             <h2>Cultural Identity & Heritage</h2>
             <div class="grid">
@@ -391,11 +391,11 @@ const municipalities = {
             <p class="intro">Cebu City is the vibrant heart of the Philippines' oldest colonial history and its modern economic future. As the "Queen City of the South," it stands as the primary gateway to the Visayas.</p>
             <hr>
             <h2>Historical Roots & Origin</h2>
-            <p>Cebu City is the <strong>oldest city in the Philippines</strong>. Its colonial narrative began in <strong>1565</strong> when Miguel López de Legazpi established the first Spanish settlement. The city's history is also marked by the arrival of <strong>Ferdinand Magellan</strong> in 1521, an event that introduced Christianity to the archipelago.</p>
+            <p>Cebu City is the <strong>oldest city in the Philippines</strong>. Its colonial narrative began in <strong>1565</strong> when Miguel LÃ³pez de Legazpi established the first Spanish settlement. The city's history is also marked by the arrival of <strong>Ferdinand Magellan</strong> in 1521, an event that introduced Christianity to the archipelago.</p>
             <hr>
             <h2>Cultural Identity & Heritage</h2>
             <div class="grid">
-                <div class="inner-card"><h3>The Cradle of Christianity</h3><p>The city houses the <strong>Basilica Minore del Santo Niño</strong> and the iconic <strong>Magellan's Cross</strong>, symbolizing the birth of the Catholic faith in the Philippines.</p></div>
+                <div class="inner-card"><h3>The Cradle of Christianity</h3><p>The city houses the <strong>Basilica Minore del Santo NiÃ±o</strong> and the iconic <strong>Magellan's Cross</strong>, symbolizing the birth of the Catholic faith in the Philippines.</p></div>
                 <div class="inner-card"><h3>Spanish Defense</h3><p><strong>Fort San Pedro</strong>, the oldest triangular bastion fort in the country, stands as a silent witness to the city's military history.</p></div>
             </div>
             <hr>
@@ -460,7 +460,7 @@ const municipalities = {
             <p class="intro">Cordova is a thriving island municipality on the southern tip of Mactan, known for its rich marine biodiversity and its strategic role as the modern gateway to mainland Cebu.</p>
             <hr>
             <h2>Historical Roots & Origin</h2>
-            <p>Established on <strong>May 22, 1863</strong>, Cordova is believed to be named after the Spanish province of <strong>Córdoba</strong>. The municipality originally comprised the core barrios of <strong>Gabi, Day-as, and Pilipog</strong>.</p>
+            <p>Established on <strong>May 22, 1863</strong>, Cordova is believed to be named after the Spanish province of <strong>CÃ³rdoba</strong>. The municipality originally comprised the core barrios of <strong>Gabi, Day-as, and Pilipog</strong>.</p>
             <hr>
             <h2>Cultural Identity: Dinagat Bakasi Festival</h2>
             <div class="grid">
@@ -519,9 +519,9 @@ const municipalities = {
             <ul>
                 <li><strong>Highland Vegetables:</strong> The Mantalongon Market is the trading hub for cabbage, carrots, bell peppers, and sayote.</li>
                 <li><strong>Mantalongon Flowers:</strong> A major producer of fresh-cut flowers distributed across the Visayas.</li>
-                <li><strong>Osmeña Peak:</strong> The highest point in Cebu, known for its unique jagged hills.</li>
+                <li><strong>OsmeÃ±a Peak:</strong> The highest point in Cebu, known for its unique jagged hills.</li>
             </ul>
-            <div class="fact-box"><strong>Quick Fact:</strong> Because of its elevation, the barangay of Mantalongon experiences temperatures as low as 13°C, making it the only place in Cebu where frost-loving vegetables and strawberries can thrive.</div>`
+            <div class="fact-box"><strong>Quick Fact:</strong> Because of its elevation, the barangay of Mantalongon experiences temperatures as low as 13Â°C, making it the only place in Cebu where frost-loving vegetables and strawberries can thrive.</div>`
     },
     "Danao City": {
         video: "https://www.youtube.com/embed/ULUoFk0hajY",
@@ -605,7 +605,7 @@ const municipalities = {
             <hr>
             <h2>Cultural Identity: The Birth of Rosquillos</h2>
             <div class="grid">
-                <div class="inner-card"><h3>The Birth of Rosquillos</h3><p>In 1907, a local resident named <strong>Titay</strong> created a unique ring-shaped biscuit. Legend has it that <strong>President Sergio Osmeña</strong> himself gave the biscuit its name, <em>"Rosquillos."</em></p></div>
+                <div class="inner-card"><h3>The Birth of Rosquillos</h3><p>In 1907, a local resident named <strong>Titay</strong> created a unique ring-shaped biscuit. Legend has it that <strong>President Sergio OsmeÃ±a</strong> himself gave the biscuit its name, <em>"Rosquillos."</em></p></div>
                 <div class="inner-card"><h3>San Fernando Rey Parish</h3><p>Unlike many Spanish-era churches that face the sea, Liloan's church faces the mountains. This unique orientation was intended to protect the congregation from the blinding glare of the morning sun.</p></div>
             </div>
             <hr>
@@ -681,10 +681,10 @@ const municipalities = {
             <h2>Products & Natural Attractions</h2>
             <ul>
                 <li><strong>Mainit Hot Springs:</strong> Volcanic-heated pools offering therapeutic experiences.</li>
-                <li><strong>Montañeza Falls:</strong> A thrilling canyoneering experience through dramatic limestone canyons.</li>
+                <li><strong>MontaÃ±eza Falls:</strong> A thrilling canyoneering experience through dramatic limestone canyons.</li>
                 <li><strong>Agriculture:</strong> A consistent producer of high-quality corn, tobacco, and coconut.</li>
             </ul>
-            <div class="fact-box"><strong>Quick Fact:</strong> Malabuyoc is one of the few places in Cebu where you can experience "Contrast Therapy" naturally—dipping into a 42°C hot spring and then jumping into a cool, refreshing waterfall just a few meters away.</div>`
+            <div class="fact-box"><strong>Quick Fact:</strong> Malabuyoc is one of the few places in Cebu where you can experience "Contrast Therapy" naturallyâ€”dipping into a 42Â°C hot spring and then jumping into a cool, refreshing waterfall just a few meters away.</div>`
     },
     "Mandaue City": {
         video: "",
@@ -698,14 +698,14 @@ const municipalities = {
             <h2>Cultural Identity & Heritage</h2>
             <div class="grid">
                 <div class="inner-card"><h3>The Furniture Capital</h3><p>Mandaue is world-renowned for its <strong>Furniture Industry</strong>. From rattan and wicker to high-end stone and wood inlays, the city's designers and artisans furnish prestigious hotels and homes across the globe.</p></div>
-                <div class="inner-card"><h3>National Shrine of St. Joseph</h3><p>This historic church is the spiritual center of the city, home to the <strong>Señor San Jose</strong>, the city's patron.</p></div>
+                <div class="inner-card"><h3>National Shrine of St. Joseph</h3><p>This historic church is the spiritual center of the city, home to the <strong>SeÃ±or San Jose</strong>, the city's patron.</p></div>
             </div>
             <hr>
             <h2>Products & Local Identity</h2>
             <ul>
                 <li><strong>Bibingka sa Mandaue:</strong> A signature rice cake traditionally baked in clay ovens, famous for its distinct smokey flavor.</li>
                 <li><strong>Export-Quality Design:</strong> World-class furniture and home decor that define the "Cebuano Brand" in international markets.</li>
-                <li><strong>Mactan-Cebu Bridges:</strong> The city serves as the vital connector for the province via the Sergio Osmeña and Marcelo Fernan bridges.</li>
+                <li><strong>Mactan-Cebu Bridges:</strong> The city serves as the vital connector for the province via the Sergio OsmeÃ±a and Marcelo Fernan bridges.</li>
             </ul>
             <div class="fact-box"><strong>Quick Fact:</strong> Mandaue City is one of the few places in the world that achieved UNESCO recognition for its design industry, proving that even a heavy industrial hub can be a center of high-end artistry.</div>`
     },
@@ -716,7 +716,7 @@ const municipalities = {
             <p class="intro">Medellin is a vast, scenic municipality in northern Cebu characterized by rolling sugarcane fields and world-class eco-tourism. Known as the "Sugar Capital," it has successfully reinvented itself into a premier destination for adventure seekers, golfers, and island hoppers.</p>
             <hr>
             <h2>Historical Roots & Origin</h2>
-            <p>Medellin was officially established as a municipality in <strong>1881</strong>. It was named after the town of <strong>Medellín in Spain</strong>, the birthplace of the famous conquistador Hernán Cortés. In <strong>1928</strong>, the <strong>Bogo-Medellin Milling Company (BOMEDCO)</strong> transformed the landscape into a sea of green sugarcane.</p>
+            <p>Medellin was officially established as a municipality in <strong>1881</strong>. It was named after the town of <strong>MedellÃ­n in Spain</strong>, the birthplace of the famous conquistador HernÃ¡n CortÃ©s. In <strong>1928</strong>, the <strong>Bogo-Medellin Milling Company (BOMEDCO)</strong> transformed the landscape into a sea of green sugarcane.</p>
             <hr>
             <h2>Cultural Identity & Heritage</h2>
             <div class="grid">
@@ -730,7 +730,7 @@ const municipalities = {
                 <li><strong>The Bamboo Forest:</strong> A locally maintained ecological site that has become a viral sensation.</li>
                 <li><strong>Gibitngil Island (Funtastic Island):</strong> Famous for its cliff-jumping and colorful rock formations.</li>
             </ul>
-            <div class="fact-box"><strong>Quick Fact:</strong> Medellin is uniquely designed with wide, straight roads—uncommon in many Cebuano towns—specifically built to accommodate the large trucks and machinery used in the sugar trade.</div>`
+            <div class="fact-box"><strong>Quick Fact:</strong> Medellin is uniquely designed with wide, straight roadsâ€”uncommon in many Cebuano townsâ€”specifically built to accommodate the large trucks and machinery used in the sugar trade.</div>`
     },
     "Minglanilla": {
         video: "https://www.youtube.com/embed/Qv01UrUFfLE",
@@ -751,7 +751,7 @@ const municipalities = {
             <ul>
                 <li><strong>Anjo World Theme Park:</strong> The Visayas region's first world-class theme park, home to the iconic "Snow World."</li>
                 <li><strong>Traditional Delicacies:</strong> The town is a known stop for famous bibingka and other native rice cakes.</li>
-                <li><strong>Camp 7 / Osmeña Reforestation Project:</strong> The oldest reforestation project in the Philippines, featuring man-made forests and trekking trails.</li>
+                <li><strong>Camp 7 / OsmeÃ±a Reforestation Project:</strong> The oldest reforestation project in the Philippines, featuring man-made forests and trekking trails.</li>
             </ul>
             <div class="fact-box"><strong>Quick Fact:</strong> The <em>Sugat</em> of Minglanilla is so legendary that it has been dubbed the "Mother of all Sugats" in Cebu, setting the standard for liturgical dramatization across the entire province.</div>`
     },
@@ -776,7 +776,7 @@ const municipalities = {
                 <li><strong>Basdako White Beach:</strong> Known for its wide stretch of white sand, perfect for sunbathing and local family picnics.</li>
                 <li><strong>Turtle Point:</strong> A protected area where sea turtles (Pawikan) are frequently seen grazing in the shallow sea grass.</li>
             </ul>
-            <div class="fact-box"><strong>Quick Fact:</strong> Moalboal is one of the few places in the world where you don't even need a boat to see a "Sardine Run"—the massive schools of fish are often located just 30 meters away from the shoreline of the local dive shops.</div>`
+            <div class="fact-box"><strong>Quick Fact:</strong> Moalboal is one of the few places in the world where you don't even need a boat to see a "Sardine Run"â€”the massive schools of fish are often located just 30 meters away from the shoreline of the local dive shops.</div>`
     },
     "Naga City": {
         video: "https://www.youtube.com/embed/5ss_Z38xSTc",
@@ -877,12 +877,12 @@ const municipalities = {
             <p class="intro">Poro is the historic and linguistic heart of the Camotes Islands. As the oldest settlement in the archipelago, it stands as a testament to ancient peace-making and cultural preservation.</p>
             <hr>
             <h2>Historical Roots & Origin</h2>
-            <p>Founded in <strong>1701</strong>, Poro holds the distinction of being the oldest municipality in Camotes. Its name is derived from the Waray-Waray word <span class="highlight">"Pulo"</span> (island). The town was born from a historic <strong>peace pact</strong> between two warring tribes—the <strong>Maktang</strong> and the <strong>Tag-anito</strong>.</p>
-            <p>Poro is the only place in the world where <strong>Porohanon</strong> is spoken—a unique language distinct from Cebuano.</p>
+            <p>Founded in <strong>1701</strong>, Poro holds the distinction of being the oldest municipality in Camotes. Its name is derived from the Waray-Waray word <span class="highlight">"Pulo"</span> (island). The town was born from a historic <strong>peace pact</strong> between two warring tribesâ€”the <strong>Maktang</strong> and the <strong>Tag-anito</strong>.</p>
+            <p>Poro is the only place in the world where <strong>Porohanon</strong> is spokenâ€”a unique language distinct from Cebuano.</p>
             <hr>
             <h2>Cultural Identity: Tagbo Festival</h2>
             <div class="grid">
-                <div class="inner-card"><h3>Sto. Niño de Poro</h3><p>The <strong>Sto. Niño de Poro Parish</strong> is the oldest church in Camotes, housing a centuries-old image of the Holy Child.</p></div>
+                <div class="inner-card"><h3>Sto. NiÃ±o de Poro</h3><p>The <strong>Sto. NiÃ±o de Poro Parish</strong> is the oldest church in Camotes, housing a centuries-old image of the Holy Child.</p></div>
                 <div class="inner-card"><h3>Linguistic Rarity</h3><p>The <strong>Porohanon language</strong> is a vital part of the town's heritage, representing a living link to the island's pre-colonial tribal history.</p></div>
             </div>
             <hr>
@@ -901,7 +901,7 @@ const municipalities = {
             <p class="intro">Ronda is a charming municipality in southwestern Cebu that offers a perfect blend of highland scenery and coastal tranquility. Known for its rich culinary traditions and historical ties to Spain.</p>
             <hr>
             <h2>Historical Roots & Origin</h2>
-            <p>Long before the Spanish arrived, the area was known as <span class="highlight">"Huluyaw,"</span> named after a variety of banana. The town was renamed <strong>Ronda</strong> by Spanish colonizers who were reminded of <strong>Ronda in Málaga, Spain</strong>. Officially established as a municipality in <strong>1779</strong>.</p>
+            <p>Long before the Spanish arrived, the area was known as <span class="highlight">"Huluyaw,"</span> named after a variety of banana. The town was renamed <strong>Ronda</strong> by Spanish colonizers who were reminded of <strong>Ronda in MÃ¡laga, Spain</strong>. Officially established as a municipality in <strong>1779</strong>.</p>
             <hr>
             <h2>Cultural Identity: The Humba Festival</h2>
             <div class="grid">
@@ -912,7 +912,7 @@ const municipalities = {
             <h2>Products & Local Identity</h2>
             <ul>
                 <li><strong>Ronda Humba:</strong> A savory, melt-in-your-mouth pork delicacy.</li>
-                <li><strong>Ronda Wharf (Embarcadero):</strong> A scenic historical landmark offering a wide view of the Tañon Strait.</li>
+                <li><strong>Ronda Wharf (Embarcadero):</strong> A scenic historical landmark offering a wide view of the TaÃ±on Strait.</li>
                 <li><strong>Lusno Falls:</strong> A multi-tiered waterfall nestled in the mountains.</li>
             </ul>
             <div class="fact-box"><strong>Quick Fact:</strong> Despite being a small town, Ronda has a reputation for producing highly skilled artisans and woodcarvers, many of whom contributed to the intricate altars found in churches across the southern region.</div>`
@@ -924,7 +924,7 @@ const municipalities = {
             <p class="intro">Samboan is a town of staggering heights and cascading waters. Perched on the southwestern tip of Cebu, it is a living museum where the echoes of Spanish-era coastal defenses meet the roar of the island's most spectacular multi-tiered waterfalls.</p>
             <hr>
             <h2>Historical Roots & Origin</h2>
-            <p>The town's name evolved from <span class="highlight">"Canumbohan,"</span> derived from the word <em>sambo</em> or <em>canumbo</em>—an ancient fishing method. Samboan was formally established as a parish in <strong>1794</strong>. To monitor and protect the town, the <strong>Campanario de Samboan</strong> (watchtower) was built atop a hill, connected to the town center by the legendary <strong>Jacob's Ladder</strong>.</p>
+            <p>The town's name evolved from <span class="highlight">"Canumbohan,"</span> derived from the word <em>sambo</em> or <em>canumbo</em>â€”an ancient fishing method. Samboan was formally established as a parish in <strong>1794</strong>. To monitor and protect the town, the <strong>Campanario de Samboan</strong> (watchtower) was built atop a hill, connected to the town center by the legendary <strong>Jacob's Ladder</strong>.</p>
             <hr>
             <h2>Cultural Identity & Heritage</h2>
             <div class="grid">
@@ -938,7 +938,7 @@ const municipalities = {
                 <li><strong>Dau Falls:</strong> The highest waterfall in Samboan, accessible via a scenic trek through a forest canyon.</li>
                 <li><strong>Ponong Lake:</strong> A serene, brackish lake surrounded by mangroves.</li>
             </ul>
-            <div class="fact-box"><strong>Quick Fact:</strong> Samboan is so rich in history that its town center—featuring the church, museum, plaza, and watchtower—is often referred to as one of the best-preserved heritage clusters in the entire country.</div>`
+            <div class="fact-box"><strong>Quick Fact:</strong> Samboan is so rich in history that its town centerâ€”featuring the church, museum, plaza, and watchtowerâ€”is often referred to as one of the best-preserved heritage clusters in the entire country.</div>`
     },
     "San Fernando": {
         video: "https://www.youtube.com/embed/H2YZTmt1RVY",
@@ -970,7 +970,7 @@ const municipalities = {
             <p class="intro">San Francisco is the vibrant heartbeat of the Camotes Islands. Occupying the entirety of Pacijan Island, it is a land where crystalline beaches, mystical caves, and the largest freshwater lake in the Visayas create an island experience that feels both adventurous and timeless.</p>
             <hr>
             <h2>Historical Roots & Origin</h2>
-            <p>Established as a parish in <strong>1863</strong>, it is said that when Spanish explorers arrived and asked for the name of the place, locals thought they were asking about their crops and replied <span class="highlight">"Camotes"</span> (sweet potatoes)—a name that stuck to the entire island group.</p>
+            <p>Established as a parish in <strong>1863</strong>, it is said that when Spanish explorers arrived and asked for the name of the place, locals thought they were asking about their crops and replied <span class="highlight">"Camotes"</span> (sweet potatoes)â€”a name that stuck to the entire island group.</p>
             <hr>
             <h2>Cultural Identity: Soli-Soli Festival</h2>
             <div class="grid">
@@ -1052,7 +1052,7 @@ const municipalities = {
             <ul>
                 <li><strong>Liloan Port:</strong> The primary gateway for travelers heading to Dumaguete City and Negros Oriental.</li>
                 <li><strong>Pebble Beach & Gun-ob Beach:</strong> Distinct from the sandy shores of the north, these beaches offer smooth, sun-bleached stones.</li>
-                <li><strong>Marine Village:</strong> A popular spot for divers and marine enthusiasts exploring the Tañon Strait.</li>
+                <li><strong>Marine Village:</strong> A popular spot for divers and marine enthusiasts exploring the TaÃ±on Strait.</li>
             </ul>
             <div class="fact-box"><strong>Quick Fact:</strong> Santander is the smallest municipality in Cebu in terms of land area, but its strategic location makes it one of the busiest transit points in the entire Visayas region.</div>`
     },
@@ -1068,7 +1068,7 @@ const municipalities = {
             <h2>Cultural Identity & Heritage</h2>
             <div class="grid">
                 <div class="inner-card"><h3>Pastores de Sibonga</h3><p>A treasured cultural legacy, the <strong>Pastores de Sibonga</strong> is a traditional Christmas play and dance that commemorates the shepherds visiting the manger, one of the most vibrant folk traditions in the province.</p></div>
-                <div class="inner-card"><h3>Nuestra Señora del Pilar</h3><p>The <strong>Nuestra Señora del Pilar Parish Church</strong> stands as the town's spiritual heart, with intricate ceiling paintings and coral stone walls as masterpieces of religious architecture.</p></div>
+                <div class="inner-card"><h3>Nuestra SeÃ±ora del Pilar</h3><p>The <strong>Nuestra SeÃ±ora del Pilar Parish Church</strong> stands as the town's spiritual heart, with intricate ceiling paintings and coral stone walls as masterpieces of religious architecture.</p></div>
             </div>
             <hr>
             <h2>The Premier Pilgrimage Center</h2>
@@ -1123,7 +1123,7 @@ const municipalities = {
                 <li><strong>Banyan Springs (Badiang):</strong> Another hidden freshwater wonder shaded by ancient trees.</li>
                 <li><strong>Salag Mangrove Park:</strong> A vital ecological site offering boardwalks through dense mangrove forests.</li>
             </ul>
-            <div class="fact-box"><strong>Quick Fact:</strong> Tabogon's "Sanggi" tradition is one of the few festivals in Cebu that specifically mimics the actual physical movements of traditional farming—planting, weeding, and harvesting—preserving the agricultural techniques of ancestors in dance form.</div>`
+            <div class="fact-box"><strong>Quick Fact:</strong> Tabogon's "Sanggi" tradition is one of the few festivals in Cebu that specifically mimics the actual physical movements of traditional farmingâ€”planting, weeding, and harvestingâ€”preserving the agricultural techniques of ancestors in dance form.</div>`
     },
     "Tabuelan": {
         video: "https://www.youtube.com/embed/LlP5G-AGO-Y",
@@ -1147,7 +1147,7 @@ const municipalities = {
                 <li><strong>Tabuelan Port:</strong> A key maritime gateway providing a direct link to <strong>Escalante</strong> in Negros Occidental.</li>
                 <li><strong>Bamboo Boardwalk:</strong> A serene path through coastal mangroves.</li>
             </ul>
-            <div class="fact-box"><strong>Quick Fact:</strong> Tabuelan is often called the "Sunset Capital of the Northwest" because of its unobstructed view of the sun dipping below the horizon of the Tañon Strait.</div>`
+            <div class="fact-box"><strong>Quick Fact:</strong> Tabuelan is often called the "Sunset Capital of the Northwest" because of its unobstructed view of the sun dipping below the horizon of the TaÃ±on Strait.</div>`
     },
     "Talisay City": {
         video: "https://www.youtube.com/embed/rm0N4LOGA0c",
@@ -1170,7 +1170,7 @@ const municipalities = {
                 <li><strong>Crocolandia Foundation:</strong> A prominent conservation park and wildlife sanctuary.</li>
                 <li><strong>The Lechon Strip:</strong> A culinary destination where rows of vendors serve Talisay's signature crispy-skinned, herb-infused roasted pig.</li>
             </ul>
-            <div class="fact-box"><strong>Quick Fact:</strong> Talisay City is widely considered the birthplace of the modern "Cebu Lechon." Local experts claim that the city's unique cooking technique—using specific wood and local herbs—is what gives their roasted pig its distinctively superior crunch and flavor.</div>`
+            <div class="fact-box"><strong>Quick Fact:</strong> Talisay City is widely considered the birthplace of the modern "Cebu Lechon." Local experts claim that the city's unique cooking techniqueâ€”using specific wood and local herbsâ€”is what gives their roasted pig its distinctively superior crunch and flavor.</div>`
     },
     "Toledo City": {
         video: "https://www.youtube.com/embed/qMDda_t-hS4",
@@ -1226,7 +1226,7 @@ const municipalities = {
             <p class="intro">Tudela is the "Enchanted Gem" of the Camotes Islands, a town where mystical caves, rare island waterfalls, and sprawling mangrove forests create an ethereal landscape. Tucked away on Poro Island.</p>
             <hr>
             <h2>Historical Roots & Origin</h2>
-            <p>The town was originally known as <span class="highlight">"Tag-anito,"</span> a name that pays homage to the early villagers' traditional worship of spirits (anitos). Tudela was declared a separate town from Poro on <strong>May 20, 1892</strong>, and later renamed "Tudela"—after the Spanish city in the province of Navarre.</p>
+            <p>The town was originally known as <span class="highlight">"Tag-anito,"</span> a name that pays homage to the early villagers' traditional worship of spirits (anitos). Tudela was declared a separate town from Poro on <strong>May 20, 1892</strong>, and later renamed "Tudela"â€”after the Spanish city in the province of Navarre.</p>
             <hr>
             <h2>Cultural Identity & Heritage</h2>
             <div class="grid">
@@ -1245,6 +1245,11 @@ const municipalities = {
     }
 };
 
+// --- READ ALOUD ENGINE SETUP ---
+const synth = window.speechSynthesis;
+let currentUtterance = null;
+const speakBtn = document.getElementById('dashboard-speak-btn');
+
 function onMunicipalityChange() {
     const select = document.getElementById('municipality-select');
     const name = select.value;
@@ -1254,11 +1259,17 @@ function onMunicipalityChange() {
     const textContainer = document.getElementById('muni-text-container');
     const textLabel = document.getElementById('muni-text-label');
 
+    // Reset speech synthesis states every time the town changes
+    resetAllSpeech();
+
     if (!name || !municipalities[name]) {
         videoContainer.innerHTML = `<div class="placeholder"><span class="placeholder-icon">&#9654;</span><p>No municipality selected</p></div>`;
         textContainer.innerHTML = `<div class="placeholder"><span class="placeholder-icon">&#128218;</span><p>No municipality selected</p></div>`;
         videoLabel.textContent = 'Select a municipality to watch its feature video.';
         textLabel.textContent = 'Select a municipality to read about it.';
+        
+        // Hide read aloud button if no selection matches
+        if (speakBtn) speakBtn.style.display = "none";
         return;
     }
 
@@ -1267,11 +1278,100 @@ function onMunicipalityChange() {
     videoLabel.textContent = name + ' — ' + data.tagline;
     textLabel.textContent = name + ' — ' + data.tagline;
 
+    // Appending '?enablejsapi=1' lets the speak button control and pause the video player
     if (data.video) {
-        videoContainer.innerHTML = `<iframe src="${data.video}" frameborder="0" allowfullscreen></iframe>`;
+        videoContainer.innerHTML = `<iframe src="${data.video}?enablejsapi=1" frameborder="0" allowfullscreen></iframe>`;
     } else {
         videoContainer.innerHTML = `<div class="placeholder"><span class="placeholder-icon">&#9654;</span><p>No video available for this municipality.</p></div>`;
     }
 
     textContainer.innerHTML = `<div class="muni-content"><h1>${name}</h1><p class="tagline">${data.tagline}</p>${data.content}</div>`;
+
+    // Show the read aloud button now that data is injected
+    if (speakBtn) {
+        speakBtn.style.display = "block";
+    }
 }
+
+// --- BUTTON INTERACTION EVENT DRIVER ---
+if (speakBtn) {
+    speakBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+
+        // 1. If currently reading: PAUSE IT
+        if (synth.speaking && !synth.paused) {
+            synth.pause();
+            speakBtn.innerHTML = "▶️ Resume Aloud";
+            return;
+        }
+        
+        // 2. If already paused: RESUME IT
+        if (synth.paused) {
+            synth.resume();
+            pauseAllVideos(); 
+            speakBtn.innerHTML = "⏸️ Pause Audio";
+            return;
+        }
+
+        // 3. Brand new reading event sequence
+        resetAllSpeech();
+        pauseAllVideos();
+        speakBtn.innerHTML = "⏸️ Pause Audio";
+
+        const textContainer = document.getElementById('muni-text-container');
+        if (!textContainer) return;
+
+        // Clone element layer to extract text without reading internal code/hidden blocks
+        const tempContainer = textContainer.cloneNode(true);
+        const elementsToRemove = tempContainer.querySelectorAll('iframe, audio, video, button, script, style, .placeholder, .card-num');
+        elementsToRemove.forEach(el => el.remove());
+
+        const cleanText = tempContainer.innerText || tempContainer.textContent;
+
+        if (!cleanText.trim() || cleanText.includes("No municipality selected")) {
+            speakBtn.innerHTML = "🔊 Read Aloud";
+            return;
+        }
+
+        // Configure speech variables
+        currentUtterance = new SpeechSynthesisUtterance(cleanText);
+        currentUtterance.rate = 1.0; 
+        currentUtterance.pitch = 1.0;
+
+        currentUtterance.onend = () => speakBtn.innerHTML = "🔊 Read Aloud";
+        currentUtterance.onerror = () => speakBtn.innerHTML = "🔊 Read Aloud";
+
+        synth.speak(currentUtterance);
+    });
+}
+
+// Cleans audio queues
+function resetAllSpeech() {
+    if (synth) {
+        synth.cancel();
+    }
+    currentUtterance = null;
+    if (speakBtn) {
+        speakBtn.innerHTML = "🔊 Read Aloud";
+    }
+}
+
+// Pauses background YouTube videos using standard frame message structures
+function pauseAllVideos() {
+    const iframes = document.querySelectorAll('iframe');
+    iframes.forEach(iframe => {
+        if (iframe.contentWindow) {
+            iframe.contentWindow.postMessage('{"event":"command","func":"pauseVideo","args":""}', '*');
+        }
+    });
+}
+
+// Safety Track Focus Check: Stops speech if user starts interacting with video panel directly
+setInterval(() => {
+    if (document.activeElement && document.activeElement.tagName === 'IFRAME') {
+        if (synth && synth.speaking) {
+            resetAllSpeech();
+            window.focus();
+        }
+    }
+}, 500);
