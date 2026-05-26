@@ -4,7 +4,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Historical Landmarks of Cebu — Brochure</title>
-    <link rel="stylesheet" href="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.css" />
+    <link href="https://unpkg.com/maplibre-gl/dist/maplibre-gl.css" rel="stylesheet" />
     <link rel="stylesheet" href="/sugbohenyo/streetview.css" />
   </head>
   <body>
@@ -69,12 +69,28 @@
 
         <section class="viewer" aria-label="3D map viewer">
           <div class="viewer__intro">
-            <div>
-              <div class="viewer__eyebrow">Interactive Preview</div>
-              <h2 class="viewer__title">3D Map</h2>
+            <div class="viewer_left">
+              <div class="viewer_upper">
+                <div class="viewer_heading">
+                  <div class="viewer__eyebrow">Interactive Preview</div>
+                  <h2 class="viewer__title">3D Map</h2>
+                </div>
+
+                <div class="btn-holder">
+                  <button id="street-style-btn">
+                    Streets
+                  </button>
+
+                  <button id="satellite-style-btn">
+                    Satellite
+                  </button>
+                </div>
+              </div>
               <p class="viewer__text">
                 A 3D map centered on Cebu's heritage sites. Click any card's Map button to fly to a landmark.
               </p>
+              <hr style="margin-bottom:4px ;">
+              <div id="map" class="map3d" role="img" aria-label="Interactive 3D map of Cebu heritage landmarks"></div>
             </div>
             <div class="viewer__panel" id="landmark-panel">
               <div class="viewer__label">Selected landmark</div>
@@ -83,7 +99,6 @@
               <p class="viewer__desc">Tap any "Map" button below to fly to a landmark. The "Street View" button opens Google Street View inside the page.</p>
             </div>
           </div>
-          <div id="map" class="map" role="img" aria-label="Interactive 3D map of Cebu heritage landmarks"></div>
         </section>
 
         <section class="cards" aria-label="Landmarks list">
@@ -284,7 +299,7 @@
         </div>
       </div>
     </dialog>
-    <script src="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.js"></script>
+    <script src="https://unpkg.com/maplibre-gl/dist/maplibre-gl.js"></script>
     <script src="/sugbohenyo/sidebar.js"></script>
     <script src="/sugbohenyo/streetview.js"></script>
   </body>

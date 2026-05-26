@@ -39,13 +39,44 @@ const landmarkCards = [...document.querySelectorAll(".card[data-name]")];
         };
       });
 
+      const styles = {
+        streets: "https://tiles.openfreemap.org/styles/liberty",
+
+        satellite: {
+          version: 8,
+
+          sources: {
+            satellite: {
+              type: "raster",
+
+              tiles: [
+                "https://mt1.google.com/vt/lyrs=s&x={x}&y={y}&z={z}"
+              ],
+
+              tileSize: 256,
+              attribution: "© Google"
+            }
+          },
+
+          layers: [
+            {
+              id: "satellite",
+              type: "raster",
+              source: "satellite"
+            }
+          ]
+        }
+      };
+
       const map = new maplibregl.Map({
         container: "map",
-        style: "https://tiles.openfreemap.org/styles/liberty",
+
+        style: styles.streets,
+
         center: [123.915, 10.296],
-        zoom: 12.4,
-        pitch: 58,
-        bearing: -18,
+        zoom: 16,
+        pitch: 75,
+        bearing: -25,
         antialias: true
       });
 
@@ -220,4 +251,87 @@ const landmarkCards = [...document.querySelectorAll(".card[data-name]")];
         if (landmarks.length > 0 && landmarkCards.length > 0) {
           focusLandmark(landmarks[0], landmarkCards[0]);
         }
+      });
+      function add3DBuildings() {
+
+        // only works on vector styles
+        if (map.getStyle().sources.openmaptiles) {
+
+          map.addLayer({
+            id: "3d-buildings",
+
+            source: "openmaptiles",
+            "source-layer": "building",
+
+            type: "fill-extrusion",
+
+            minzoom: 14,
+
+            paint: {
+
+              "fill-extrusion-color": [
+                "interpolate",
+                ["linear"],
+                ["get", "render_height"],
+
+                0, "#d1d5db",
+                20, "#9ca3af",
+                50, "#6b7280",
+                100, "#4b5563"
+              ],
+
+              "fill-extrusion-height": [
+                "interpolate",
+                ["linear"],
+                ["zoom"],
+
+                14,
+                0,
+
+                15,
+                ["get", "render_height"]
+              ],
+
+              "fill-extrusion-base": [
+                "interpolate",
+                ["linear"],
+                ["zoom"],
+
+                14,
+                0,
+
+                15,
+                ["get", "render_min_height"]
+              ],
+
+              "fill-extrusion-opacity": 0.95
+            }
+          });
+
+        }
+      }
+
+      map.on("load", () => {
+        add3DBuildings();
+      });
+
+      map.on("style.load", () => {
+        add3DBuildings();
+      });
+
+
+      // STYLE SWITCH BUTTONS
+
+      document.getElementById("street-style-btn")
+        .addEventListener("click", () => {
+
+          map.setStyle(styles.streets);
+
+      });
+
+      document.getElementById("satellite-style-btn")
+        .addEventListener("click", () => {
+
+          map.setStyle(styles.satellite);
+
       });
