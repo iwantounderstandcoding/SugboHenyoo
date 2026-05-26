@@ -150,3 +150,31 @@ body {
 .region-title.southern-cebu {
   color: #db8000;
 }
+
+.battle-btn {
+  position: fixed;
+  bottom: 30px;
+  left: 50%;
+  transform: translateX(-50%);
+
+  background: #8b0000;
+  color: white;
+
+  padding: 14px 28px;
+  border-radius: 999px;
+
+  font-size: 18px;
+  font-weight: bold;
+
+  cursor: pointer;
+  user-select: none;
+
+  z-index: 9999;
+
+  transition: 0.2s ease;
+}
+
+.battle-btn:hover {
+  background: #b30000;
+  transform: translateX(-50%) scale(1.05);
+}

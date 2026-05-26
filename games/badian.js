@@ -616,7 +616,7 @@ class QuizScene extends Phaser.Scene {
         this.currentQuestion++;
 
         if (this.currentQuestion >= this.questions.length) {
-            storeScore(this.score);
+            storeScore(this.score, 8);
             obtainedRelic(8);
             this.scene.start('RewardScene', {
                 score: this.score,
@@ -772,10 +772,10 @@ class EndScene extends Phaser.Scene {
     }).setOrigin(0.5);
 
     // Fetch AI content
-    const funFact = await generateFunFact('Badian');
+    const funFact = await generateFunFact('Badian, Cebu');
 
     // Delay replacement by 3 seconds
-    this.time.delayedCall(3000, () => {
+    this.time.delayedCall(1500, () => {
 
         // Replace title
         titleText.setText(funFact.title);

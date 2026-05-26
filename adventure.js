@@ -13,22 +13,22 @@ var municipalityGroups = {
     { name:"Tabuelan", slug:"tabuelan", x:75.5, y:27.5 },
     { name:"Asturias", slug:"asturias", x:61.5, y:38.7 },
     { name:"Balamban", slug:"balamban", x:58.7, y:44 },
-    { name:"Danao City", slug:"danao-city", x:71, y:43.5 }
+    { name:"Danao City", slug:"danao", x:71, y:43.5 }
   ],
 
   "Central Cebu": [
-    { name:"Cebu City", slug:"cebu-city", x:62, y:50.5 },
+    { name:"Cebu City", slug:"cebucity", x:62, y:50.5 },
     { name:"Mandaue City", slug:"mandaue-city", x:66.7, y:53 },
     { name:"Lapu-Lapu City", slug:"lapu-lapu-city", x:68, y:56 },
     { name:"Consolacion", slug:"consolacion", x:68.9, y:51 },
     { name:"Liloan", slug:"liloan", x:70.9, y:49.9 },
     { name:"Compostela", slug:"compostela", x:70.7, y:47 },
     { name:"Cordova", slug:"cordova", x:65.5, y:57.5 },
-    { name:"Talisay City", slug:"talisay-city", x:57, y:53 },
+    { name:"Talisay City", slug:"talisay", x:57, y:53 },
     { name:"Minglanilla", slug:"minglanilla", x:55.3, y:54 },
     { name:"Naga City", slug:"naga-city", x:51, y:55 },
     { name:"San Fernando", slug:"san-fernando", x:46, y:57 },
-    { name:"Carcar City", slug:"carcar-city", x:41.5, y:60 }
+    { name:"Carcar City", slug:"carcar", x:41.5, y:60 }
   ],
 
   "Southern Cebu": [
@@ -109,3 +109,81 @@ Object.keys(municipalityGroups).forEach(function(region) {
   });
 
 });
+
+async function checkRelics() {
+  try {
+    // Get logged in user
+    const userRes = await fetch('/api/me', {
+      credentials: 'include'
+    });
+
+    if (!userRes.ok) {
+      window.location.href = '/login';
+      return;
+    }
+
+    const userData = await userRes.json();
+    const userId = userData.uid;
+
+    // Get relic info
+    const relicRes = await fetch(`/api/relicInfo/${userId}`, {
+      credentials: 'include'
+    });
+
+    if (!relicRes.ok) {
+      throw new Error('Failed to fetch relic info');
+    }
+
+    const relicData = await relicRes.json();
+
+    const totalRelics = Number(relicData.data.total_relics);
+    const completedRelics = Number(relicData.data.completed_relics);
+
+    // Check if user completed all relics
+    if (completedRelics === totalRelics) {
+
+        // MAP MARKER
+        const bossMarker = document.createElement("div");
+
+        bossMarker.className = "dot";
+        bossMarker.style.left = "70.8%";
+        bossMarker.style.top = "55%";
+        bossMarker.style.background = "#000000";
+
+        bossMarker.onclick = function() {
+          window.location.href = "/games/battleofmactan";
+        }
+
+        bossMarker.addEventListener("mouseenter", function () {
+          tooltip.innerText = "Battle of Mactan";
+          tooltip.style.display = "block";
+          tooltip.style.background = "#000000";
+          tooltip.style.left = "70.8%";
+          tooltip.style.top = "55%";
+        });
+
+        bossMarker.addEventListener("mouseleave", function () {
+          tooltip.style.display = "none";
+        });
+
+        container.appendChild(bossMarker);
+
+
+        // BOTTOM CENTER BUTTON
+        const battleBtn = document.createElement("div");
+
+        battleBtn.className = "battle-btn";
+        battleBtn.innerText = "Battle of Mactan";
+
+        battleBtn.onclick = function () {
+          window.location.href = "/games/battleofmactan";
+        };
+
+        document.body.appendChild(battleBtn);
+}
+
+  } catch (err) {
+    console.error('Error checking relics:', err);
+  }
+}
+checkRelics();

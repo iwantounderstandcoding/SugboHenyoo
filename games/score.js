@@ -39,7 +39,7 @@ async function loadUser() {
 loadUser();
 
 // Store score for the current user
-async function storeScore(score) {
+async function storeScore(score, questId) {
   try {
     console.log("Storing score:", score);
     
@@ -91,7 +91,29 @@ async function storeScore(score) {
     }
     
     console.log('Score stored successfully:', result);
-    
+    if (score >= 150 && questId !== null) {
+
+      console.log(`Score reached ${score}, completing quest ${questId}`);
+
+      const questRes = await fetch(
+        `/api/questComplete/${data.uid}/${questId}`,
+        {
+          method: 'POST',
+          credentials: 'include'
+        }
+      );
+
+      const questResult = await questRes.json();
+
+      if (!questRes.ok) {
+        console.error('Quest completion failed:', questResult.message);
+        return;
+      }
+
+      console.log('Quest completed successfully:', questResult);
+    }
+
+
   } catch (error) {
     console.error('storeScore error:', error);
   }
@@ -123,7 +145,7 @@ async function obtainedRelic(rid) {
         console.error('Relic not found');
         return;
       } else if (res.status === 409) {
-        console.warn('Relic already obtained');
+        console.log('Relic already obtained');
         return;
       } else if (res.status === 500) {
         console.error('Server error while obtaining relic');
