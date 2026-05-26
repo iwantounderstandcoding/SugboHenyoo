@@ -113,6 +113,10 @@ document.getElementById('generateItineraryBtn').addEventListener('click', async 
         </div>
     `;
 
+    // Hide save button while loading
+    const saveBtn = document.getElementById('saveItineraryBtn');
+    if (saveBtn) saveBtn.style.display = 'none';
+
     // Pan map to the left so the marker isn't covered by the floating panels
     map.panBy([250, 0], { animate: true });
 
@@ -136,14 +140,21 @@ document.getElementById('generateItineraryBtn').addEventListener('click', async 
                 <h4 style="margin:0; color:#333;">${name} Trip Plan</h4>
                 <p style="margin: 5px 0 0; font-size: 14px; color: #666;">${duration}</p>
             </div>
-            <div style="margin-top: 20px; line-height: 1.6;font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">
+            <div style="margin-top: 20px; line-height: 1.6; font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;">
                 ${api.reply}
             </div>
         `;
 
+        // Store generated content for saving
+        content.dataset.name = name;
+        content.dataset.duration = duration;
+        content.dataset.reply = api.reply;
+
+        // Show save button
+        if (saveBtn) saveBtn.style.display = 'block';
+
     } catch (err) {
         console.error("generate error", err);
-        // Show error message
         content.innerHTML = `
             <div style="padding: 15px; background: #f0f4ff; border-radius: 8px; border-left: 4px solid #2346b8;">
                 <h4 style="margin:0; color:#333;">${name} Trip Plan</h4>
@@ -157,9 +168,88 @@ document.getElementById('generateItineraryBtn').addEventListener('click', async 
     }
 });
 
+// --- SAVE TO FAVORITES LOGIC ---
+document.getElementById('saveItineraryBtn').addEventListener('click', function() {
+    const content = document.getElementById('itineraryContent');
+    const name = content.dataset.name;
+    const duration = content.dataset.duration;
+    const reply = content.dataset.reply;
+
+    if (!name || !reply) return;
+
+    const saved = JSON.parse(localStorage.getItem('sugbohenyo_itineraries') || '[]');
+
+    // Check for duplicates
+    const exists = saved.some(item => item.name === name && item.duration === duration && item.content === reply);
+    if (exists) {
+        showToast('Already saved!', '#f59e0b');
+        return;
+    }
+
+    const now = new Date();
+    const date = now.toLocaleDateString('en-PH', { month: 'short', day: 'numeric', year: 'numeric' });
+
+    saved.unshift({ name, duration, content: reply, date });
+    localStorage.setItem('sugbohenyo_itineraries', JSON.stringify(saved));
+
+    showToast('Saved to your itineraries! ✅', '#22c55e');
+
+    // Update button state
+    this.innerText = '✅ Saved!';
+    this.disabled = true;
+    this.style.opacity = '0.6';
+
+    // Show the view itineraries link
+    const viewLink = document.getElementById('viewItinerariesLink');
+    if (viewLink) viewLink.style.display = 'block';
+});
+
+function showToast(message, color) {
+    let toast = document.getElementById('itinerary-toast');
+    if (!toast) {
+        toast = document.createElement('div');
+        toast.id = 'itinerary-toast';
+        toast.style.cssText = `
+            position: fixed;
+            bottom: 24px;
+            right: 24px;
+            padding: 12px 20px;
+            border-radius: 10px;
+            font-family: 'Press Start 2P', monospace;
+            font-size: 9px;
+            color: white;
+            z-index: 9999;
+            opacity: 0;
+            transition: opacity 0.3s;
+            pointer-events: none;
+        `;
+        document.body.appendChild(toast);
+    }
+
+    toast.innerText = message;
+    toast.style.background = color;
+    toast.style.opacity = '1';
+
+    setTimeout(() => { toast.style.opacity = '0'; }, 2500);
+}
+
 // Close Itinerary Function
 function closeItinerary() {
     wrapper.classList.remove('itinerary-active');
+
+    // Reset save button
+    const saveBtn = document.getElementById('saveItineraryBtn');
+    if (saveBtn) {
+        saveBtn.innerText = '🔖 Save to Favorites';
+        saveBtn.disabled = false;
+        saveBtn.style.opacity = '1';
+        saveBtn.style.display = 'none';
+    }
+
+    // Hide view link
+    const viewLink = document.getElementById('viewItinerariesLink');
+    if (viewLink) viewLink.style.display = 'none';
+
     // Pan map back to center
     map.panBy([-250, 0], { animate: true });
 }

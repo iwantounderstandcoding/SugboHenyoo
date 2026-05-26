@@ -5,8 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Cebu Heritage Explorer</title>
-    <link rel="stylesheet" href="sugbohenyo/sidebar.css">
-    <link rel="stylesheet" href="sugbohenyo/map.css">
+    <link rel="stylesheet" href="/sugbohenyo/sidebar.css">
+    <link rel="stylesheet" href="/sugbohenyo/map.css">
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
 </head>
 
@@ -502,6 +502,8 @@
             </div>
             <div id="itineraryContent" class="itinerary-body">
             </div>
+            <button id="saveItineraryBtn" class="save-btn" style="display:none;">🔖 Save to Favorites</button>
+            <a id="viewItinerariesLink" href="/itinerary" class="view-itineraries-link" style="display:none;">📋 View My Itineraries</a>
             <button onclick="closeItinerary()" class="close-btn">Close Itinerary</button>
         </div>
     </div>

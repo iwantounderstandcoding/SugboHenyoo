@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Itineraries – Sugbo Henyo</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="stylesheet" href="/sugbohenyo/sidebar.css">
+    <link rel="stylesheet" href="/sugbohenyo/itinerary.css">
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <div id="sidebar"></div>
+
+    <main class="main">
+        <div class="page-header">
+            <div class="page-header-left">
+                <h1><i class="fa-solid fa-bookmark" style="margin-right:10px; color:#38b9ff;"></i>My Itineraries</h1>
+                <p>Your saved travel plans</p>
+            </div>
+            <div class="search-wrap">
+                <i class="fa-solid fa-magnifying-glass"></i>
+                <input type="text" id="searchInput" placeholder="Search city or duration...">
+            </div>
+        </div>
+
+
+        <div id="itineraryGrid" class="itinerary-grid"></div>
+        <div id="noResults" class="no-results">No itineraries match your search.</div>
+        <div id="emptyState" class="empty-state" style="display:none;">
+            <i class="fa-regular fa-map"></i>
+            <p>No saved itineraries yet.<br>Generate one from the map page!</p>
+            <a href="/map">Go to Map</a>
+        </div>
+    </main>
+
+    <!-- View Modal -->
+    <div class="modal-overlay" id="modalOverlay">
+        <div class="modal">
+            <div class="modal-header">
+                <div>
+                    <h2 id="modalTitle"></h2>
+                    <span class="duration-badge" id="modalDuration"></span>
+                </div>
+                <div class="modal-actions">
+                    <button class="modal-close" onclick="closeModal()"><i class="fa-solid fa-xmark"></i></button>
+                </div>
+            </div>
+            <div class="modal-body" id="modalBody"></div>
+        </div>
+    </div>
+
+    <script src="/sugbohenyo/sidebar.js"></script>
+    <script src="/sugbohenyo/itinerary.js"></script>
+</body>
+</html>
