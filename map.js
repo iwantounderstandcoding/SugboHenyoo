@@ -89,6 +89,8 @@ citySelector.addEventListener('change', function () {
 
     currentMarker = L.marker(coords, { icon: uprightIcon }).addTo(map);
     map.flyTo(coords, CITY_ZOOM, { animate: true, duration: 1.5 });
+
+    exploreLocation(name);
 });
 
 // --- ITINERARY SIDEBAR LOGIC ---
@@ -262,6 +264,64 @@ document.getElementById('zoom-out').onclick = function() {
     map.zoomOut();
 };
 
-async function exploredLocation(){
-    
+async function exploreLocation(locationName) {
+    try {
+        // Validate location name
+        if (!locationName || locationName === 'Municipality') {
+            console.error('Invalid location name');
+            return;
+        }
+ 
+        // Get user data first
+        const userRes = await fetch('/api/me', {
+            credentials: 'include'
+        });
+ 
+        if (!userRes.ok) {
+            if (userRes.status === 401) {
+                console.warn('User not authenticated, redirecting to login');
+                window.location.href = '/login';
+                return;
+            }
+            throw new Error(`Failed to get user data: ${userRes.status}`);
+        }
+ 
+        const userData = await userRes.json();
+ 
+        if (userData.success === false) {
+            console.warn('User authentication failed, redirecting to login');
+            window.location.href = '/login';
+            return;
+        }
+ 
+        const userId = userData.uid;
+ 
+        // Call the explore endpoint
+        const exploreRes = await fetch(`/api/locationExplore/${userId}/${encodeURIComponent(locationName)}`, {
+            method: 'POST',
+            credentials: 'include'
+        });
+ 
+        const result = await exploreRes.json();
+ 
+        // Handle different status codes
+        if (!exploreRes.ok) {
+            if (exploreRes.status === 403) {
+                console.error('Forbidden: Cannot update another user\'s progress');
+            } else if (exploreRes.status === 404) {
+                console.error('Location not found in database:', locationName);
+            } else if (exploreRes.status === 500) {
+                console.error('Server error while exploring location');
+            } else {
+                console.error('Failed to explore location:', result.message);
+            }
+            return;
+        }
+ 
+        // Success - log silently
+        console.log(`✓ ${locationName} marked as explored`, result);
+ 
+    } catch (error) {
+        console.error('exploreLocation error:', error);
+    }
 }
