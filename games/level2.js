@@ -164,10 +164,13 @@ class MainScene extends Phaser.Scene {
 
     // ── PLAYER ATTACK ─────────────────────────
     attack() {
-        if (this.playerAttackCooldown) return;
+        if (this.playerAttackCooldown || this.isAttacking) return;
+
+
 
         this.playerAttackCooldown = true;
         this.isAttacking = true;
+        this.player.setVelocityX(0);
         this.player.setTexture('lapu_attack');
 
         // Check hit at the moment of attack
@@ -176,14 +179,38 @@ class MainScene extends Phaser.Scene {
             this.enemy.x, this.enemy.y
         );
 
-        if (distance < 60) {
+        if (distance > 80) {
+
+            // Longer punishment cooldown
+            this.time.delayedCall(1200, () => {
+                this.playerAttackCooldown = false;
+            });
+
+            // End animation
+            this.time.delayedCall(300, () => {
+                this.isAttacking = false;
+                this.player.setTexture('lapu_idle');
+            });
+
+            return;
+        }
+
+        if (distance < 60 && !this.enemyInvulnerable) {
+
+            this.enemyInvulnerable = true;
+
             this.enemyLives--;
             this.enemyText.setText('Magellan: ' + this.enemyLives);
 
+            // Brief invulnerability after hit
+            this.time.delayedCall(500, () => {
+                this.enemyInvulnerable = false;
+            });
+
             // Force enemy out of attack if stunned
-            if (this.enemyState === 'attack') {
-                this.setEnemyState('cooldown');
-            }
+            // if (this.enemyState === 'attack') {
+            //     this.setEnemyState('cooldown');
+            // }
 
             if (this.enemyLives <= 0) {
                 this.scene.start('EndScene');
@@ -197,7 +224,7 @@ class MainScene extends Phaser.Scene {
         });
 
         // Player can attack again after 600 ms (slightly faster than before — feels better)
-        this.time.delayedCall(600, () => {
+        this.time.delayedCall(850, () => {
             this.playerAttackCooldown = false;
         });
     }
@@ -256,7 +283,7 @@ class MainScene extends Phaser.Scene {
             case 'chase': {
                 // Move toward player at a moderate speed
                 if (Math.abs(dx) > 8) {
-                    this.enemy.setVelocityX(dx > 0 ? 80 : -80);
+                    this.enemy.setVelocityX(dx > 0 ? 120 : -120);
                     this.enemy.flipX = dx < 0;
                 }
                 this.animateEnemy(true);
@@ -273,7 +300,7 @@ class MainScene extends Phaser.Scene {
                 }
 
                 // Enter wind-up when close enough
-                if (dist < 55) {
+                if (dist < 80) {
                     this.setEnemyState('windup');
                 }
                 break;
@@ -282,11 +309,12 @@ class MainScene extends Phaser.Scene {
             // ── WIND-UP (telegraphed) ──────────
             case 'windup': {
                 // Stop moving so the player can see the tell
-                this.enemy.setVelocityX(0);
-                this.enemy.setTexture('magellan_attack'); // show attack pose as warning
+                this.enemy.setTexture('magellan_attack');
 
-                // After 500 ms wind-up, deal damage
-                if (this.enemyStateTimer > 500) {
+                // DASH toward player
+                this.enemy.setVelocityX(dx > 0 ? 180 : -180);
+
+                if (this.enemyStateTimer > 350) {
                     this.dealEnemyDamage();
                     this.setEnemyState('attack');
                 }
@@ -295,13 +323,39 @@ class MainScene extends Phaser.Scene {
 
             // ── ATTACK (brief damage frame) ────
             case 'attack': {
-                this.enemy.setVelocityX(0);
                 this.enemy.setTexture('magellan_attack');
 
-                // Damage frame lasts 200 ms, then cooldown
-                if (this.enemyStateTimer > 200) {
+                const dist = Phaser.Math.Distance.Between(
+                    this.player.x, this.player.y,
+                    this.enemy.x, this.enemy.y
+                );
+
+                // Continue pressuring player
+                this.enemy.setVelocityX(dx > 0 ? 100 : -100);
+
+                // Damage repeatedly if player stays too close
+                if (dist < 55 && !this.playerInvulnerable) {
+
+                    this.playerInvulnerable = true;
+
+                    this.playerLives--;
+                    this.playerText.setText('Lapulapu: ' + this.playerLives);
+
+                    this.cameras.main.shake(150, 0.01);
+
+                    this.time.delayedCall(700, () => {
+                        this.playerInvulnerable = false;
+                    });
+
+                    if (this.playerLives <= 0) {
+                        this.scene.start('GameOverScene');
+                    }
+                }
+
+                if (this.enemyStateTimer > 400) {
                     this.setEnemyState('cooldown');
                 }
+
                 break;
             }
 
@@ -311,7 +365,7 @@ class MainScene extends Phaser.Scene {
                 this.enemy.setTexture('magellan_idle');
 
                 // Enemy recovers after 900 ms — long enough to punish
-                if (this.enemyStateTimer > 900) {
+                if (this.enemyStateTimer > 450) {
                     // Back to idle or chase depending on distance
                     this.setEnemyState(dist < 200 ? 'chase' : 'idle');
                 }
@@ -408,6 +462,7 @@ class MainScene extends Phaser.Scene {
         // COMBAT FLAGS
         this.isAttacking = false;
         this.playerAttackCooldown = false;
+        this.enemyInvulnerable = false;
 
         // COLLIDERS
         this.physics.add.collider(this.player, this.ground);
@@ -447,7 +502,7 @@ class MainScene extends Phaser.Scene {
 
         // Pause physics until dialogue ends
         this.physics.pause();
-        this.input.keyboard.enabled = false;
+        //this.input.keyboard.enabled = false;
 
         // Dialogue input (separate from game controls)
         this.input.keyboard.on('keydown-SPACE', () => this.nextDialogue());
@@ -484,6 +539,11 @@ class MainScene extends Phaser.Scene {
 
     // ── UPDATE ────────────────────────────────
     update(time, delta) {
+
+        if (this.isAttacking) {
+            this.player.setVelocityX(0);
+            return;
+        }
         // ── PLAYER MOVEMENT ───────────────────
         let isMoving = false;
 
