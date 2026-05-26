@@ -475,7 +475,7 @@ class QuizScene extends Phaser.Scene {
         this.currentQuestion++;
 
         if (this.currentQuestion >= this.questions.length) {
-            storeScore(this.score);
+            storeScore(this.score, 1);
             obtainedRelic(1);
             this.scene.start('RewardScene', {
                 score: this.score,
@@ -612,38 +612,56 @@ class EndScene extends Phaser.Scene {
         super('EndScene');
     }
 
-    create() {
-        this.cameras.main.fadeIn(800, 0, 0, 0);
+    async create() {
+    this.cameras.main.fadeIn(800, 0, 0, 0);
 
-        this.add.text(256, 120, "Message Delivered", {
-            fontSize: '32px',
-            fill: '#ffffff'
-        }).setOrigin(0.5);
+    // Initial title
+    const titleText = this.add.text(256, 120, "Message Delivered", {
+        fontSize: '32px',
+        fill: '#ffffff'
+    }).setOrigin(0.5);
 
-        this.add.text(256, 160, "Lapu-Lapu: The people stand united.", {
-            fontSize: '16px',
-            fill: '#ffffff'
-        }).setOrigin(0.5);
+    // Initial subtitle/fact
+    const factText = this.add.text(256, 160, "Lapu-Lapu: The people stand united.", {
+        fontSize: '16px',
+        fill: '#ffffff',
+        align: 'center',
+        wordWrap: { width: 400 }
+    }).setOrigin(0.5);
 
-        this.add.text(256, 220, "Press SPACE to restart", {
-            fontSize: '14px',
-            fill: '#ffffff'
-        }).setOrigin(0.5);
+    // Fetch AI content
+    const funFact = await generateFunFact('Bantayan, Cebu');
 
-        this.add.text(256, 250, "Press ESC to exit", {
-            fontSize: '14px',
-            fill: '#ffffff'
-        }).setOrigin(0.5);
+    // Delay replacement by 3 seconds
+    this.time.delayedCall(1500, () => {
 
-        this.input.keyboard.once('keydown-SPACE', () => {
-            this.scene.stop('MainScene');
+        // Replace title
+        titleText.setText(funFact.title);
 
-            this.scene.start('MainScene');
-        });
-        this.input.keyboard.on('keydown-ESC', () => {
-            window.location.href = '/adventure';
-        });
-    }
+        // Replace fact
+        factText.setText(funFact.fact);
+
+    });
+
+    this.add.text(256, 220, "Press SPACE to restart", {
+        fontSize: '14px',
+        fill: '#ffffff'
+    }).setOrigin(0.5);
+
+    this.add.text(256, 250, "Press ESC to exit", {
+        fontSize: '14px',
+        fill: '#ffffff'
+    }).setOrigin(0.5);
+
+    this.input.keyboard.once('keydown-SPACE', () => {
+        this.scene.stop('MainScene');
+        this.scene.start('MainScene');
+    });
+
+    this.input.keyboard.on('keydown-ESC', () => {
+        window.location.href = '/adventure';
+    });
+}
 }
 
 const config = {

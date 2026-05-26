@@ -171,7 +171,7 @@ document.getElementById('generateItineraryBtn').addEventListener('click', async 
 });
 
 // --- SAVE TO FAVORITES LOGIC ---
-document.getElementById('saveItineraryBtn').addEventListener('click', function() {
+document.getElementById('saveItineraryBtn').addEventListener('click', async function() {
     const content = document.getElementById('itineraryContent');
     const name = content.dataset.name;
     const duration = content.dataset.duration;
@@ -179,31 +179,71 @@ document.getElementById('saveItineraryBtn').addEventListener('click', function()
 
     if (!name || !reply) return;
 
-    const saved = JSON.parse(localStorage.getItem('sugbohenyo_itineraries') || '[]');
+    // Get user ID
+    try {
+        const userRes = await fetch('/api/me', {
+            credentials: 'include'
+        });
 
-    // Check for duplicates
-    const exists = saved.some(item => item.name === name && item.duration === duration && item.content === reply);
-    if (exists) {
-        showToast('Already saved!', '#f59e0b');
-        return;
+        if (!userRes.ok) {
+            if (userRes.status === 401) {
+                showToast('Please log in to save itineraries', '#f59e0b');
+                return;
+            }
+            throw new Error('Failed to get user data');
+        }
+
+        const userData = await userRes.json();
+
+        if (userData.success === false) {
+            showToast('Please log in to save itineraries', '#f59e0b');
+            return;
+        }
+
+        const userId = userData.uid;
+
+        // Save to database
+        const saveRes = await fetch(`/api/saveItinerary/${userId}/`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            credentials: 'include',
+            body: JSON.stringify({
+                locationName: name,
+                duration: duration,
+                itineraryPlan: reply
+            })
+        });
+
+        const saveResult = await saveRes.json();
+
+        if (!saveRes.ok) {
+            if (saveRes.status === 409) {
+                showToast('Already saved!', '#f59e0b');
+            } else if (saveRes.status === 404) {
+                showToast('Location not found in database', '#ef4444');
+            } else {
+                showToast(saveResult.message || 'Failed to save', '#ef4444');
+            }
+            return;
+        }
+
+        showToast('Saved to your itineraries! ✅', '#22c55e');
+
+        // Update button state
+        this.innerText = '✅ Saved!';
+        this.disabled = true;
+        this.style.opacity = '0.6';
+
+        // Show the view itineraries link
+        const viewLink = document.getElementById('viewItinerariesLink');
+        if (viewLink) viewLink.style.display = 'block';
+
+    } catch (err) {
+        console.error('Save itinerary error:', err);
+        showToast('Failed to save itinerary', '#ef4444');
     }
-
-    const now = new Date();
-    const date = now.toLocaleDateString('en-PH', { month: 'short', day: 'numeric', year: 'numeric' });
-
-    saved.unshift({ name, duration, content: reply, date });
-    localStorage.setItem('sugbohenyo_itineraries', JSON.stringify(saved));
-
-    showToast('Saved to your itineraries! ✅', '#22c55e');
-
-    // Update button state
-    this.innerText = '✅ Saved!';
-    this.disabled = true;
-    this.style.opacity = '0.6';
-
-    // Show the view itineraries link
-    const viewLink = document.getElementById('viewItinerariesLink');
-    if (viewLink) viewLink.style.display = 'block';
 });
 
 function showToast(message, color) {
