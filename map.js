@@ -261,3 +261,7 @@ document.getElementById('zoom-in').onclick = function() {
 document.getElementById('zoom-out').onclick = function() {
     map.zoomOut();
 };
+
+async function exploreLocation(){
+    
+}
