@@ -150,7 +150,7 @@ class MainScene extends Phaser.Scene {
         this.score = 0;
         this.lives = 3;
         this.timeElapsed = 0;
-        this.timeLimit = 0;
+        this.timeLimit = 30;
         this.timerStarted = false;
         this.fallSpeed = 100;
         this.hitCooldown = false;
@@ -230,7 +230,6 @@ class MainScene extends Phaser.Scene {
 
         this.items = this.physics.add.group();
 
-        this.startTimer();
         this.spawnEvent = this.time.addEvent({
             delay: 3000,
             loop: true,
