@@ -114,7 +114,7 @@ class MainScene extends Phaser.Scene {
         if (this.hitCooldown) return;
         this.hitCooldown = true;
 
-        this.time.delayedCall(500, () => {
+        this.time.delayedCall(700, () => {
             this.hitCooldown = false;
         });
 
@@ -165,7 +165,7 @@ class MainScene extends Phaser.Scene {
             { x: 780, y: 190, key: 'l_log', w: 63, h: 12 },
 
             // floating stepping stones
-            { x: 900, y: 150, key: 's_log', w: 34, h: 12 },
+            //{ x: 900, y: 150, key: 's_log', w: 34, h: 12 },
 
             // =====================
             // MID SECTION (zig-zag movement)
@@ -218,6 +218,11 @@ class MainScene extends Phaser.Scene {
 
         this.platforms = this.physics.add.staticGroup();
 
+        this.movingPlatforms = this.physics.add.group({
+            immovable: true,
+            allowGravity: false
+        });
+
         platformData.forEach(p => { // iterates through each object in the platformData array
             let platform = this.platforms.create(p.x, p.y, p.key)
                 .setScale(0.2)
@@ -226,6 +231,27 @@ class MainScene extends Phaser.Scene {
             platform.body.setSize(p.w, p.h);
             platform.body.setOffset(5, 0);
         });
+
+        this.createMovingPlatform = (x, y, range, speed, axis = 'x') => {
+
+            let plat = this.movingPlatforms.create(x, y, 's_log')
+                .setScale(0.2)
+                .refreshBody();
+
+            plat.body.setAllowGravity(false);
+            plat.body.setImmovable(true);
+
+            plat.start = axis === 'x' ? x : y;
+            plat.end = plat.start + range;
+
+            plat.speed = speed;
+            plat.axis = axis;
+            plat.direction = 1;
+
+            return plat;
+        };
+
+        this.createMovingPlatform(900, 150, 150, 60, 'x');
 
         this.mango = this.physics.add.group({
             allowGravity: false
@@ -265,8 +291,25 @@ class MainScene extends Phaser.Scene {
 
         this.physics.add.collider(this.player, ground); // (object1, object2)
         this.physics.add.collider(this.player, this.platforms);
+        this.physics.add.collider(
+            this.player,
+            this.movingPlatforms,
+            (player, platform) => {
+
+                // carry player with platform
+                if (player.body.touching.down && platform.body.touching.up) {
+
+                    player.x += platform.body.velocity.x * (this.game.loop.delta / 1000);
+
+                    player.y += platform.body.velocity.y * (this.game.loop.delta / 1000);
+                }
+            },
+            null,
+            this
+        );
         this.physics.add.collider(this.enemies, ground); // (object1, object2)
         this.physics.add.collider(this.enemies, this.platforms); // (object1, object2)
+        this.physics.add.collider(this.enemies, this.movingPlatforms);
 
         this.houseZone = this.add.zone(1840, 240, 40, 80); // (x, y, width, height) 
         this.physics.world.enable(this.houseZone); // enables physics for the houseZone, allowing it to detect overlaps
@@ -338,6 +381,36 @@ class MainScene extends Phaser.Scene {
                 this.physics.pause(); // pause ONLY when grounded
             }
         }
+
+        this.movingPlatforms.children.iterate((plat) => {
+
+            if (!plat) return;
+
+            if (plat.axis === 'x') {
+
+                plat.setVelocityX(plat.speed * plat.direction);
+
+                if (plat.x >= plat.end) {
+                    plat.direction = -1;
+                }
+
+                if (plat.x <= plat.start) {
+                    plat.direction = 1;
+                }
+
+            } else {
+
+                plat.setVelocityY(plat.speed * plat.direction);
+
+                if (plat.y >= plat.end) {
+                    plat.direction = -1;
+                }
+
+                if (plat.y <= plat.start) {
+                    plat.direction = 1;
+                }
+            }
+        });
 
         this.enemies.children.iterate((enemy) => {
             if (!enemy) return;
@@ -645,7 +718,7 @@ class RewardScene extends Phaser.Scene {
         // ADD YOUR ITEM IMAGE
         this.load.image(
             'artifact',
-            '/sugbohenyo/games/assets/cebucity/cross_relic.png'
+            'assets/cebucity/cross_relic.png'
         );
     }
 
@@ -738,6 +811,23 @@ class RewardScene extends Phaser.Scene {
         });
 
         this.input.keyboard.once('keydown-SPACE', () => {
+
+            this.scene.start('EndScene', {
+                score: this.score,
+                lives: this.lives
+            });
+
+        });
+
+        this.input.keyboard.once('keydown-RIGHT', () => {
+
+            this.scene.start('EndScene', {
+                score: this.score,
+                lives: this.lives
+            });
+
+        });
+        this.input.once('pointerdown', () => {
 
             this.scene.start('EndScene', {
                 score: this.score,

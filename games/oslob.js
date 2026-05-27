@@ -113,7 +113,7 @@ class MainScene extends Phaser.Scene {
         if (this.hitCooldown) return;
         this.hitCooldown = true;
 
-        this.time.delayedCall(500, () => {
+        this.time.delayedCall(700, () => {
             this.hitCooldown = false;
         });
 
@@ -817,6 +817,23 @@ class RewardScene extends Phaser.Scene {
         });
 
         this.input.keyboard.once('keydown-SPACE', () => {
+
+            this.scene.start('EndScene', {
+                score: this.score,
+                lives: this.lives
+            });
+
+        });
+
+        this.input.keyboard.once('keydown-RIGHT', () => {
+
+            this.scene.start('EndScene', {
+                score: this.score,
+                lives: this.lives
+            });
+
+        });
+        this.input.once('pointerdown', () => {
 
             this.scene.start('EndScene', {
                 score: this.score,

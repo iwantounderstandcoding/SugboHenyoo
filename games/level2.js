@@ -157,6 +157,7 @@ class MainScene extends Phaser.Scene {
             this.input.keyboard.enabled = true;
             this.physics.resume();
             this.gameStarted = true;
+            this.startTimer();
         } else {
             this.showDialogue();
         }
@@ -213,7 +214,36 @@ class MainScene extends Phaser.Scene {
             // }
 
             if (this.enemyLives <= 0) {
-                this.scene.start('EndScene');
+
+                // BONUS SCORE BASED ON REMAINING LIVES
+                if (this.playerLives === 5) {
+                    this.score += 250;
+                }
+                else if (this.playerLives === 4) {
+                    this.score += 210;
+                }
+                else if (this.playerLives === 3) {
+                    this.score += 190;
+                }
+                else if (this.playerLives === 2) {
+                    this.score += 170;
+                }
+                else if (this.playerLives === 1) {
+                    this.score += 150;
+                }
+
+                this.scoreText.setText('Score: ' + this.score);
+
+                // store score
+                storeScore(this.score, 2);
+
+                // small delay before scene starts
+                this.time.delayedCall(300, () => {
+                    this.scene.start('EndScene', {
+                        score: this.score
+                    });
+                });
+
                 return;
             }
         }
@@ -414,10 +444,38 @@ class MainScene extends Phaser.Scene {
         }
     }
 
+    startTimer() {
+        if (this.timerStarted) return;
+
+        this.timerStarted = true;
+
+        this.timerEvent = this.time.addEvent({
+            delay: 1000,
+            loop: true,
+            callback: () => {
+                if (!this.gameStarted) return; // 🔥 IMPORTANT: don't run during dialogue
+
+                this.timeLimit--;
+
+                this.timerText.setText('Time: ' + this.timeLimit + 's');
+
+                if (this.timeLimit <= 0) {
+                    this.timerEvent.remove(false);
+                    this.scene.start('EndScene', {
+                        score: this.score,
+                        lives: this.lives
+                    });
+                }
+            }
+        });
+    }
+
     // ── CREATE ────────────────────────────────
     create() {
         this.physics.resume();
         this.input.keyboard.enabled = true;
+        this.timeLimit = 30;
+        this.timerStarted = false;
         const platformData = [
             { x: 150, y: 170, key: 'log', w: 63, h: 12 },
             { x: 300, y: 120, key: 'log', w: 63, h: 12 },
@@ -451,13 +509,27 @@ class MainScene extends Phaser.Scene {
 
         // CONTROLS
         this.cursors = this.input.keyboard.createCursorKeys();
-        this.attackKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.SPACE);
+        this.attackKey = this.input.keyboard.addKey(Phaser.Input.Keyboard.KeyCodes.A);
 
         // LIVES
         this.playerLives = 5;
         this.enemyLives = 5;
         this.playerText  = this.add.text(10,  10, 'Lapulapu: 5', { fill: '#fff' }).setScrollFactor(0);
         this.enemyText   = this.add.text(390, 10, 'Magellan: 5', { fill: '#fff' }).setScrollFactor(0);
+        this.score = 0;
+        this.timerText = this.add.text(200, 10, 'Time: 30s', {
+            fill: '#fff'
+        }).setScrollFactor(0);
+        this.scoreText = this.add.text(200, 30, 'Score: 0', {
+            fill: '#fff'
+        }).setScrollFactor(0);
+        this.instrucText = this.add.text(10, 70, 'Press A to attack', {
+            fontSize: '16px',
+            fill: '#ffffff'
+        })
+
+
+
 
         // COMBAT FLAGS
         this.isAttacking = false;
@@ -510,27 +582,6 @@ class MainScene extends Phaser.Scene {
         this.input.on('pointerdown', () => this.nextDialogue());
 
         this.showDialogue();
-
-        // TIMER
-        this.timeLeft = 60;
-        this.timerText = this.add.text(200, 10, 'Time: 01:00', { fill: '#fff' }).setScrollFactor(0);
-        this.timerEvent = this.time.addEvent({
-            delay: 1000,
-            loop: true,
-            callback: () => {
-                if (!this.gameStarted) return; // don't count down during dialogue
-
-                this.timeLeft--;
-                const minutes = Math.floor(this.timeLeft / 60);
-                let   seconds = this.timeLeft % 60;
-                if (seconds < 10) seconds = '0' + seconds;
-                this.timerText.setText(`Time: ${minutes}:${seconds}`);
-
-                if (this.timeLeft <= 0) {
-                    this.scene.start('GameOverScene');
-                }
-            }
-        });
 
         this.input.keyboard.on('keydown-ESC', () => {
             window.location.href = '../adventure';
@@ -605,11 +656,17 @@ class GameOverScene extends Phaser.Scene {
         this.add.text(256, 220, "Press SPACE to Restart", { fontSize: '14px', fill: '#ffffff' }).setOrigin(0.5);
         this.add.text(256, 250, "Press ESC to exit", { fontSize: '14px', fill: '#ffffff' }).setOrigin(0.5);
 
-        this.input.keyboard.once('keydown-SPACE', () => {
-            this.scene.stop('MainScene');
-            this.scene.stop('StoryScene');
+        this.time.delayedCall(500, () => {
 
-            this.scene.start('StoryScene');
+            this.input.keyboard.once('keydown-SPACE', () => {
+
+                this.scene.stop('MainScene');
+                this.scene.stop('StoryScene');
+
+                this.scene.start('StoryScene');
+
+            });
+
         });
         this.input.keyboard.on('keydown-ESC', () => {
             window.location.href = '../adventure';
@@ -623,26 +680,76 @@ class GameOverScene extends Phaser.Scene {
 class EndScene extends Phaser.Scene {
     constructor() { super('EndScene'); }
 
+    init(data) {
+        this.score = data.score || 0;
+    }
+
     create() {
         this.cameras.main.fadeIn(800, 0, 0, 0);
 
-        this.add.text(256, 120, "Battle of Mactan Complete", { fontSize: '32px', fill: '#ffffff' }).setOrigin(0.5);
-        this.add.text(256, 160, "History Fulfilled", { fontSize: '16px', fill: '#ffffff' }).setOrigin(0.5);
-        this.add.text(256, 220, "Press SPACE to Restart", { fontSize: '14px', fill: '#ffffff' }).setOrigin(0.5);
-        this.add.text(256, 250, "Press ESC to exit", { fontSize: '14px', fill: '#ffffff' }).setOrigin(0.5);
+         // TITLE
+        this.add.text(256, 110, "HISTORY FULFILLED", {
+            fontSize: '24px',
+            fill: '#ffffff',
+            align: 'center',
+            wordWrap: { width: 450 }
+        }).setOrigin(0.5);
 
-        this.input.keyboard.once('keydown-SPACE', () => {
-            this.scene.stop('MainScene');
-            this.scene.stop('StoryScene');
+        // MAIN ENDING TEXT (story closure)
+        this.add.text(
+            256,
+            160,
+            "Across Cebu, unity was carried through knowledge, allies, and symbols of heritage.\n\n" +
+            "At Mactan, destiny reached its final turning point.",
+            {
+                fontSize: '14px',
+                fill: '#ffffff',
+                align: 'center',
+                wordWrap: { width: 450 }
+            }
+        ).setOrigin(0.5);
 
-            this.scene.start('StoryScene');
+        // SCORE DISPLAY
+        this.add.text(
+            256,
+            240,
+            "Final Score: " + this.score,
+            {
+                fontSize: '16px',
+                fill: '#ffffaa'
+            }
+        ).setOrigin(0.5);
+
+        // CONTROLS
+        this.add.text(256, 265, "Press SPACE to Restart", {
+            fontSize: '12px',
+            fill: '#ffffff'
+        }).setOrigin(0.5);
+
+        this.add.text(256, 280, "Press ESC to exit", {
+            fontSize: '12px',
+            fill: '#ffffff'
+        }).setOrigin(0.5);
+
+        // FIX: prevent instant SPACE skip (input buffer issue)
+        this.time.delayedCall(500, () => {
+
+            this.input.keyboard.once('keydown-SPACE', () => {
+
+                this.scene.stop('MainScene');
+                this.scene.stop('StoryScene');
+
+                this.scene.start('StoryScene');
+
+            });
+
         });
+
         this.input.keyboard.on('keydown-ESC', () => {
             window.location.href = '../adventure';
         });
     }
 }
-
 // =============================================
 //  PHASER CONFIG
 // =============================================

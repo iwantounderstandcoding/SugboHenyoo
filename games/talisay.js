@@ -9,18 +9,18 @@ class MainScene extends Phaser.Scene {
         this.load.image('rajahH_idle', '/sugbohenyo/games/assets/rajahH/rajahH.png');
         this.load.image('rajahH_walk', '/sugbohenyo/games/assets/rajahH/rajahH_walk.png');
         this.load.image('rajahH_jump', '/sugbohenyo/games/assets/rajahH/rajahH_jump.png');
-        this.load.image('bg', '/sugbohenyo/games/assets/carcar/bg_carcar.png');
+        this.load.image('bg', '/sugbohenyo/games/assets/talisay/bg_talisay.png');
         this.load.image('grass', '/sugbohenyo/games/assets/badian/badian_ground.png');
-        this.load.image('xs_log', '/sugbohenyo/games/assets/logs/xs_log.png');
-        this.load.image('s_log', '/sugbohenyo/games/assets/logs/s_log.png');
-        this.load.image('med_log', '/sugbohenyo/games/assets/logs/med_log.png');
-        this.load.image('l_log', '/sugbohenyo/games/assets/logs/l_log.png');
+        this.load.image('xs_log', '/sugbohenyo/games/assets/stones/xs_stone.png');
+        this.load.image('s_log', '/sugbohenyo/games/assets/stones/s_stone.png');
+        this.load.image('med_log', '/sugbohenyo/games/assets/stones/m_stone.png');
+        this.load.image('l_log', '/sugbohenyo/games/assets/stones/l_stone.png');
         this.load.image('park', '/sugbohenyo/games/assets/talisay/liberationpark.png');
         this.load.image('puso', '/sugbohenyo/games/assets/talisay/puso.png');
         this.load.image('slice', '/sugbohenyo/games/assets/talisay/lechonslice.png');
         this.load.image('enemy', '/sugbohenyo/games/assets/snake/snake0.png');
-        this.load.image('enemy_walk1', '/sugbohenyo/games/assets/snake/snake1.png');
-        this.load.image('enemy_walk2', '/sugbohenyo/games/assets/snake/snake2.png');
+        this.load.image('enemy_walk1', '/sugbohenyo/games/assets/soldier/left_enemy.png');
+        this.load.image('enemy_walk2', '/sugbohenyo/games/assets/soldier/right_enemy.png');
     }
 
     showDialogue() {
@@ -121,7 +121,7 @@ class MainScene extends Phaser.Scene {
         if (this.hitCooldown) return;
         this.hitCooldown = true;
 
-        this.time.delayedCall(500, () => {
+        this.time.delayedCall(700, () => {
             this.hitCooldown = false;
         });
 
@@ -184,9 +184,9 @@ class MainScene extends Phaser.Scene {
             // reward platform
             { x: 1600, y: 130, key: 'med_log', w: 53, h: 12 },
         ];
-        for (let x = 0; x < 3000; x += 325) { // creates a repeating background by adding multiple instances of the 'bg' image across the level, spaced 155 pixels apart
+        for (let x = 0; x < 3000; x += 559) { // creates a repeating background by adding multiple instances of the 'bg' image across the level, spaced 155 pixels apart
             let bg = this.add.image(x, 145, 'bg'); // (x, y, key) 
-            bg.setScale(5); // (scale) scales the background image to fit the desired size for the level, ensuring it covers the entire area without distortion
+            bg.setScale(3.5); // (scale) scales the background image to fit the desired size for the level, ensuring it covers the entire area without distortion
         }
 
         let ground = this.physics.add.staticGroup(); // creates a static physics group called 'ground' that will be used to create the ground tiles for the level, allowing the player to collide with them and walk on them
@@ -251,18 +251,18 @@ class MainScene extends Phaser.Scene {
 
         this.enemies = this.physics.add.group();
 
-        let enemy1 = this.enemies.create(600, 220, 'enemy_walk1');
-        enemy1.setScale(.8);
+        let enemy1 = this.enemies.create(600, 200, 'enemy_walk1');
+        enemy1.setScale(.1);
         enemy1.setVelocityX(-90);
 
-        let enemy2 = this.enemies.create(900, 220, 'enemy_walk1');
-        enemy2.setScale(.8);
+        let enemy2 = this.enemies.create(900, 200, 'enemy_walk1');
+        enemy2.setScale(.1);
         enemy2.setVelocityX(-90);
         enemy2.minX = 950;
         enemy2.maxX = 1030;
 
-        let enemy3 = this.enemies.create(1390, 220, 'enemy_walk1');
-        enemy3.setScale(.8);
+        let enemy3 = this.enemies.create(1390, 200, 'enemy_walk1');
+        enemy3.setScale(.1);
         enemy3.setVelocityX(-90);
 
         this.player = this.physics.add.sprite(20, 130, 'rajahH_idle'); //(x, y, key)
@@ -517,7 +517,7 @@ class QuizScene extends Phaser.Scene {
             },
             {
                 question: "What historic event is commemorated at Liberation Park?",
-                answers: ["Liberation landing of American forces", "Spanish colonization", "Founding of Cebu City"],
+                answers: ["Landing of American forces", "Halad Inasal Festival", "Founding of Cebu City"],
                 correct: 0
             }
         ];
@@ -757,6 +757,23 @@ class RewardScene extends Phaser.Scene {
             });
 
         });
+
+        this.input.keyboard.once('keydown-RIGHT', () => {
+
+            this.scene.start('EndScene', {
+                score: this.score,
+                lives: this.lives
+            });
+
+        });
+        this.input.once('pointerdown', () => {
+
+            this.scene.start('EndScene', {
+                score: this.score,
+                lives: this.lives
+            });
+
+        });
     }
 }
 
@@ -765,18 +782,36 @@ class EndScene extends Phaser.Scene {
         super('EndScene');
     }
 
-    create() {
+    async create() {
         this.cameras.main.fadeIn(800, 0, 0, 0);
 
-        this.add.text(256, 120, "Message Delivered", {
+        // Initial title
+        const titleText = this.add.text(256, 120, "Message Delivered", {
             fontSize: '32px',
             fill: '#ffffff'
         }).setOrigin(0.5);
 
-        this.add.text(256, 160, "Lapu-Lapu: The people stand united.", {
+        // Initial subtitle/fact
+        const factText = this.add.text(256, 160, "Lapu-Lapu: The people stand united.", {
             fontSize: '16px',
-            fill: '#ffffff'
+            fill: '#ffffff',
+            align: 'center',
+            wordWrap: { width: 400 }
         }).setOrigin(0.5);
+
+        // Fetch AI content
+        const funFact = await generateFunFact('Talisay, Cebu');
+
+        // Delay replacement by 3 seconds
+        this.time.delayedCall(1500, () => {
+
+            // Replace title
+            titleText.setText(funFact.title);
+
+            // Replace fact
+            factText.setText(funFact.fact);
+
+        });
 
         this.add.text(256, 220, "Press SPACE to restart", {
             fontSize: '14px',
@@ -790,9 +825,9 @@ class EndScene extends Phaser.Scene {
 
         this.input.keyboard.once('keydown-SPACE', () => {
             this.scene.stop('MainScene');
-
             this.scene.start('MainScene');
         });
+
         this.input.keyboard.on('keydown-ESC', () => {
             window.location.href = '/adventure';
         });

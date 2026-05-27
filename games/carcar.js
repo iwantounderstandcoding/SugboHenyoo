@@ -114,7 +114,7 @@ class MainScene extends Phaser.Scene {
         if (this.hitCooldown) return;
         this.hitCooldown = true;
 
-        this.time.delayedCall(500, () => {
+        this.time.delayedCall(700, () => {
             this.hitCooldown = false;
         });
 
@@ -156,7 +156,7 @@ class MainScene extends Phaser.Scene {
             // =====================
             // START AREA (very easy)
             // =====================
-            { x: 250, y: 190, key: 'l_log', w: 63, h: 12 },
+            //{ x: 250, y: 130, key: 'l_log', w: 63, h: 12 },
             { x: 360, y: 130, key: 's_log', w: 34, h: 12 },
 
             // =====================
@@ -170,7 +170,7 @@ class MainScene extends Phaser.Scene {
             // =====================
             // MID SECTION (zig-zag movement)
             // =====================
-            { x: 1120, y: 200, key: 'l_log', w: 63, h: 12 },
+            //{ x: 1120, y: 200, key: 'l_log', w: 63, h: 12 },
             { x: 1280, y: 200, key: 'l_log', w: 63, h: 12 },
             { x: 1380, y: 140, key: 's_log', w: 34, h: 12 },
 
@@ -218,6 +218,11 @@ class MainScene extends Phaser.Scene {
 
         this.platforms = this.physics.add.staticGroup();
 
+        this.movingPlatforms = this.physics.add.group({
+            immovable: true,
+            allowGravity: false
+        });
+
         platformData.forEach(p => { // iterates through each object in the platformData array
             let platform = this.platforms.create(p.x, p.y, p.key)
                 .setScale(0.2)
@@ -226,6 +231,34 @@ class MainScene extends Phaser.Scene {
             platform.body.setSize(p.w, p.h);
             platform.body.setOffset(5, 0);
         });
+
+        // helper function to create moving platforms
+        this.createMovingPlatform = (x, y, range, speed, axis = 'x') => {
+
+            let plat = this.movingPlatforms.create(x, y, 'med_log')
+                .setScale(0.2)
+                .refreshBody();
+
+            plat.body.setAllowGravity(false);
+            plat.body.setImmovable(true);
+
+            plat.start = axis === 'x' ? x : y;
+            plat.end = plat.start + range;
+
+            plat.speed = speed;
+            plat.axis = axis;
+            plat.direction = 1;
+
+            return plat;
+        };
+
+        // horizontal moving platforms
+        this.createMovingPlatform(500, 170, 150, 60, 'x');
+
+        this.createMovingPlatform(1000, 150, 150, 70, 'x');
+
+        // vertical moving platform
+        this.createMovingPlatform(1520, 150, 105, 50, 'y');
 
         this.shoes = this.physics.add.group({
             allowGravity: false
@@ -243,6 +276,12 @@ class MainScene extends Phaser.Scene {
         let enemy1 = this.enemies.create(600, 200, 'enemy_walk1');
         enemy1.setScale(.1);
         enemy1.setVelocityX(-90);
+        enemy1.minX = 450;
+        enemy1.maxX = 590;
+
+        let enemy4 = this.enemies.create(560, 200, 'enemy_walk1');
+        enemy4.setScale(.1);
+        enemy4.setVelocityX(-90);
 
         let enemy2 = this.enemies.create(900, 200, 'enemy_walk1');
         enemy2.setScale(.1);
@@ -265,8 +304,25 @@ class MainScene extends Phaser.Scene {
 
         this.physics.add.collider(this.player, ground); // (object1, object2)
         this.physics.add.collider(this.player, this.platforms);
+        this.physics.add.collider(
+            this.player,
+            this.movingPlatforms,
+            (player, platform) => {
+
+                // carry player with platform
+                if (player.body.touching.down && platform.body.touching.up) {
+
+                    player.x += platform.body.velocity.x * (this.game.loop.delta / 1000);
+
+                    player.y += platform.body.velocity.y * (this.game.loop.delta / 1000);
+                }
+            },
+            null,
+            this
+        );
         this.physics.add.collider(this.enemies, ground); // (object1, object2)
         this.physics.add.collider(this.enemies, this.platforms); // (object1, object2)
+        this.physics.add.collider(this.enemies, this.movingPlatforms);
 
         this.houseZone = this.add.zone(1840, 240, 40, 80); // (x, y, width, height) 
         this.physics.world.enable(this.houseZone); // enables physics for the houseZone, allowing it to detect overlaps
@@ -338,6 +394,36 @@ class MainScene extends Phaser.Scene {
                 this.physics.pause(); // pause ONLY when grounded
             }
         }
+
+        this.movingPlatforms.children.iterate((plat) => {
+
+            if (!plat) return;
+
+            if (plat.axis === 'x') {
+
+                plat.setVelocityX(plat.speed * plat.direction);
+
+                if (plat.x >= plat.end) {
+                    plat.direction = -1;
+                }
+
+                if (plat.x <= plat.start) {
+                    plat.direction = 1;
+                }
+
+            } else {
+
+                plat.setVelocityY(plat.speed * plat.direction);
+
+                if (plat.y >= plat.end) {
+                    plat.direction = -1;
+                }
+
+                if (plat.y <= plat.start) {
+                    plat.direction = 1;
+                }
+            }
+        });
 
         this.enemies.children.iterate((enemy) => {
             if (!enemy) return;

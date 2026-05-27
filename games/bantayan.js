@@ -636,6 +636,23 @@ class RewardScene extends Phaser.Scene {
             });
 
         });
+
+        this.input.keyboard.once('keydown-RIGHT', () => {
+
+            this.scene.start('EndScene', {
+                score: this.score,
+                lives: this.lives
+            });
+
+        });
+        this.input.once('pointerdown', () => {
+
+            this.scene.start('EndScene', {
+                score: this.score,
+                lives: this.lives
+            });
+
+        });
     }
 }
 

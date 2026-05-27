@@ -129,6 +129,7 @@ class MainScene extends Phaser.Scene {
         } 
         else if (item.type === 'trash') {
             this.lives -= 1;
+            this.cameras.main.shake(150, 0.01);
         }
 
         item.destroy();
@@ -149,7 +150,7 @@ class MainScene extends Phaser.Scene {
         this.score = 0;
         this.lives = 3;
         this.timeElapsed = 0;
-        this.timeLimit = 60;
+        this.timeLimit = 0;
         this.timerStarted = false;
         this.fallSpeed = 100;
         this.hitCooldown = false;
@@ -182,7 +183,7 @@ class MainScene extends Phaser.Scene {
             fill: '#000000'
         }).setScrollFactor(0);
 
-        this.timerText = this.add.text(10, 50, 'Time: 60s', {
+        this.timerText = this.add.text(10, 50, 'Time: 30s', {
             fontSize: '16px',
             fill: '#000000'
         }).setScrollFactor(0);
@@ -296,6 +297,36 @@ class MainScene extends Phaser.Scene {
         } else if (this.player.body.blocked.down) {
             this.player.setTexture('rajahH_idle');
         }
+        this.items.getChildren().forEach(item => {
+
+            // Item fell below screen
+            if (item.y > 320) {
+
+                // Punish player for missing GOOD items
+                if (
+                    item.type === 'fish' ||
+                    item.type === 'egg' ||
+                    item.type === 'wood'
+                ) {
+
+                    this.lives--;
+
+                    this.livesText.setText('Lives: ' + this.lives);
+
+                    this.cameras.main.shake(150, 0.01);
+
+                    if (this.lives <= 0) {
+
+                        this.timerEvent?.remove(false);
+
+                        this.scene.start('GameOverScene');
+                    }
+                }
+
+                // Remove item
+                item.destroy();
+            }
+        });
     }
 }
 class GameOverScene extends Phaser.Scene {
@@ -601,6 +632,23 @@ class RewardScene extends Phaser.Scene {
         });
 
         this.input.keyboard.once('keydown-SPACE', () => {
+
+            this.scene.start('EndScene', {
+                score: this.score,
+                lives: this.lives
+            });
+
+        });
+
+        this.input.keyboard.once('keydown-RIGHT', () => {
+
+            this.scene.start('EndScene', {
+                score: this.score,
+                lives: this.lives
+            });
+
+        });
+        this.input.once('pointerdown', () => {
 
             this.scene.start('EndScene', {
                 score: this.score,
