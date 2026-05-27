@@ -24,6 +24,19 @@ body {
   min-height: 100vh;
 }
 
+body::before {            /* added dark bg */
+    content: "";
+    position: fixed;
+    inset: 0;
+    background: linear-gradient(
+        160deg,
+        rgba(5, 15, 35, 0.7) 0%,
+        rgba(10, 30, 60, 0.65) 50%,
+        rgba(0, 10, 30, 0.75) 100%
+    );
+    z-index: -1;
+}
+
 .page {
   margin-left: 240px;
   padding: 28px 16px 48px

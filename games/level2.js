@@ -214,6 +214,7 @@ class MainScene extends Phaser.Scene {
             // }
 
             if (this.enemyLives <= 0) {
+                bossRecord(10);
                 this.time.delayedCall(300, () => {
                     this.scene.start('EndScene');
                 });
