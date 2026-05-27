@@ -214,36 +214,9 @@ class MainScene extends Phaser.Scene {
             // }
 
             if (this.enemyLives <= 0) {
-
-                // BONUS SCORE BASED ON REMAINING LIVES
-                if (this.playerLives === 5) {
-                    this.score += 250;
-                }
-                else if (this.playerLives === 4) {
-                    this.score += 210;
-                }
-                else if (this.playerLives === 3) {
-                    this.score += 190;
-                }
-                else if (this.playerLives === 2) {
-                    this.score += 170;
-                }
-                else if (this.playerLives === 1) {
-                    this.score += 150;
-                }
-
-                this.scoreText.setText('Score: ' + this.score);
-
-                // store score
-                storeScore(this.score, 2);
-
-                // small delay before scene starts
                 this.time.delayedCall(300, () => {
-                    this.scene.start('EndScene', {
-                        score: this.score
-                    });
+                    this.scene.start('EndScene');
                 });
-
                 return;
             }
         }
@@ -461,10 +434,7 @@ class MainScene extends Phaser.Scene {
 
                 if (this.timeLimit <= 0) {
                     this.timerEvent.remove(false);
-                    this.scene.start('EndScene', {
-                        score: this.score,
-                        lives: this.lives
-                    });
+                    this.scene.start('GameOverScene');
                 }
             }
         });
@@ -516,13 +486,11 @@ class MainScene extends Phaser.Scene {
         this.enemyLives = 5;
         this.playerText  = this.add.text(10,  10, 'Lapulapu: 5', { fill: '#fff' }).setScrollFactor(0);
         this.enemyText   = this.add.text(390, 10, 'Magellan: 5', { fill: '#fff' }).setScrollFactor(0);
-        this.score = 0;
+        
         this.timerText = this.add.text(200, 10, 'Time: 30s', {
             fill: '#fff'
         }).setScrollFactor(0);
-        this.scoreText = this.add.text(200, 30, 'Score: 0', {
-            fill: '#fff'
-        }).setScrollFactor(0);
+        
         this.instrucText = this.add.text(10, 70, 'Press A to attack', {
             fontSize: '16px',
             fill: '#ffffff'
@@ -680,10 +648,6 @@ class GameOverScene extends Phaser.Scene {
 class EndScene extends Phaser.Scene {
     constructor() { super('EndScene'); }
 
-    init(data) {
-        this.score = data.score || 0;
-    }
-
     create() {
         this.cameras.main.fadeIn(800, 0, 0, 0);
 
@@ -709,24 +673,14 @@ class EndScene extends Phaser.Scene {
             }
         ).setOrigin(0.5);
 
-        // SCORE DISPLAY
-        this.add.text(
-            256,
-            240,
-            "Final Score: " + this.score,
-            {
-                fontSize: '16px',
-                fill: '#ffffaa'
-            }
-        ).setOrigin(0.5);
 
         // CONTROLS
-        this.add.text(256, 265, "Press SPACE to Restart", {
+        this.add.text(256, 255, "Press SPACE to Restart", {
             fontSize: '12px',
             fill: '#ffffff'
         }).setOrigin(0.5);
 
-        this.add.text(256, 280, "Press ESC to exit", {
+        this.add.text(256, 270, "Press ESC to exit", {
             fontSize: '12px',
             fill: '#ffffff'
         }).setOrigin(0.5);
