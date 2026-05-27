@@ -718,7 +718,7 @@ class RewardScene extends Phaser.Scene {
         // ADD YOUR ITEM IMAGE
         this.load.image(
             'artifact',
-            'assets/cebucity/cross_relic.png'
+            '/sugbohenyo/games/assets/cebucity/cross_relic.png'
         );
     }
 

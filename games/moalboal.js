@@ -329,7 +329,7 @@ class MainScene extends Phaser.Scene {
         this.maxReachedX = this.player.x; // keeps track of the furthest horizontal position the player has reached, used to prevent the camera from moving back to areas the player has already passed
         this.prevCamX = 0;
         this.input.keyboard.on('keydown-ESC', () => {
-            window.location.href = '../adventure.html';
+            window.location.href = '/adventure';
         });
     }
 
@@ -647,7 +647,7 @@ class RewardScene extends Phaser.Scene {
         // ADD YOUR ITEM IMAGE
         this.load.image(
             'artifact',
-            '/sugbohenyo/games/assets/moalboal/sardines.png'
+            '/sugbohenyo/games/assets/moalboal/sardineRelic.png'
         );
     }
 
