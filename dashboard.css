@@ -119,6 +119,7 @@ body::before {
 .xp span {
     color: #3a9ffd;
     font-size: 10px;
+    -webkit-text-stroke: .3px #212121;
 }
 
 .dashboard-grid {
