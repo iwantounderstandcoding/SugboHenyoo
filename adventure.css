@@ -17,6 +17,19 @@ body {
               url('/sugbohenyo/images/landing.png') center/cover no-repeat;
 }
 
+body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    background: linear-gradient(
+        160deg,
+        rgba(5, 15, 35, 0.7) 0%,
+        rgba(10, 30, 60, 0.65) 50%,
+        rgba(0, 10, 30, 0.75) 100%
+    );
+    z-index: 0;
+}
+
 .content {
   display: flex;
   flex: 1;

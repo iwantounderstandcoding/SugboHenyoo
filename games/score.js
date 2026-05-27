@@ -212,3 +212,37 @@ async function generateFunFact(topic) {
     };
   }
 }
+
+async function bossRecord(questId) {
+  try {
+    const user = await loadUser();
+
+    if (!user || !user.uid) {
+      console.error('Cannot store quest: user not logged in');
+      return;
+    }
+
+    const questRes = await fetch(
+      `/api/questComplete/${user.uid}/${questId}`,
+      {
+        method: 'POST',
+        credentials: 'include'
+      }
+    );
+
+    const questResult = await questRes.json();
+
+    if (!questRes.ok) {
+      console.error('Quest completion failed:', questResult.message);
+      return;
+    }
+
+    console.log('Quest completed successfully:', questResult);
+
+    return questResult;
+
+  } catch (error) {
+    console.error('bossRecord error:', error);
+    return null;
+  }
+}
